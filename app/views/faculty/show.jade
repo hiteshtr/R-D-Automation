@@ -26,30 +26,28 @@ block content
                input(type='hidden', name="_method", value="delete") 
                input(type='hidden', name='_csrf', value="#{csrf_token}")
                input(name="_id", type="hidden", value=fa._id.toHexString()) 
-               span.glyphicon.glyphicon-trash(onclick="return confirm('Are you sure?')")
+               button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
                   
             td
               div.form-control(type='text', disabled='disabled')= fa.faculty_name
             td
               - each dp in dept
                   if dp._id == fa.faculty_dept_id
-                      div.form-control(type='text', disabled='disabled')= dp.department
+                    div.form-control(type='text', disabled='disabled')= dp.department
             td  
              select.form-control(type='text', disabled='disabled')
                - each po in posts
-                  option(value=po._id) 
-                   if po._id == fa.faculty_desig_id
+                  if po._id == fa.faculty_desig_id
+                   option(value=po._id) 
                      div= po.post_name
-                  - each po in posts
                    option(value=po._id)= po.post_name
             td
-              form(method="get", action="/faculty/:id/edit")
                input(name="_id", type="hidden", value=fa._id.toHexString())
-               button.btn.btn-default Edit
+               button.btn.btn-default(onclick='enable()') Edit
             td
               form( method="post", action="/faculty/:id") 
                input(type='hidden', name="_method", value="put") 
                input(type='hidden', name='_csrf', value="#{csrf_token}")
                input(name="_id", type="hidden", value=fa._id.toHexString()) 
-               button.btn.btn-default(type='submit', disabled='disabled') Update
+               button.btn.btn-default(type='submit', disabled='true') Update
     
