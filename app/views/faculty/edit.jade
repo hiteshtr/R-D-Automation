@@ -1,0 +1,71 @@
+extends ../layouts/default
+
+block main
+  center
+      h2|Faculty
+
+block content
+  form(class="formDecor", method='post',action='/faculty/:id')
+        input(type='hidden', name="_method", value="put") 
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        input(name="_id", type="hidden", value=fac._id.toHexString()) 
+        center
+          h4|Edit Details
+        
+        hr
+        
+        .form-horizontal(role="form")
+          .form-group
+            .col-sm-2
+            .col-sm-3
+             
+                label(for='fn',class="control-label") Faculty Name
+            .col-sm-5
+               input#fn.NameClass(type="text", name="faculty_name",value=fac.faculty_name, class="form-control")
+            .col-sm-2
+          
+          .form-group
+            .col-sm-2
+            .col-sm-3
+             
+                label(for='dept',class="control-label") Department
+            .col-sm-5
+                select(name="faculty_dept_id", id="faculty_dept_id", class="form-control")
+                    if fac.faculty_dept_id == "0"
+                        option(value=0, selected) (select)
+                    else
+                        option(value=0) (select)
+                    - each dp in dept
+                        if fac.faculty_dept_id == dp._id
+                            option(value=dp._id, selected)= dp.department
+                        else
+                            option(value=dp._id)= dp.department
+            .col-sm-2
+          .form-group
+            .col-sm-2
+            .col-sm-3
+             
+                label(for='desig',class="control-label") Designation
+            .col-sm-5
+                select(name="faculty_desig_id", id="faculty_desig_id", class="form-control")
+                    if fac.faculty_desig_id == "0"
+                        option(value=0, selected) (select)
+                    else
+                        option(value=0) (select)
+
+                    - each po in post
+                        if fac.faculty_desig_id == po._id
+                            option(value=po._id, selected)= po.post_name
+                        else
+                            option(value=po._id)= po.post_name
+            .col-sm-2
+          .form-group
+            .col-sm-offset-5.col-sm-1
+              button.btn.btn-default(type="submit", name="Add") Update
+
+
+
+               
+               
+                
+               

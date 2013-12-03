@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      a(href="/dord/project/info/investigators/:id?_id=" + prj._id).link Investigators
+      >
+      label Edit Details
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+    div.bodyContent1
+      div.subTitle Edit Details
+      form(method="post", class="formDecor")
+        input(type="hidden", name="project_id", value=prj._id)
+        div.inputLabel Faculty
+        select(name="faculty_id", class="inputSelect")
+          option(value=0) (select)
+          - each fa in facs
+            if inv.faculty_id == fa._id
+              option(value=fa._id, selected)= fa.faculty_name
+            else
+              option(value=fa._id)= fa.faculty_name
+
+        div.inputLabel Faculty Role
+        input(type="text", name="faculty_role", value=inv.faculty_role, placeholder="Enter the faculty role...", class="inputText")
+        
+        div.buttonArea
+          input(type="submit", value="Update", class="submitButton")
+    div.bodyContent2
+      

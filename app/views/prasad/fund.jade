@@ -1,0 +1,255 @@
+extends layout
+
+block content
+
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      label Funds
+
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+      div.projectFundInfo.pad5
+        #{resetTotal()}
+        - each f in funds
+          if f.project_id == prj._id && f.fund_operation == "0"
+            #{summer(f.amount)}
+        div.showInline.pr5 Total Funds:
+          label.fund_amount Rs. #{rupeesWithCommas(prj.sanctioned_amount)}
+        div.showInline.pr5 Allocated Funds:
+          label.fund_amount Rs. #{rupeesWithCommas(getTotal())}
+        div.showInline Available Amount:
+          label.fund_amount Rs. #{rupeesWithCommas(prj.sanctioned_amount - getTotal())}
+        avail_amount = prj.sanctioned_amount - getTotal()
+
+    case type
+      when "Equipments"
+        script.
+          setCurrentFundType(1)
+      when "Salary"
+        script.
+          setCurrentFundType(2)
+      when "Contingency"
+        script.
+          setCurrentFundType(3)
+      when "Honorarium"
+        script.
+          setCurrentFundType(4)
+      when "Consumables"
+        script.
+          setCurrentFundType(5)
+      when "Travel"
+        script.
+          setCurrentFundType(6)
+      when "Overhead"
+        script.
+          setCurrentFundType(7)
+      when "Miscellaneous"
+        script.
+          setCurrentFundType(8)
+
+    div.bb.pad5.center
+      fundType = ""
+      - for (var i=1;i<=8;i++)
+        case i
+          when 1
+            fundType = "Equipments"
+          when 2
+            fundType = "Salary"
+          when 3
+            fundType = "Contingency"
+          when 4
+            fundType = "Honorarium"
+          when 5
+            fundType = "Consumables"
+          when 6
+            fundType = "Travel"
+          when 7
+            fundType = "Overhead"
+          when 8
+            fundType = "Miscellaneous"
+
+        div(id="divradio" + i, class=getResRadio(fundType, type))
+          label(onclick="fundTypeClicked(" + i + ")", id="radio" + i)
+            input.curp(type="radio", name="fund_type", value=fundType)
+            label.curp= fundType
+  - for(var i=1; i<=8; i++)
+    case i
+      when 1
+        fundType = "Equipments"
+      when 2
+        fundType = "Salary"
+      when 3
+        fundType = "Contingency"
+      when 4
+        fundType = "Honorarium"
+      when 5
+        fundType = "Consumables"
+      when 6
+        fundType = "Travel"
+      when 7
+        fundType = "Overhead"
+      when 8
+        fundType = "Miscellaneous"
+
+    div(style="display: " + getRes(type, fundType) + ";", id="block" + i)
+      div.container(style="border-bottom: 5px solid gray;")
+        div.bodyContent1
+          div.subTitle Allocate Fund
+          
+          if fundType == type && fund_operation == "0"
+            if message_type == "success"
+              div.successMessage
+                - each m in message
+                  ul.ulStyles
+                    li= m
+            else if message_type == "error"
+              div.errorMessage
+                - each m in message
+                  ul.ulStyles
+                    li= m
+
+          form(method="post", class="formDecor")
+            div.inputLabel Purpose
+            input(type="text", name="purpose", placeholder="Enter the purpose...", class="inputText")
+
+            div.inputLabel Amount
+            input(type="text", name="amount", placeholder="Enter the amount...", class="inputText")
+
+            div.size12.mar5
+              div (Amount Limit:
+                label.fund_amount Rs.
+                  label= rupeesWithCommas(avail_amount)
+                  label )
+            
+            div.buttonArea
+              input(type="hidden", name="type", value=fundType)
+              input(type="hidden", name="operation", value=0)
+              input(type="submit", value="Allocate", class="submitButton")
+              input(type="reset", value="Reset", class="submitButton")
+        div.bodyContent2
+          div.subTitle List of funds allocated
+            div.showInline.floatRight.projectFundInfo
+              #{resetTotal()}
+              - each f in funds
+                if f.project_id == prj._id && f.type == fundType && f.fund_operation == "0"
+                  #{summer(f.amount)}
+              allocated_amount = getTotal()
+              #{resetTotal()}
+              - each f in funds
+                if f.project_id == prj._id && f.type == fundType && f.fund_operation == "1"
+                  #{summer(f.amount)}
+              expense_amount = getTotal()
+              avail_expense = allocated_amount - expense_amount
+              div.showInline.pr5 Allocated Amount:
+                label.fund_amount Rs. #{rupeesWithCommas(allocated_amount)}
+              
+          div.listTable.solidBack(style="margin-top: 5px;")
+            div.listTableRow(style="text-align: center; width: 98%;").bold
+              div.listTableRowItem(style="width: 5%; vertical-align: top;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top;") Purpose
+              div.listTableRowItem(style="width: 30%; vertical-align: top;") Amount
+              div.listTableRowItem(style="width: 24%; vertical-align: top;") ...
+              div.listTableRowItem(style="width: 5%; vertical-align: top;")
+          div.listTable(style="height: 150px; overflow: auto;")
+            cnt = 0;
+            - each f in funds
+              if f.project_id == prj._id && f.type == fundType && f.fund_operation == "0"
+                div.listTableRow(style="text-align: center; width: 100%;").lbb
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;")= ++cnt
+                    .
+                  div.listTableRowItem(style="width: 30%; vertical-align: top;")= f.purpose
+                  div.listTableRowItem(style="width: 30%; vertical-align: top;") #{rupeesWithCommas(f.amount)}
+                  div.listTableRowItem(style="width: 24%; vertical-align: top;")
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;")
+                    div
+                      form(method="get", action="/dord/project/info/funds/:pid/:id/edit")
+                        input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                        input(type="hidden", value=f._id.toHexString(), name="_id")
+                        input(type="submit", value="Edit", class="formLink")
+                    div
+                      form( method="post", action="/dord/project/info/funds/:pid/:id/delete")
+                        input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                        input(name="_id", type="hidden", value=f._id.toHexString()) 
+                        input(type="submit", value="Delete", class="formLink")
+            if cnt == 0
+              div.listTable.center.red No funds allocated
+
+      div.container(style="")
+        div.bodyContent1
+          div.subTitle Expenses
+
+          if fundType == type && fund_operation == "1"
+            if message_type == "success"
+              div.successMessage
+                - each m in message
+                  ul.ulStyles
+                    li= m
+            else if message_type == "error"
+              div.errorMessage
+                - each m in message
+                  ul.ulStyles
+                    li= m
+
+          form(method="post", class="formDecor")
+            div.inputLabel Purpose
+            input(type="text", name="purpose", placeholder="Enter the purpose...", class="inputText")
+
+            div.inputLabel Amount
+            input(type="text", name="amount", placeholder="Enter the amount...", class="inputText")
+            
+            div.size12.mar5
+              div (Expense Amount Limit:
+                label.fund_amount Rs.
+                  label= rupeesWithCommas(avail_expense)
+                  label )
+
+            div.buttonArea
+              input(type="hidden", name="type", value=fundType)
+              input(type="hidden", name="operation", value=1)
+              if avail_expense != 0
+                input(type="submit", value="Add", class="submitButton")
+              else
+                input(type="submit", value="Add", class="disabledButton", disabled)
+              input(type="reset", value="Reset", class="submitButton")
+        div.bodyContent2
+          div.subTitle List of expenses
+            div.showInline.floatRight.projectFundInfo
+              div.showInline.pr5 Total Expense:
+                label.fund_amount Rs. #{rupeesWithCommas(expense_amount)}
+              div.showInline Available:
+                label.fund_amount Rs. #{rupeesWithCommas(allocated_amount - expense_amount)}
+
+          div.listTable.solidBack(style="margin-top: 5px;")
+            div.listTableRow(style="text-align: center; width: 98%;").bold
+              div.listTableRowItem(style="width: 5%; vertical-align: top;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top;") Purpose
+              div.listTableRowItem(style="width: 30%; vertical-align: top;") Amount
+              div.listTableRowItem(style="width: 24%; vertical-align: top;") ...
+              div.listTableRowItem(style="width: 5%; vertical-align: top;")
+          div.listTable(style="height: 150px; overflow: auto;")
+            cnt = 0;
+            - each f in funds
+              if f.project_id == prj._id && f.type == fundType && f.fund_operation == "1"
+                div.listTableRow(style="text-align: center; width: 100%;").lbb
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;")= ++cnt
+                    .
+                  div.listTableRowItem(style="width: 30%; vertical-align: top;")= f.purpose
+                  div.listTableRowItem(style="width: 30%; vertical-align: top;") #{rupeesWithCommas(f.amount)}
+                  div.listTableRowItem(style="width: 24%; vertical-align: top;")
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;")
+                    div
+                      form(method="get", action="/dord/project/info/funds/:pid/:id/edit")
+                        input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                        input(type="hidden", value=f._id.toHexString(), name="_id")
+                        input(type="submit", value="Edit", class="formLink")
+                    div
+                      form( method="post", action="/dord/project/info/funds/:pid/:id/delete")
+                        input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                        input(name="_id", type="hidden", value=f._id.toHexString()) 
+                        input(type="submit", value="Delete", class="formLink")
+            if cnt == 0
+              div.listTable.center.red No expenses found

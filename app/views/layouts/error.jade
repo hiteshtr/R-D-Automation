@@ -1,0 +1,24 @@
+!!! 5
+html(lang='en')
+  include ../includes/head
+  body
+    include ../includes/without_login_navbar
+    .container
+      .row.row-offcanvas.row-offcanvas-right
+        .col-xs-12.col-sm-12
+          p.pull-right.visible-xs
+            button.btn.btn-primary.btn-xs(type='button', data-toggle='offcanvas') Toggle nav
+          .jumbotron
+            block main
+          include ../includes/messages
+          .row
+            block content
+          // /row
+        // /span
+      // /row
+      hr
+      footer
+        p © IITJ 2013
+    // /.container
+    //
+    include ../includes/foot

@@ -1,0 +1,38 @@
+extends ../layouts/default
+
+block main
+  center
+      h2|Project Class
+
+block content
+  form(class="formDecor", method='post',action='/Projectclass/:id')
+        input(type='hidden', name="_method", value="put") 
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        input(name="_id", type="hidden", value=pc._id.toHexString()) 
+        center
+          h4|Edit Details
+        
+        hr
+        .form-horizontal(role="form")
+          .form-group
+            .col-sm-2
+            .col-sm-3
+             
+                label(for='pcc',class="control-label") Project Class Code
+            .col-sm-5
+               input#pcc.NameClass(type="text", name="pclasscode",value=pc.project_class_code, class="form-control")
+            .col-sm-2
+          .form-group
+            .col-sm-2
+            .col-sm-3
+             
+                label(for='pcn',class="control-label") Project Class
+            .col-sm-5
+               input#pcn.NameClass(type="text", name="pclass",value=pc.project_class, class="form-control")
+            .col-sm-2
+          .form-group
+            .col-sm-offset-5.col-sm-1
+              button.btn.btn-default(type="submit", name="Add") Update
+
+
+

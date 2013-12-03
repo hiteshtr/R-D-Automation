@@ -1,0 +1,96 @@
+doctype 5
+html
+    include ../includes/dordhead
+
+    
+  body
+    - //-----------------------------------------------User-Defined Functions------------------------------------------------------
+    - var rupeesWithCommas = function(val){
+    -   var amt_str = applyINRCommas(val);
+    -   return amt_str;
+    - }
+    - var applyINRCommas = function(amt){
+    -   var newAmt = "";
+    -   var rem = amt % 1000;
+    -   amt = Math.floor(amt / 1000);
+    -   if(amt != 0){
+    -     newAmt = "," + convert3Digits(rem) + newAmt;
+    -     while(amt != 0){
+    -       rem = amt % 100;
+    -       amt = Math.floor(amt / 100);
+    -       if(amt != 0){
+    -         newAmt = "," + convert2Digits(rem) + newAmt;
+    -       }else{
+    -         newAmt = rem + newAmt;
+    -         break;
+    -       }
+    -     }
+    -   }else{
+    -     newAmt = rem;
+    -   }
+    -   return newAmt;
+    - }
+    - var convert3Digits = function(val){
+    -   var newVal = val;
+    -   if(val < 10){
+    -     newVal = "00" + val;
+    -   }else if(val < 100){
+    -     newVal = "0" + val;
+    -   }
+    -   return newVal;
+    - }
+    - var convert2Digits = function(val){
+    -   var newVal = val;
+    -   if(val < 10){
+    -     newVal = "0" + val;
+    -   }
+    -   return newVal;
+    - }
+
+
+    - var total = 0;
+    - var temp = 0;
+    - var resetTotal = function(){
+    -   total = 0;
+    - }
+    - var summer = function(val){
+    -   if(temp == 0){
+    -     total += parseInt(val);
+    -     temp = 1;
+    -   }else{
+    -     temp = 0;
+    -   }
+    - }
+    - var getTotal = function(){
+    -   return total;
+    - }
+
+    - var getRes = function(ty, fund_ty){
+    -   if(ty == fund_ty){
+    -     return "block";
+    -   }else{
+    -     return "none";
+    -   }
+    - }
+
+    - var getResRadio = function(fund_ty, ty){
+    -   if(ty == fund_ty){
+    -     return "radioBackSelected";
+    -   }else{
+    -     return "radioBack";
+    -   }
+    - }
+
+    - var stringUnescape = function(str){
+    -   return unescape(str);
+    - }
+
+    - //---------------------------------------------------------------------------------------------------------------------------
+
+    div.header= title
+          include ../includes/dordnavbar
+    block content
+  footer
+    hr
+    p © IITJ 2013
+     

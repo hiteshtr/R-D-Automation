@@ -1,0 +1,27 @@
+- if (typeof info != 'undefined' && info.length)
+  .alert.alert-info.alert-dismissable
+    button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+    ul
+      - each inf in info
+        li!= inf
+
+- if (typeof errors != 'undefined' && errors.length)
+  .alert.alert-danger.alert-dismissable
+    button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+    ul
+      - each error in errors
+        li!= error
+
+- if (typeof success != 'undefined' && success.length)
+  .alert.alert-success.alert-dismissable
+    button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+    ul
+      - each succ in success
+        li!= succ
+
+- if (typeof warning != 'undefined' && warning.length)
+  .alert.alert-warning.alert-dismissable
+    button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+    ul
+      - each warn in warning
+        li!= warn

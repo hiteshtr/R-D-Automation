@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      a(href="/dord/project/info/posts/:id?_id=" + prj._id).link Posts
+      >
+      label Edit Details
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+    div.bodyContent1
+      div.subTitle Edit Details
+      form(method="post", class="formDecor")
+        input(type="hidden", name="project_id", value=prj._id)
+        div.inputLabel Post
+        select(name="post_id", class="inputSelect")
+          option(value=0) (select)
+          - each po in posts
+            if pp.post_id == po._id
+              option(value=po._id, selected)= po.post_name
+            else
+              option(value=po._id)= po.post_name
+
+        div.inputLabel Post Duration (in months)
+        input(type="text", name="post_duration", value=pp.post_duration, placeholder="Enter the post duration...", class="inputText")
+
+        div.inputLabel Salary (in INR)
+        input(type="text", name="salary", value=pp.salary, placeholder="Enter the salary...", class="inputText")
+        
+        div.buttonArea
+          input(type="submit", value="Update", class="submitButton")
+    div.bodyContent2
+      

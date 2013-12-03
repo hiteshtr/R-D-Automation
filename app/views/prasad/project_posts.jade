@@ -1,0 +1,78 @@
+extends layout
+
+block content
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      label Posts
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+    div.bodyContent1
+      div.subTitle Add a Post
+      form(method="post", class="formDecor")
+        input(type="hidden", name="project_id", value=prj._id)
+        div.inputLabel Post
+        select(name="post_id", class="inputSelect")
+          option(value=0) (select)
+          - each po in posts
+            option(value=po._id)= po.post_name
+
+        div.inputLabel Post Duration (in months)
+        input(type="text", name="post_duration", placeholder="Enter the post duration...", class="inputText")
+
+        div.inputLabel Salary
+        input(type="text", name="salary", placeholder="Enter the salary...", class="inputText")
+          INR
+        
+        div.buttonArea
+          input(type="submit", value="Add", class="submitButton")
+          input(type="reset", value="Reset", class="submitButton")
+    div.bodyContent2
+      div.subTitle List of Posts
+      div.listTable.solidBack(style="margin-top: 5px;")
+        div.listTableRow(style="text-align: center; width: 98%;").bold
+          div.listTableRowItem(style="width: 5%; vertical-align: top;")
+          div.listTableRowItem(style="width: 30%; vertical-align: top;") Post Details
+          div.listTableRowItem(style="width: 30%; vertical-align: top;") Qualification
+          div.listTableRowItem(style="width: 24%; vertical-align: top;") Salary
+          div.listTableRowItem(style="width: 5%; vertical-align: top;")
+      div.listTable
+      cnt = 0;
+      - each pp in pposts
+        if pp.project_id == prj._id
+          div.listTableRow(style="text-align: center; width: 100%;").lbb
+            div.listTableRowItem(style="width: 5%; vertical-align: top;").bold= ++cnt
+              .
+            -each po in posts
+              if pp.post_id == po._id
+                div.listTableRowItem(style="width: 30%; vertical-align: top;")
+                  div.bold= po.post_name
+                  case po.post_type
+                    when "0"
+                      div (post type undefined)
+                    when "1"
+                      div (Contractual Position)
+                    when "2"
+                      div (Permanent Position)
+                div.listTableRowItem(style="width: 30%; vertical-align: top;").bold= po.post_qualification
+                div.listTableRowItem(style="width: 24%; vertical-align: top;")
+                  str = pp.salary + " INR"
+                  div.bold= str
+                  str = "Duration: " + pp.post_duration + " months"
+                  div= str
+            div.listTableRowItem(style="width: 5%; vertical-align: top;")
+              div
+                form(method="get", action="/dord/project/info/posts/:pid/:id/edit")
+                  input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                  input(type="hidden", value=pp._id.toHexString(), name="_id")
+                  input(type="submit", value="Edit", class="formLink")
+              div
+                form( method="post", action="/dord/project/info/posts/:pid/:id/delete")
+                  input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                  input(name="_id", type="hidden", value=pp._id.toHexString()) 
+                  input(type="submit", value="Delete", class="formLink")
+      if cnt == 0
+        div.listTable.center No entries found

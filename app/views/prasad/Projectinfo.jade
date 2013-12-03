@@ -1,0 +1,511 @@
+extends ../layouts/default
+
+block main
+ a(href="/project/:id").link Projects
+      >
+ label Information
+block content
+  
+  
+      
+  dept_str = "";
+  desig_str = "";
+  .container
+    //-div.bodyContent1
+      div.subTitle Projects
+      //- each p in allprojects
+        div.listTableRow(style="padding-bottom: 5px;").lbb
+          form(method="get", action="/dord/project/info/:id", style="")
+            input(name="_id", type="hidden", value=p._id.toHexString())
+            input(type="submit", value=p.project_title, class="formLink", style="text-align: left; font-size: 14px; width: 100%; word-wrap: break-word;")
+
+
+    div.bodyContent2(style="")
+     
+      //div.subTitle(style="color: #00b7ff; text-align: center; font-size: 24px; margin-bottom: 5px;")= prj.project_title
+     div
+      div.listTable(style="font-size: 16px; padding-bottom: 5px;")
+        title_str = "Details"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRow(style="padding-bottom: 5px;")
+            //- each dp in dept
+              if dp._id == prj.department_id
+                str = "Department"
+                str1 = dp.department
+                div.listTableRowItem(style="width: 30%; vertical-align: top;")
+                  div.bold= str
+                div.listTableRowItem(style="width: 63%; vertical-align: top;")
+                  div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Sponsoring Agency"
+            //str1 = prj.sponsoring_agency
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Area of Research"
+            //str1 = prj.research_area
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Type of Agency"
+            str1 = ""
+            //-case prj.type_of_agency
+              when "0"
+                str1 = "none"
+              when "1"
+                str1 = "Industry"
+              when "2"
+                str1 = "PSU"
+              when "3"
+                str1 = "Central Govt."
+              when "4"
+                str1 = "State Govt."
+              when "5"
+                str1 = "Others"
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            //- each pc in pclass
+              if pc._id == prj.project_class_id
+                str = "Project Class: "
+                str1 = pc.project_class
+                div.listTableRowItem(style="width: 30%; vertical-align: top;")
+                  div.bold= str
+                div.listTableRowItem(style="width: 63%; vertical-align: top;")
+                  div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Country"
+            //str1 = prj.country
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Sanction Number"
+            //str1 = prj.sanction_number
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Duration"
+            //str1 = prj.duration + " days"
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Sanction Date"
+            //str1 = prj.sanction_date
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Start Date"
+            //str1 = prj.start_date
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "Sanctioned Amount"
+            //str1 = "INR " + prj.sanctioned_amount
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 63%; vertical-align: top;")
+              div= str1
+          div.listTableRow(style="padding-bottom: 5px;")
+            str = "End Date"
+            //str1 = prj.end_date
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div.bold= str
+            div.listTableRowItem(style="width: 30%; vertical-align: top;")
+              div= str1
+            div.listTableRowItem(style="width: 33%; vertical-align: top;")
+              div.listTableRow(style="text-align: right; width: 100%;")
+                div.listTableRowItem(style="width: 10%; vertical-align: top;")
+                  form(method="get", action="/dord/project/:id/edit")
+                    //input(name="_id", type="hidden", value=prj._id.toHexString())
+                    input(type="submit", value="Edit", class="formLink")
+                div.listTableRowItem(style="width: 10%; vertical-align: top;")
+                  form( method="post", action="/dord/project/:id/delete") 
+                    //input(name="_id", type="hidden", value=prj._id.toHexString()) 
+                    input(type="submit", value="Delete", class="formLink")
+
+
+
+
+
+      div.listTable(style="padding-bottom: 5px;")
+        title_str = "Attachments"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRow(style="width: 100%;")
+            form(method="post", action="/dord/project/info/upload/proposal/:fid/:pid/:id", enctype="multipart/form-data", style="padding: 5px 0px 5px 0px;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top; font-size: 18px;")
+                div.bold Proposal
+                  cnt = 0;
+                  saved_path = "";
+                  //- each item in proposal
+                    if item.project_id == prj._id
+                      div.hidden= ++cnt
+                      saved_path = item.path
+                      saved_item_id = item._id
+                      a(href="/dord/project/info/upload/proposal?_fid=" + item.path).link(style="margin-left: 10px; font-size: 16px; font-weight: normal;") View
+                      input(type="hidden", value=item._id, name="_id")
+                      input(name="_fid", type="hidden", value=item.path)
+                  if cnt == 0
+                    input(type="hidden", value="0", name="_id")
+              div.listTableRowItem(style="width: 50%; vertical-align: top; font-size: 18px;")
+                input(type="file", name="proposal_file")
+              div.listTableRowItem(style="width: 15%; vertical-align: top; font-size: 18px;")
+                //input(name="_pid", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="Upload")
+
+            div= saved_path
+            if saved_path != ""
+              form(method="post", action="/dord/project/info/upload/proposal/:fid/:pid/:id/delete", enctype="multipart/form-data", style="")
+                input(type="text", name="_fid", value="saved_path")
+                input(type="text", name="_id", value="saved_item_id")
+                input(type="submit", value="Remove")
+
+          div.listTableRow(style="width: 100%;")
+            form(method="post", action="/dord/project/info/upload/synopsis/:fid/:pid/:id", enctype="multipart/form-data", style="padding: 5px 0px 5px 0px;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top; font-size: 18px;")
+                div.bold Synopsis
+                  cnt = 0;
+                  saved_path = "";
+                  //- each item in synopsis
+                    if item.project_id == prj._id
+                      div.hidden= ++cnt
+                      saved_path = item.path
+                      saved_item_id = item._id
+                      a(href="/dord/project/info/upload/synopsis?_fid=" + item.path).link(style="margin-left: 10px; font-size: 16px; font-weight: normal;") View
+                      input(type="hidden", value=item._id, name="_id")
+                      input(name="_fid", type="hidden", value=item.path)
+                  if cnt == 0
+                    input(type="hidden", value="0", name="_id")
+              div.listTableRowItem(style="width: 50%; vertical-align: top; font-size: 18px;")
+                input(type="file", name="synopsis_file")
+              div.listTableRowItem(style="width: 15%; vertical-align: top; font-size: 18px;")
+                //input(name="_pid", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="Upload")
+
+          div.listTableRow(style="width: 100%;")
+            form(method="post", action="/dord/project/info/upload/mou/:fid/:pid/:id", enctype="multipart/form-data", style="padding: 5px 0px 5px 0px;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top; font-size: 18px;")
+                div.bold MoU
+                  cnt = 0;
+                  saved_path = "";
+                  //- each item in mou
+                    if item.project_id == prj._id
+                      div.hidden= ++cnt
+                      saved_path = item.path
+                      saved_item_id = item._id
+                      a(href="/dord/project/info/upload/mou?_fid=" + item.path).link(style="margin-left: 10px; font-size: 16px; font-weight: normal;") View
+                      input(type="hidden", value=item._id, name="_id")
+                      input(name="_fid", type="hidden", value=item.path)
+                  if cnt == 0
+                    input(type="hidden", value="0", name="_id")
+              div.listTableRowItem(style="width: 50%; vertical-align: top; font-size: 18px;")
+                input(type="file", name="mou_file")
+              div.listTableRowItem(style="width: 15%; vertical-align: top; font-size: 18px;")
+                //input(name="_pid", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="Upload")
+
+          div.listTableRow(style="width: 100%;")
+            form(method="post", action="/dord/project/info/upload/agreement/:fid/:pid/:id", enctype="multipart/form-data", style="padding: 5px 0px 5px 0px;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top; font-size: 18px;")
+                div.bold Agreement
+                  cnt = 0;
+                  saved_path = "";
+                  //- each item in agreement
+                    if item.project_id == prj._id
+                      div.hidden= ++cnt
+                      saved_path = item.path
+                      saved_item_id = item._id
+                      a(href="/dord/project/info/upload/agreement?_fid=" + item.path).link(style="margin-left: 10px; font-size: 16px; font-weight: normal;") View
+                      input(type="hidden", value=item._id, name="_id")
+                      input(name="_fid", type="hidden", value=item.path)
+                  if cnt == 0
+                    input(type="hidden", value="0", name="_id")
+              div.listTableRowItem(style="width: 50%; vertical-align: top; font-size: 18px;")
+                input(type="file", name="agreement_file")
+              div.listTableRowItem(style="width: 15%; vertical-align: top; font-size: 18px;")
+                //input(name="_pid", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="Upload")
+
+          div.listTableRow(style="width: 100%;")
+            form(method="post", action="/dord/project/info/upload/institute/:fid/:pid/:id", enctype="multipart/form-data", style="padding: 5px 0px 5px 0px;")
+              div.listTableRowItem(style="width: 30%; vertical-align: top; font-size: 18px;")
+                div.bold Institute
+                  cnt = 0;
+                  saved_path = "";
+                  //- each item in institute
+                    if item.project_id == prj._id
+                      div.hidden= ++cnt
+                      saved_path = item.path
+                      saved_item_id = item._id
+                      a(href="/dord/project/info/upload/institute?_fid=" + item.path).link(style="margin-left: 10px; font-size: 16px; font-weight: normal;") View
+                      input(type="hidden", value=item._id, name="_id")
+                      input(name="_fid", type="hidden", value=item.path)
+
+                  if cnt == 0
+                    input(type="hidden", value="0", name="_id")
+              div.listTableRowItem(style="width: 50%; vertical-align: top; font-size: 18px;")
+                input(type="file", name="institute_file")
+              div.listTableRowItem(style="width: 15%; vertical-align: top; font-size: 18px;")
+                //input(name="_pid", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="Upload")
+
+
+
+
+
+      div.listTable(style="padding-bottom: 5px;")
+        title_str = "Investigators"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRowItem(style="width: 100%; vertical-align: top;")
+            div.listTable
+              div.listTableRow(style="text-align: center; width: 98%;").bold.bb
+                div.listTableRowItem(style="width: 5%; vertical-align: top;")
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Faculty Name
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Department
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Role
+
+            div.listTable
+            cnt = 0;
+            //- each inv in invests
+              if inv.project_id == prj._id
+                div.listTableRow(style="text-align: center; width: 98%;").lbb
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;")= ++cnt
+                    .
+                  -each fa in facs
+                    if inv.faculty_id == fa._id
+                      div.listTableRowItem(style="width: 30%; vertical-align: top;")= fa.faculty_name
+                      - each dp in dept
+                        if fa.faculty_dept_id == dp._id
+                          div.listTableRowItem(style="width: 30%; vertical-align: top;")= dp.department
+                  div.listTableRowItem(style="width: 30%; vertical-align: top;")= inv.faculty_role
+            if cnt == 0
+              div.listTable.center No entries found
+            div.listTable
+              form(method="get", action="/dord/project/info/investigators/:id")
+                //input(name="_id", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="+ Add Investigator", class="formLink")
+
+
+
+
+
+
+      div.listTable(style="padding-bottom: 5px;")
+        title_str = "Funds"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRowItem(style="width: 100%; vertical-align: top;")
+            div.fund_list_item(style="width: 100%; margin-top: 5px;").bold
+              div.showInline(style="width: 33%;").center
+                div.fund_list_item_title.grayBack.showInline(style="width: 80%;")
+                  div.center
+                    label.fund_title Total Funds:
+                    label.fund_amount.white Rs.
+                    //div.showInline.fund_amount.white #{rupeesWithCommas(prj.sanctioned_amount)}
+
+              div.showInline(style="width: 33%;").center
+                div.fund_list_item_title.grayBack.showInline(style="width: 80%;")
+                  div.center
+                    label.fund_title Available Amount:
+                    label.fund_amount.white Rs.
+                    //#{resetTotal()}
+                    //- each f in funds
+                      if f.project_id == prj._id && f.fund_operation == "0"
+                        #{summer(f.amount)}
+                    //div.showInline.fund_amount.white #{rupeesWithCommas(prj.sanctioned_amount - getTotal())}
+
+              div.showInline(style="width: 33%;").center
+                div.fund_list_item_title.grayBack.showInline(style="width: 80%;")
+                  div.center
+                    label.fund_title Allocated Funds:
+                    label.fund_amount.white Rs.
+                    //#{resetTotal()}
+                    //- each f in funds
+                      if f.project_id == prj._id && f.fund_operation == "0"
+                        #{summer(f.amount)}
+                    //div.showInline.fund_amount.white #{rupeesWithCommas(getTotal())}
+
+            fieldset.fs_style
+              legend.bold.right.grayBack.pad5.rad5.white.size10 2013-14
+              div.listTable.left
+                form(method="get", action="/dord/project/info/funds/:id")
+                  //input(name="_id", type="hidden", value=prj._id.toHexString())
+                  input(type="submit", value="+ Allocate Funds / Expenses", class="formLink size12")
+              fundType = ""
+              - for(var i=1;i<=8;i++)
+                case i
+                  when 1
+                    fundType = "Equipments"
+                  when 2
+                    fundType = "Salary"
+                  when 3
+                    fundType = "Contingency"
+                  when 4
+                    fundType = "Honorarium"
+                  when 5
+                    fundType = "Consumables"
+                  when 6
+                    fundType = "Travel"
+                  when 7
+                    fundType = "Overhead"
+                  when 8
+                    fundType = "Miscellaneous"
+                div.fund_list_item
+                  div.fund_list_item_title.curp.fund_type_title(onclick="showFundDetails(" + i + ")", id="fundTitle" + i)= fundType
+                    div.floatRight(style="width: 460px;")
+                      div.showInline(style="width: 260px;")
+                        label.fund_title.curp Allocated Funds:
+                        label.fund_amount.curp Rs.
+                        //#{resetTotal()}
+                        //- each f in funds
+                          if f.project_id == prj._id && f.type == fundType && f.fund_operation == "0"
+                            #{summer(f.amount)}
+                        //div.showInline(style="width: 90px;").fund_amount.right #{rupeesWithCommas(getTotal())}
+                      div.showInline(style="width: 200px;")
+                        label.fund_title.curp Expenses:
+                        label.fund_amount.curp Rs.
+                        //#{resetTotal()}
+                        //- each f in funds
+                          if f.project_id == prj._id && f.type == fundType && f.fund_operation == "1"
+                            #{summer(f.amount)}
+                        //div.showInline(style="width: 90px;").fund_amount.right #{rupeesWithCommas(getTotal())}
+                  div.ml10(style="display: none;", id="fundDetails" + i)
+                    div.listTable.center
+                      div.listTableRow
+                        div.listTableRowItem(style="width: 48%;")
+                          div.pad5.vlb Allocated Funds
+                          div.listTable.size12.mar5
+                            div.listTableRow.bold.lbb
+                              div.listTableRowItem(style="width: 5%;") S.No
+                              div.listTableRowItem(style="width: 38%;") Purpose
+                              div.listTableRowItem(style="width: 28%;") Amount (in Rs.)
+                              div.listTableRowItem(style="width: 18%;") ...
+                            cnt = 0
+                            //- each f in funds
+                              if f.project_id == prj._id && f.type == fundType && f.fund_operation == "0"
+                                div.listTableRow.pad5
+                                  div.listTableRowItem(style="width: 5%;")= ++cnt
+                                    .
+                                  div.listTableRowItem(style="width: 38%;")= f.purpose
+                                  div.listTableRowItem(style="width: 28%;") #{rupeesWithCommas(f.amount)}
+                                  div.listTableRowItem(style="width: 18%;") Details
+                            if cnt == 0
+                              p.center.red (no funds found)
+                        div.listTableRowItem(style="width: 48%; margin-right: 5px;")
+                          div.pad5.vlb Expenses
+                          div.listTable.size12.mar5
+                            div.listTableRow.bold.lbb
+                              div.listTableRowItem(style="width: 5%;") S.No
+                              div.listTableRowItem(style="width: 38%;") Purpose
+                              div.listTableRowItem(style="width: 28%;") Amount (in Rs.)
+                              div.listTableRowItem(style="width: 18%;") ...
+                            cnt = 0
+                            //- each f in funds
+                              if f.project_id == prj._id && f.type == fundType && f.fund_operation == "1"
+                                div.listTableRow.pad5
+                                  div.listTableRowItem(style="width: 5%;")= ++cnt
+                                    .
+                                  div.listTableRowItem(style="width: 38%;")= f.purpose
+                                  div.listTableRowItem(style="width: 28%;") #{rupeesWithCommas(f.amount)}
+                                  div.listTableRowItem(style="width: 18%;") Details
+                            if cnt == 0
+                              p.center.red (no expenses found)
+              div.fund_list_item
+                div.fund_list_item_title.grayBack.white
+                  label.bold Total
+                  div.floatRight(style="width: 460px;")
+                    div.showInline(style="width: 260px;")
+                      label.fund_title Allocated Funds:
+                      label.fund_amount.white Rs.
+                      //#{resetTotal()}
+                      //- each f in funds
+                        if f.project_id == prj._id && f.fund_operation == "0"
+                          #{summer(f.amount)}
+                      //div.showInline(style="width: 90px;").fund_amount.right.white #{rupeesWithCommas(getTotal())}
+
+                    div.showInline(style="width: 200px;")
+                      label.fund_title Expenses:
+                      label.fund_amount.white Rs.
+                      //#{resetTotal()}
+                      //- each f in funds
+                        if f.project_id == prj._id && f.fund_operation == "1"
+                          #{summer(f.amount)}
+                      //div.showInline(id="expenses_total", style="width: 90px;").fund_amount.right.white #{rupeesWithCommas(getTotal())}
+                      //val = getTotal()
+                      label
+
+
+
+
+
+
+      div.listTable(style="padding-bottom: 5px;")
+        title_str = "Project-Posts"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRowItem(style="width: 100%; vertical-align: top;")
+            div.listTable.center.bold
+              div.listTableRow(style="text-align: center; width: 98%;").bold.bb
+                div.listTableRowItem(style="width: 5%; vertical-align: top;")
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Post Details
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Qualification
+                div.listTableRowItem(style="width: 30%; vertical-align: top;") Salary
+            div.listTable
+            cnt = 0;
+            //- each pp in pposts
+              if pp.project_id == prj._id
+                div.listTableRow(style="text-align: center; width: 100%;").lbb
+                  div.listTableRowItem(style="width: 5%; vertical-align: top;").bold= ++cnt
+                    .
+                  -each po in posts
+                    if pp.post_id == po._id
+                      div.listTableRowItem(style="width: 30%; vertical-align: top;")
+                        div.bold= po.post_name
+                        case po.post_type
+                          when "0"
+                            div (post type undefined)
+                          when "1"
+                            div (Contractual Position)
+                          when "2"
+                            div (Permanent Position)
+                      div.listTableRowItem(style="width: 30%; vertical-align: top;").bold= po.post_qualification
+                      div.listTableRowItem(style="width: 30%; vertical-align: top;")
+                        str = pp.salary + " INR"
+                        div.bold= str
+                        str = "Duration: " + pp.post_duration + " months"
+                        div= str
+            if cnt == 0
+              div.listTable.center No entries found
+            div.listTable
+              form(method="get", action="/dord/project/info/posts/:id")
+                //input(name="_id", type="hidden", value=prj._id.toHexString())
+                input(type="submit", value="+ Add a Post", class="formLink")
+
+
+
+
+
+
+      div.listTable(style="padding-bottom: 5px;")
+        title_str = "Travel-Details"
+        div.subTitle.solidBack.blockLink(id=title_str+"_")= title_str
+        div(style="display: none;", id=title_str)
+          div.listTableRowItem(style="width: 100%; vertical-align: top;")

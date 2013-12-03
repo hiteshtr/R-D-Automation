@@ -1,0 +1,387 @@
+body {
+  margin: 0px;
+  font-family: Lucida Grande;
+  background: #fff;
+}
+a.link {
+  color: #00b7ff;
+  text-decoration: none;
+}
+a.link:hover {
+  text-decoration: underline;
+}
+.mainBody {
+  width: 80%;
+  margin: 0px auto 0px auto;
+}
+.header {
+  background: #000;
+  padding: 30px;
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+.footer {
+  border-top: 1px solid #c0c0c0;
+  text-align: center;
+  font-style: italic;
+  padding: 5px 0px 5px 0px;
+}
+.footerText {
+  font-size: 12px;
+  color: gray;
+  line-height: 20px;
+}
+.container {
+  width: 100%;
+}
+.bodyContent1 {
+  display: inline-block;
+  padding: 10px 20px;
+  vertical-align: top;
+  width: 22%;
+  border-right: 1px solid #c0c0c0;
+}
+.bodyContent2 {
+  display: inline-block;
+  padding: 10px 20px;
+  vertical-align: top;
+  width: 71%;
+  border-left: 1px solid #c0c0c0;
+}
+.navArea {
+  height: 30px;
+  padding: 5px;
+  text-align: left;
+}
+a.navItem {
+  color: #808080;
+  padding: 10px 10px 10px 10px;
+  font-size: 16px;
+  text-decoration: none;
+  margin: 5px;
+}
+a.navItemSelected {
+  color: #000;
+  background: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  margin: 5px;
+}
+a.navItem:hover {
+  color: #000;
+  background: #fff;
+  border-radius: 5px;
+}
+.inputText {
+  margin-left: 10px;
+  width: 250px;
+  height: 20px;
+}
+.inputSelect {
+  margin-left: 10px;
+  width: 250px;
+  height: 25px;
+}
+.formDecor {
+  padding: 0px;
+}
+.subTitle {
+  font-weight: bold;
+  font-size: 20px;
+  border-bottom: 1px solid #c0c0c0;
+}
+.listTable {
+  padding: 5px 0px 0px 0px;
+}
+.listTableRowItem {
+  display: inline-block;
+  padding: 0px 5px 0px 5px;
+  vertical-align: top;
+}
+.width150 {
+  width: 150px;
+}
+.buttonArea {
+  margin-top: 10px;
+  border-top: 1px solid #c0c0c0;
+  text-align: center;
+  padding-top: 5px;
+}
+.submitButton {
+  border: 0px;
+  background: #fff;
+  border-radius: 5px;
+  color: #00b7ff;
+  width: 100px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 0px 30px 2px #c0c0c0 inset;
+  margin: 0px 5px 0px 5px;
+}
+.submitButton:hover {
+  box-shadow: 0px 0px 30px 2px #808080 inset;
+}
+.disabledButton {
+  border: 0px;
+  background: #fff;
+  border-radius: 5px;
+  color: silver;
+  width: 100px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0px 0px 30px 2px silver inset;
+  margin: 0px 5px 0px 5px;
+}
+.inputLabel {
+  padding-bottom: 5px;
+}
+.bb {
+  border-bottom: 1px solid #c0c0c0;
+}
+.showInline {
+  display: inline-block;
+}
+.formLink {
+  border: 0px;
+  background: transparent;
+  color: #00b7ff;
+  cursor: pointer;
+}
+.formLink:hover {
+  text-decoration: underline;
+}
+.registerLink {
+  text-decoration: none;
+  color: #00b7ff;
+  background: #fff;
+  box-shadow: 0px 0px 50px 2px #c0c0c0 inset;
+  padding: 10px 30px 10px 30px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 24px;
+}
+.registerLink:hover {
+  box-shadow: 0px 0px 50px 2px #808080 inset;
+}
+.alignCenter {
+  text-align: center;
+}
+.marginTop10 {
+  margin-top: 10px;
+}
+.lbb {
+  border-bottom: 1px solid #e6e6e6;
+}
+.br{
+  border-right: 1px solid gray;
+}
+.lbr{
+  border-right: 1px solid #e6e6e6;
+}
+.bold {
+  font-weight: bold;
+}
+.gridRow:hover {
+  background: #f5f5f5;
+}
+.unstyledLink {
+  text-decoration: none;
+  color: #000;
+}
+.solidBack {
+  border: 1px solid silver;
+  background: #e6e6e6;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+.center {
+  text-align: center;
+}
+.left{
+  text-align: left;
+}
+.right{
+  text-align: right;
+}
+.yourPath{
+  color: gray;
+  padding: 5px;
+  //border-bottom: 1px solid silver;
+  box-shadow: 0px 1px 5px 1px silver;
+}
+.hidden{
+  display: none;
+}
+.buttonLook{
+  box-shadow: 0px 0px 30px 5px silver inset;
+}
+.blockLink{
+  box-shadow: 0px 0px 30px 5px silver inset;
+  cursor: pointer;
+}
+.blockLink:hover{
+  
+}
+.fs_style{
+  margin: 5px 10px 5px 5px;
+  border-radius: 5px;
+}
+.fund_list_item_title{
+  margin: 5px 0px 5px 0px;
+}
+.fund_list_item_title{
+  background: rgb(240,240,240);
+  border-radius: 5px;
+  padding: 5px 5px 5px 10px;
+  border: 1px solid silver;
+}
+.ml10{
+  margin-left: 10px;
+}
+.pad10{
+  padding: 10px;
+}
+.pad5{
+  padding: 5px;
+}
+.fund_amount{
+  margin-left: 5px;
+  color: blue;
+  font-weight: bold;
+}
+.fund_title{
+  color: orange;
+}
+.size10{
+  font-size: 10px;
+}
+.size12{
+  font-size: 12px;
+}
+.size14{
+  font-size: 14px;
+}
+.vlb{
+  background: rgb(240,240,240);
+  border-radius: 5px;
+}
+.mar10{
+  margin: 10px;
+}
+.mar5{
+  margin: 5px;
+}
+.red{
+  color: red;
+}
+.floatRight{
+  float: right;
+}
+.pr5{
+  padding-right: 5px;
+}
+.mr5{
+  margin-right: 5px;
+}
+.ml5{
+  margin-left: 5px;
+}
+.pl{
+  padding-left: 5px;
+}
+.radioBack{
+  background: green;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+  margin-right: 5px;
+  display: inline-block;
+  width: 11.3%;
+}
+.radioBack:hover{
+  background: lightgreen;
+  color: black;
+}
+.radioBackSelected{
+  background: lightgreen;
+  border-radius: 5px;
+  color: black;
+  padding: 5px;
+  margin-right: 5px;
+  display: inline-block;
+  width: 11.3%;
+}
+.curp{
+  cursor: pointer;
+}
+.fund_type_title{
+
+}
+.fund_type_title:hover{
+  background: green;
+  color: white;
+}
+.fund_type_title_selected{
+  background: green;
+  color: white;
+}
+.grayBack{
+  background: gray;
+}
+.white{
+  color: white;
+}
+.black{
+  color: black;
+}
+.greenBack{
+  background: green;
+}
+.transBack{
+  background: transparent;
+}
+.projectFundInfo{
+  text-align: right;
+  font-size: 12px;
+  color: black;
+  padding-right: 20px;
+}
+.successMessage{
+  border: 1px solid green;
+  background: rgba(0,255,0,0.5);
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  border-radius: 5px;
+  color: black;
+}
+.errorMessage{
+  border: 1px solid red;
+  background: rgba(255,0,0,0.5);
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  border-radius: 5px;
+  color: black;
+}
+.rad5{
+  border-radius: 5px;
+}
+.orange{
+  color: orange;
+}
+.ulStyles{
+  margin: 0px 0px 0px 20px;
+  padding: 0px;
+  text-align: left;
+}

@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      a(href="/dord/project/info/funds/:id?_id=" + prj._id).link Funds
+      >
+      label Edit Details
+
+      project_amount = prj.sanctioned_amount
+      current_amount = fund.amount
+
+      resetTotal()
+      - each f in funds
+        if f.project_id == prj._id && f.type == fund.type && f.fund_operation == "0"
+          summer(f.amount)
+      total_amount_allocated = getTotal()
+
+      resetTotal()
+      - each f in funds
+        if f.project_id == prj._id && f.type == fund.type && f.fund_operation == "1"
+          summer(f.amount)
+      expenses = getTotal()
+
+      div= total_amount_allocated
+      div= expenses
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+    div.bodyContent1
+      div.subTitle Edit Details (
+        label= fund.type
+        label )
+      if message_type == "success"
+        div.successMessage
+          - each m in message
+            ul.ulStyles
+              li= m
+      else if message_type == "error"
+        div.errorMessage
+          - each m in message
+            ul.ulStyles
+              li= m
+
+      form(method="post", class="formDecor")
+        div.inputLabel Purpose
+        input(type="text", name="purpose", value=fund.purpose, placeholder="Enter the purpose...", class="inputText")
+
+        div.inputLabel Amount
+        input(type="text", name="amount", value=fund.amount, placeholder="Enter the amount...", class="inputText")
+
+        div.buttonArea
+          input(type="submit", value="Update", class="submitButton")
+    div.bodyContent2
+      

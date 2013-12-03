@@ -1,0 +1,57 @@
+!!! 5
+html(lang='en')
+  include ../includes/head
+  body
+    include ../includes/navbar
+    .container
+      .row.row-offcanvas.row-offcanvas-right
+        .col-xs-12.col-sm-9
+          p.pull-right.visible-xs
+            button.btn.btn-primary.btn-xs(type='button', data-toggle='offcanvas') Toggle nav
+          .jumbotron
+            block main
+          include ../includes/messages
+          .row
+            block content
+          // /row
+        // /span
+        #sidebar.col-xs-6.col-sm-3.sidebar-offcanvas(role='navigation')
+          //-input#user_id(type='hidden', value=user._id)
+          //- if(user.group == 'Project') {
+              .list-group
+                a.list-group-item.active(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+                a.list-group-item(href='#') Link
+          //- } else {
+          .list-group
+            a.list-group-item.active(href="/Projectclass") Project Class
+            a.list-group-item(href='/Department') Department
+            a.list-group-item(href='/posts') Posts
+            a.list-group-item(href='/faculty') Faculty
+            a.list-group-item(href='/project') Project
+            a.list-group-item(href='#') Ad-Hoc Form
+            a.list-group-item(href='#') No-Dues Form
+            a.list-group-item(href='#') Temporary Project Advance
+            a.list-group-item(href='#') Travel Advance Approval
+            a.list-group-item(href='/Projectclass/list') List of Project Class
+            a.list-group-item(href='/department/list') List of Departments
+            a.list-group-item(href='/posts/list') List of Posts
+            a.list-group-item(href='/faculty/list') List of Faculties
+            a.list-group-item(href='/project/list') List of Projects
+
+          //- }
+        // /span
+      // /row
+      hr
+      footer
+        p © IITJ 2013
+    // /.container
+    //
+    include ../includes/foot

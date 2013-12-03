@@ -1,0 +1,72 @@
+extends layout
+
+block content
+  //inv_str = null
+  //- each inv in invests
+    //if inv.project_id == prj._id
+      //if inv_str == null
+        //inv_str = inv.faculty_id
+        //inv_str = "i" + inv.faculty_id + "i"
+      //else
+        //inv_str = inv_str + "i" + inv.faculty_id + "i"
+  //div= inv_str
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      label Investigators
+  div.container
+    div.subTitle.center(style="padding: 5px 0px 5px 0px; color: #00b7ff;")= prj.project_title
+    div.bodyContent1
+      div.subTitle Add Investigator
+      form(method="post", class="formDecor")
+        input(type="hidden", name="project_id", value=prj._id)
+        div.inputLabel Faculty
+        select(name="faculty_id", class="inputSelect")
+          option(value=0) (select)
+          - each fa in facs
+            option(value=fa._id)= fa.faculty_name
+
+        div.inputLabel Faculty Role
+        input(type="text", name="faculty_role", placeholder="Enter the faculty role...", class="inputText")
+        
+        div.buttonArea
+          input(type="submit", value="Add", class="submitButton")
+          input(type="reset", value="Reset", class="submitButton")
+    div.bodyContent2
+      div.subTitle List of Investigators
+      div.listTable.solidBack(style="margin-top: 5px;")
+        div.listTableRow(style="text-align: center; width: 98%;").bold
+          div.listTableRowItem(style="width: 5%; vertical-align: top;")
+          div.listTableRowItem(style="width: 30%; vertical-align: top;") Faculty Name
+          div.listTableRowItem(style="width: 30%; vertical-align: top;") Department
+          div.listTableRowItem(style="width: 24%; vertical-align: top;") Role
+          div.listTableRowItem(style="width: 5%; vertical-align: top;")
+      div.listTable
+      cnt = 0;
+      - each inv in invests
+        if inv.project_id == prj._id
+          div.listTableRow(style="text-align: center; width: 100%;").lbb
+            div.listTableRowItem(style="width: 5%; vertical-align: top;")= ++cnt
+            -each fa in facs
+              if inv.faculty_id == fa._id
+                div.listTableRowItem(style="width: 30%; vertical-align: top;")= fa.faculty_name
+                - each dp in dept
+                  if fa.faculty_dept_id == dp._id
+                    div.listTableRowItem(style="width: 30%; vertical-align: top;")= dp.department
+            div.listTableRowItem(style="width: 24%; vertical-align: top;")= inv.faculty_role
+            div.listTableRowItem(style="width: 5%; vertical-align: top;")
+              div
+                form(method="get", action="/dord/project/info/investigators/:pid/:id/edit")
+                  input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                  input(type="hidden", value=inv._id.toHexString(), name="_id")
+                  input(type="submit", value="Edit", class="formLink")
+              div
+                form( method="post", action="/dord/project/info/investigators/:pid/:id/delete")
+                  input(name="_pid", type="hidden", value=prj._id.toHexString()) 
+                  input(name="_id", type="hidden", value=inv._id.toHexString()) 
+                  input(type="submit", value="Delete", class="formLink")
+      if cnt == 0
+        div.listTable.center No entries found

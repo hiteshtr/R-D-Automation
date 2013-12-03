@@ -1,0 +1,103 @@
+extends layout
+
+block content
+  div.yourPath
+    div
+      a(href="/dord/project").link Projects
+      >
+      a(href="/dord/project/info/:id?_id=" + prj._id).link Information
+      >
+      label Edit Details
+  dept_str = "";
+  desig_str = "";
+  div.container
+    div.bodyContent1
+
+        div.subTitle Add New Project
+        form(method="post", class="formDecor")
+          div.inputLabel Project Title
+          input(type="text", name="project_title", value=prj.project_title, placeholder="Enter the project title...", class="inputText")
+
+          div.inputLabel Sponsoring Agency
+          input(type="text", name="sponsoring_agency", value=prj.sponsoring_agency, placeholder="Enter a sponsoring agency...", class="inputText")
+
+          div.inputLabel Type of Agency
+          select(name="type_of_agency", class="inputSelect")
+            if prj.type_of_agency == 0
+              option(value=0, selected) (select)
+            else
+              option(value=0) (select)
+
+            if prj.type_of_agency == 1
+              option(value=1, selected) Industry
+            else
+              option(value=1) Industry
+
+            if prj.type_of_agency == 2
+              option(value=2, selected) PSU
+            else
+              option(value=2) PSU
+
+            if prj.type_of_agency == 3
+              option(value=3, selected) Central Govt.
+            else
+              option(value=3) Central Govt.
+
+            if prj.type_of_agency == 4
+              option(value=4, selected) State Govt.
+            else
+              option(value=4) State Govt.
+
+            if prj.type_of_agency == 5
+              option(value=5, selected) Others
+            else
+              option(value=5) Others
+          
+          div.inputLabel Country
+          input(type="text", name="country", value=prj.country, placeholder="Enter the country name...", class="inputText")
+
+          div.inputLabel Collaborating Agency
+          input(type="text", name="collaborating_agency", value=prj.collaborating_agency, placeholder="Enter a collaborating agency...", class="inputText")
+
+          div.inputLabel Research Area
+          input(type="text", name="research_area", value=prj.research_area, placeholder="Enter the research area...", class="inputText")
+
+          div.inputLabel Sanction Number
+          input(type="text", name="sanction_number", value=prj.sanction_number, placeholder="Enter the sanction number...", class="inputText")
+
+          div.inputLabel Sanction Date
+          input(type="date", name="sanction_date", value=prj.sanction_date, placeholder="select a date...", class="inputText")
+
+          div.inputLabel Duration (in days)
+          input(type="text", name="duration", value=prj.duration, placeholder="Enter the duration...", class="inputText") Days
+
+          div.inputLabel Start Date
+          input(type="date", name="start_date", value=prj.start_date, placeholder="select a date...", class="inputText")
+
+          div.inputLabel End Date
+          input(type="date", name="end_date", value=prj.end_date, placeholder="select a date...", class="inputText")
+
+          div.inputLabel Sanctioned Amount
+          input(type="text", name="sanctioned_amount", value=prj.sanctioned_amount, placeholder="Enter the sanction amount...", class="inputText")
+
+          div.inputLabel Department
+          select(name="department_id", class="inputSelect")
+            option(value=cnt) (select)
+            - each dp in dept
+              if prj.department_id == dp._id
+                option(value=dp._id, selected)= dp.department
+              else
+                option(value=dp._id)= dp.department
+
+          div.inputLabel Project Class
+          select(name="project_class_id", class="inputSelect")
+            option(value=0) (select)
+            - each pc in pclass
+              if prj.project_class_id == pc._id
+                option(value=pc._id, selected)= pc.project_class
+              else
+                option(value=pc._id)= pc.project_class
+
+          div.buttonArea
+            input(type="submit", value="Update", class="submitButton")
+            

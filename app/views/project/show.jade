@@ -1,0 +1,144 @@
+extends ../layouts/default
+
+block main
+  h2|List of Projects
+
+block content
+  - var cnt = 0;
+  #accordion.panel-group
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+            | Collapsible Group Item #1
+      #collapseOne.panel-collapse.collapse.in
+        .panel-body
+          // Nav tabs
+          ul.nav.nav-tabs
+            li
+              a(href='#details', data-toggle='tab') Details
+            li
+              a(href='#attachments', data-toggle='tab') Attachments
+            li
+              a(href='#investigators', data-toggle='tab') Investigators
+            li
+              a(href='#funds', data-toggle='tab') Funds
+            li
+              a(href='#project_posts', data-toggle='tab') Project Posts
+            li
+              a(href='#travel_details', data-toggle='tab') Travel Details
+          // Tab panes
+          .tab-content
+            #details.tab-pane.fade.in.active
+              br
+              br
+              form.form-horizontal(role='form')
+                .form-group
+                  label.col-sm-2.control-label(for='agency') Sponsoring Agency
+                  .col-sm-10
+                    input#agency.form-control(type='text', placeholder='Sponsoring Agency', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='area_of_research') Area Of Research
+                  .col-sm-10
+                    input#area_of_research.form-control(type='text', placeholder='Area Of Research', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='type_of_agency') Type Of Agency
+                  .col-sm-10
+                    select#type_of_agency.form-control(disabled='disabled')
+                      option(value="industry") Industry
+                      option(value="psu") PSU
+                      option(value="central_govt") Central Govt.
+                      option(value="state_govt") State Govt.
+                      option(value="others") Others
+                .form-group
+                  label.col-sm-2.control-label(for='country') Country
+                  .col-sm-10
+                    input#country.form-control(type='text', placeholder='Country', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='sanction_number') Sanction Number
+                  .col-sm-10
+                    input#sanction_number.form-control(type='text', placeholder='Sanction Number', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='start_date') Start Date
+                  .col-sm-10
+                    input#start_date.form-control(type='date', placeholder='Start Date', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='end_date') End Date
+                  .col-sm-10
+                    input#end_date.form-control(type='date', placeholder='End Date', disabled='disabled')
+                .form-group
+                  label.col-sm-2.control-label(for='duration') Duration
+                  .col-sm-10.input-group
+                    input#duration.form-control(type='number', placeholder='Duration', disabled='disabled')
+                    span.input-group-addon Days
+                .form-group
+                  label.col-sm-2.control-label(for='sanctioned_amount') Sanctioned Amount
+                  .col-sm-10.input-group
+                    span.input-group-addon ₨
+                    input#sanctioned_amount.form-control(type='number', placeholder='Sanctioned Amount', disabled='disabled')
+                .form-group
+                  .col-sm-offset-2.col-sm-10
+                    button.btn.btn-default(type='submit', disabled='disabled') Update
+                    button.btn.btn-default Edit
+            #attachments.tab-pane.fade
+            #investigators.tab-pane.fade
+            #funds.tab-pane.fade
+            #project_posts.tab-pane.fade
+            #travel_details.tab-pane.fade
+  .table-responsive
+  table(class='table table-striped table-bordered table-condensed')
+    each prj in projects
+      tbody
+        tr
+          td(style="color:#00b7ff")= ++cnt
+            - pr_str="Project Title :" + prj.project_title
+            div=pr_str
+          
+          td
+            a(href="/project/#{prj._id}/edit") Edit
+        
+          td
+
+        tr
+          td
+            - str = "Area of Research: "
+            - ra_str = prj.research_area
+            div= str + ra_str
+            div= "Department: " + prj.department_id.department
+
+          td
+            - sp_str = "Sponsoring Agency: " + prj.sponsoring_agency
+            div= sp_str
+
+          td
+            - cou_str = "Country: " + prj.country
+            div= cou_str
+
+        tr
+          td
+            - dur_str = "Duration: " + prj.duration + " days"
+            div.bold= dur_str
+
+          td
+            - st_str = "Start Date: " + prj.start_date
+            div= st_str
+
+          td
+            - end_str = "End Date: " + prj.end_date
+            div= end_str
+
+        tr
+          td
+            - amt_str = "Sanctioned Amount: " + prj.sanctioned_amount + " INR"
+            div.bold= amt_str
+
+          td
+            a(href="/project/#{prj._id}/info") More
+
+          td
+    if cnt == 0
+      tbody
+        tr
+          td
+          td No entries found
+          td

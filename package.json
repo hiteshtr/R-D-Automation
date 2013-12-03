@@ -1,0 +1,42 @@
+{
+  "name": "express-app",
+  "description": "Application for automation of Research and Development",
+  "keywords": [
+    "express",
+    "mongoose",
+    "mongodb",
+    "demo"
+  ],
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "jade": "latest",
+    "helmet": "latest",
+    "mongoose": "latest",
+    "connect-mongo": "latest",
+    "connect-flash": "latest",
+    "crypto": "latest",
+    "view-helpers": "latest",
+    "bower": "latest",
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-env": "latest",
+    "async": "latest",
+    "underscore": "latest",
+    "ldapauth": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "socket.io": "latest",
+    "validator": "latest"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-nodemon": "latest",
+    "grunt-mocha-test": "latest"
+  }
+}
