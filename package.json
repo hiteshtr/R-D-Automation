@@ -31,7 +31,8 @@
     "passport": "latest",
     "passport-local": "latest",
     "socket.io": "latest",
-    "validator": "latest"
+    "validator": "latest",
+    "moment": "latest"
   },
   "devDependencies": {
     "grunt-contrib-watch": "latest",
