@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
-var TravelAdvanceApproval=require('../models/travel_advance_approval_model.js');
+var TravelAdvanceApproval=require('../models/travel_advance_approval.js');
 
 /**
 *Journey cum Travel Advance Approval Form 

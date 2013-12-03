@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
-var AdhocAppointment = require("../models/adhocform_model.js");
+var AdhocAppointment = require("../models/adhocform.js");
 
 /**
 * Adhoc Form

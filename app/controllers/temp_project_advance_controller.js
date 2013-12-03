@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
-var TemporaryProjectAdvance=require('../models/temp_project_advance_model.js');
+var TemporaryProjectAdvance=require('../models/temp_project_advance.js');
 
 /**
 * Temporary Project Advance Form
