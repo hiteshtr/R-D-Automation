@@ -64,8 +64,8 @@ Faculty.find (function (err,faculty) {
            console.log(faculty);
            res.render('faculty/show', {
               title: 'Faculty',
-              facs:faculty,
-              dept:depts,
+              faculties:faculty,
+              departments:depts,
               posts:post
      });    
 }
@@ -127,10 +127,6 @@ exports.update =function(req,res){
              else
              {
                req.flash('errors', 'not saved');    
-               if(err.errors.faculty_name)
-                {
-                  req.flash('warning','Faculty Name must be Filled and must be 30 max Characters');
-                }      
                res.redirect('/faculty/list');
                console.log('not saved');
                console.log(err);
