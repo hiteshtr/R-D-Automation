@@ -36,9 +36,6 @@ module.exports = function (app, config, passport) {
       res.locals.pkg = pkg;
       next();
     })
-
-    //Using Moment.js library for date parsing
-    app.locals.moment = require('moment');
     
     // cookieParser should be above session
     app.use(express.cookieParser());

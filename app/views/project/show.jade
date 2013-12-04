@@ -11,7 +11,7 @@ block content
         .panel-heading
           h4.panel-title
             a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
-              | Collapsible Group Item #1
+              | #{prj.project_title}
         #collapseOne.panel-collapse.collapse.in
           .panel-body
             // Nav tabs
@@ -60,15 +60,20 @@ block content
                     .col-sm-10
                       input#sanction_number.form-control(type='text', placeholder='Sanction Number', disabled='disabled', value="#{prj.sanction_number}")
                   .form-group
+                    label.col-sm-2.control-label(for='start_date') Sanction Date
+                    .col-sm-10
+                      - var projectDate = prj.sanction_date.getFullYear() + "-" + ("0" + (prj.sanction_date.getMonth()+1)).slice(-2) + "-" + ("0" + prj.sanction_date.getDate()).slice(-2)
+                      input#start_date.form-control(type='date', disabled='disabled', value='#{projectDate}')
+                  .form-group
                     label.col-sm-2.control-label(for='start_date') Start Date
                     .col-sm-10
                       - var startDate = prj.start_date.getFullYear() + "-" + ("0" + (prj.start_date.getMonth()+1)).slice(-2) + "-" + ("0" + prj.start_date.getDate()).slice(-2)
-                      input#start_date.form-control(type='date', placeholder='Start Date', disabled='disabled', value='#{startDate}')
+                      input#start_date.form-control(type='date', disabled='disabled', value='#{startDate}')
                   .form-group
                     label.col-sm-2.control-label(for='end_date') End Date
                     .col-sm-10
                       - var endDate = prj.end_date.getFullYear() + "-" + ("0" + (prj.end_date.getMonth()+1)).slice(-2) + "-" + ("0" + prj.end_date.getDate()).slice(-2)
-                      input#end_date.form-control(type='date', placeholder='End Date', disabled='disabled', value='#{endDate}')
+                      input#end_date.form-control(type='date', disabled='disabled', value='#{endDate}')
                   .form-group
                     label.col-sm-2.control-label(for='duration') Duration
                     .col-sm-10.input-group
