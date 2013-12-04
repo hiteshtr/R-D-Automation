@@ -28,11 +28,11 @@ block content
                button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
                   
             td
-              .form-control(type='text', name="faculty_name",value=faculty.faculty_name, contentEditable='false',id='faculty_name#{i}')= faculty.faculty_name
+              input(type='text',class='form-control',name="faculty_name",value=faculty.faculty_name, disabled='true',id='faculty_name#{i}')= faculty.faculty_name
             td
               - each department in departments
                 if department._id == faculty.faculty_dept_id
-                  div.control-label= department.department
+                  label.control-label= department.department
             td  
              select.form-control(type='text', disabled='true',id='post_name#{i}')
                if faculty.faculty_desig_id == "0"
@@ -51,5 +51,5 @@ block content
                input(type='hidden', name="_method", value="put") 
                input(type='hidden', name='_csrf', value="#{csrf_token}")
                input(name="_id", type="hidden", value=faculty._id) 
-               button.btn.btn-default(type='submit', disabled='true',id='update#{i}',,onclick="return confirm('Are you sure to Update?')") Update
+               button.btn.btn-default(type='submit', disabled='true',id='update#{i}',onclick="return confirm('Are you sure to Update?')") Update
             

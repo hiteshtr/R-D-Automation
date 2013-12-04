@@ -28,7 +28,7 @@ block content
                input(name="_id", type="hidden", value=post._id.toHexString()) 
                button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
             td
-              .form-control(type='text', name="post_name",value=post.post_name, contentEditable='false',id='post_name#{i}')=post.post_name
+              input.form-control(type='text', name="post_name",value=post.post_name, disabled='false',id='post_name#{i}')=post.post_name
             td
               select.form-control(name="post_type", id="post_type#{i}", disabled='true')
                 if post.post_type == "1"
@@ -41,7 +41,7 @@ block content
                 else
                   option(value=2) Permanent Position
             td
-              .form-control(type='text', name="post_qualification",value=post.post_qualification, contentEditable='false' ,id='post_qualification#{i}')=post.post_qualification
+              input.form-control(type='text', name="post_qualification",value=post.post_qualification, disabled='false' ,id='post_qualification#{i}')=post.post_qualification
             td
               select.form-control(name="post_desig", id="post_desig#{i}", disabled='true')
                 if post.post_desig == "1"
@@ -71,5 +71,5 @@ block content
                 input(type='hidden', name="_method", value="put") 
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 input(name="_id", type="hidden", value=post._id.toHexString()) 
-                button.btn.btn-default(type='submit', disabled='true',id='update#{i}',,onclick="return confirm('Are you sure to Update?')") Update
+                button.btn.btn-default(type='submit', disabled='true',id='update#{i}',onclick="return confirm('Are you sure to Update?')") Update
       
