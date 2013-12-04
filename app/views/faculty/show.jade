@@ -21,32 +21,33 @@ block content
         cnt = 0;
         - each fa in facs
           tr
-            td= ++cnt            
-            td= fa.faculty_name
+            td
+              form( method="post", action="/faculty/#{fa._id}") 
+               input(type='hidden', name="_method", value="delete") 
+               input(type='hidden', name='_csrf', value="#{csrf_token}")
+               input(name="_id", type="hidden", value=fa._id.toHexString()) 
+               button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
+                  
+            td
+              div.form-control(type='text', disabled='disabled')= fa.faculty_name
             td
               - each dp in dept
                   if dp._id == fa.faculty_dept_id
-                      div= dp.department
+                    div.form-control(type='text', disabled='disabled')= dp.department
             td  
-              - each po in posts
-                 if po._id == fa.faculty_desig_id
-                      div= po.post_name
+             select.form-control(type='text', disabled='disabled')
+               - each po in posts
+                  if po._id == fa.faculty_desig_id
+                   option(value=po._id) 
+                     div= po.post_name
+                   option(value=po._id)= po.post_name
             td
-              form(method="get", action="/faculty/:id/edit")
-                 input(name="_id", type="hidden", value=fa._id.toHexString())
-                 input(type="submit", value="Edit", class="formLink")
+               input(name="_id", type="hidden", value=fa._id.toHexString())
+               button.btn.btn-default(onclick='enable()') Edit
             td
               form( method="post", action="/faculty/:id") 
-                 input(type='hidden', name="_method", value="delete") 
-                 input(type='hidden', name='_csrf', value="#{csrf_token}")
-                 input(name="_id", type="hidden", value=fa._id.toHexString()) 
-                 input(type="submit", value="Delete", class="formLink")
-      tbody
-        if cnt == 0
-         tr
-           td
-           td No entries found
-           td
-           td
-           td
-           td
+               input(type='hidden', name="_method", value="put") 
+               input(type='hidden', name='_csrf', value="#{csrf_token}")
+               input(name="_id", type="hidden", value=fa._id.toHexString()) 
+               button.btn.btn-default(type='submit', disabled='true') Update
+    
