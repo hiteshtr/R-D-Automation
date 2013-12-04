@@ -18,36 +18,38 @@ block content
           th
           th
       tbody   
-        cnt = 0;
-        - each fa in facs
+        - each faculty,i in faculties
           tr
             td
-              form( method="post", action="/faculty/#{fa._id}") 
+              form( method="post", action="/faculty/#{faculty._id}") 
                input(type='hidden', name="_method", value="delete") 
                input(type='hidden', name='_csrf', value="#{csrf_token}")
-               input(name="_id", type="hidden", value=fa._id.toHexString()) 
+               input(name="_id", type="hidden", value=faculty._id.toHexString()) 
                button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
                   
             td
-              div.form-control(type='text', disabled='disabled')= fa.faculty_name
+              input(type='text',class='form-control',name="faculty_name",value=faculty.faculty_name, disabled='true',id='faculty_name#{i}')= faculty.faculty_name
             td
-              - each dp in dept
-                  if dp._id == fa.faculty_dept_id
-                    div.form-control(type='text', disabled='disabled')= dp.department
+              - each department in departments
+                if department._id == faculty.faculty_dept_id
+                  label.control-label= department.department
             td  
-             select.form-control(type='text', disabled='disabled')
-               - each po in posts
-                  if po._id == fa.faculty_desig_id
-                   option(value=po._id) 
-                     div= po.post_name
-                   option(value=po._id)= po.post_name
+             select.form-control(type='text', disabled='true',id='post_name#{i}')
+               if faculty.faculty_desig_id == "0"
+                  option(value=0, selected) (select)
+               else
+               - each post in posts
+                 if faculty.faculty_desig_id == post._id
+                  option(value=post._id, selected)= post.post_name
+                 else
+                  option(value=post._id)= post.post_name
             td
-               input(name="_id", type="hidden", value=fa._id.toHexString())
-               button.btn.btn-default(onclick='enable()') Edit
+               input(name="_id", type="hidden", value=faculty._id)
+               button.btn.btn-default(onclick="enablefaculty('update#{i}','faculty_name#{i}','post_name#{i}')") Edit
             td
-              form( method="post", action="/faculty/:id") 
+              form( method="post", action="/faculty/#{faculty._id}") 
                input(type='hidden', name="_method", value="put") 
                input(type='hidden', name='_csrf', value="#{csrf_token}")
-               input(name="_id", type="hidden", value=fa._id.toHexString()) 
-               button.btn.btn-default(type='submit', disabled='true') Update
-    
+               input(name="_id", type="hidden", value=faculty._id) 
+               button.btn.btn-default(type='submit', disabled='true',id='update#{i}',onclick="return confirm('Are you sure to Update?')") Update
+            
