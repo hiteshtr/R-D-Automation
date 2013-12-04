@@ -4,18 +4,16 @@ var utils = require('../../lib/utils')
   , _ = require('underscore');
 
 exports.add_post = function (req, res) {
-	res.render('posts/add_post',{ title: 'Posts'});
+	res.render('posts/add_post', { 
+    title: 'Add a Post',
+    posts: new Post({})
+  });
 }
 
 //save info
 exports.save = function (req, res) {
-new Post({
-	  post_name: req.body.post_name,
-    post_type: req.body.post_type,
-    post_qualification: req.body.post_qualification,
-    post_desig: req.body.post_desig,   
-        	
-}).save(function (err,docs) {
+var post=new Post(req.body);
+post.save(function (err,docs) {
   if (!err) 
   {    req.flash('success', 'successfully saved');
    	   res.redirect('/posts/list');
@@ -23,19 +21,10 @@ new Post({
   }  
   else
   {
-	  	req.flash('errors', 'not saved');
-	  	if(err.errors.post_name)
-	  	{
-	  		req.flash('warning','Post Name must be Filled and must be max 20 Characters');
-	  	}
-	  	if(err.errors.post_qualification)
-	  	{
-	  		req.flash('warning','Post Qualification must be Filled and must be max 10 Characters');
-	  	}  	
-	  	res.redirect('/posts');
-	  	console.log('not saved');
+	  	
+	  	res.render('posts/add_post',{title: 'Add a Post',posts:post,errors: utils.errors(err.errors || err)});
 	  	console.log(err);
-	  	res.end();
+	  	
   }
 });
 }

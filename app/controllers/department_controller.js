@@ -10,10 +10,7 @@ exports.add_department = function (req, res) {
 
 //save info
 exports.save = function (req, res) {
-new Department({
-	    department: req.body.dept_name,
-        	
-}).save(function (err,docs) {
+new Department(req.body).save(function (err,docs) {
   if (!err) 
   {    
     req.flash('success', 'successfully saved');
@@ -22,15 +19,11 @@ new Department({
   }  
   else
   {
-  	req.flash('errors', 'not saved');
-  	if(err.errors.department)
-  	{
-  		req.flash('warning','Department Name must be Filled and must be max 30 Characters');
-  	}  	
-  	res.redirect('/department');
+  	
+  	res.render('department/add_department',{title: 'Add Department',errors: utils.errors(err.errors || err)});
   	console.log('not saved');
   	console.log(err);
-  	res.end();
+  	
   }
 });
 }

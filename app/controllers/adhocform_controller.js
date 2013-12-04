@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
-var AdhocAppointment = require("../models/adhocform.js");
+var AdhocAppointment = mongoose.model('AdhocAppointment');
 
 /**
 * Adhoc Form
@@ -21,24 +21,8 @@ exports.adhocform = function (req, res) {
 
 exports.save = function(req, res) {
 
-var adhocmodel= new AdhocAppointment({
-    project_no : req.body.projectno,
-    project_title:req.body.prot,
-    project_completion_date: req.body.pcd,
-    candidate_name: req.body.cname,
-    date_of_birth: req.body.dob,
-    permanent_address:  req.body.padd,
-    phone_no: req.body.phno,
-    email_id: req.body.eid,
-    post_suggested: req.body.post,
-    monthly_consolidated_salary: req.body.salary,
-    from : req.body.from,
-    to : req.body.to,
-    justification: req.body.justification,
-    name_of_project_investigator: req.body.piname,
-    pfno_of_project_investigator: req.body.pfno
-    });
-
+var adhocmodel= new AdhocAppointment(req.body);
+    
 adhocmodel.save(function (err,info) {
     if (!err) //return handleError(err);
     {

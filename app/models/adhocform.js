@@ -37,5 +37,5 @@ var FormSchema = new Schema({
 
 /*Adhoc Form Model */
 
-module.exports = mongoose.model('AdhocAppointment', FormSchema);
+mongoose.model('AdhocAppointment', FormSchema);
 

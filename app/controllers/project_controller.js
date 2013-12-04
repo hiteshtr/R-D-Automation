@@ -23,7 +23,7 @@ exports.save = function (req, res) {
 	var project = new Project(req.body);
 	project.save(function (err) {
 		if (err) {
-			return res.render('project/index', {
+			return res.render('project/new_project', {
 		        errors: utils.errors(err.errors),
 		        title: 'Add new project details'
 		      })

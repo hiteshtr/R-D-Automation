@@ -6,7 +6,7 @@ var Projectclass = mongoose.model('Projectclass');
 
 
 exports.add_projectclass = function (req, res) {
-	res.render('Projectclass/add_projectclass',{ title: 'Project Class'});
+	res.render('projectclass/add_projectclass',{ title: 'Project Class'});
 }
 
 //save info
@@ -17,7 +17,7 @@ new Projectclass({
 }).save(function (err,docs) {
   if (!err) 
   {    req.flash('success', 'successfully saved');
-   	   res.redirect('/Projectclass/list');
+   	   res.redirect('/projectclass/list');
        console.log('save successfully');
   }  
   else
@@ -31,7 +31,7 @@ new Projectclass({
 	  	{
 	  		req.flash('warning','Project Class Name must be Filled and must be max 30 Characters');
 	  	}
-	  	res.redirect('/Projectclass');
+	  	res.redirect('/projectclass');
 	  	console.log('not saved');
 	  	console.log(err);
 	  	res.end();
@@ -47,7 +47,7 @@ exports.show =function(req,res){
     else
     {
       console.log(pcs);
-      res.render('Projectclass/show', {
+      res.render('projectclass/show', {
           title: 'Project Class',
           pclasses:pcs
       });   
@@ -67,7 +67,7 @@ exports.destroy =function(req,res){
       else
       { 
         req.flash('success','successfully deleted')
-        res.redirect('/Projectclass/list');
+        res.redirect('/projectclass/list');
       }
   });
 }
@@ -80,7 +80,7 @@ exports.edit =function(req,res){
           console.error('Data not Received')
         else
         {   console.log('Data Received')
-           res.render('Projectclass/edit',{
+           res.render('projectclass/edit',{
             title:'Project Class',
             pc:pclass
        });
