@@ -1,62 +1,75 @@
+/**
+* Module dependencies.
+*/
+
 var mongoose = require('mongoose')
- , Faculty = mongoose.model('Faculty')
- , Department = mongoose.model('Department')
- , Post = mongoose.model('Post')
+ ,  utils = require('../../lib/utils')
+ ,  _ = require('underscore')
+ ,  Faculty = mongoose.model('Faculty')
+ ,  Department = mongoose.model('Department')
+ ,  Post = mongoose.model('Post');
 
-var utils = require('../../lib/utils')
-  , _ = require('underscore');
+ /**
+* Add new Faculty form
+*/
 
-exports.faculty_resignation = function (req, res) {
-	Department.find (function (err,depts) {
-		 Post.find (function (err,post) {
-
-	          res.render('faculty/faculty_resignation',{
+exports.add_faculty = function (req, res) {
+	 Department.find (function (err,departments) {
+		  Post.find (function (err,posts) {
+        res.render('faculty/add_faculty',{
 	          title: 'Faculty',
-	          dept:depts,
-              posts:post
+            departments:departments,
+            posts:posts,
+            faculty: new Faculty({})
          });
-});
-});
+      });
+  });
 }
 
-//save info
+/**
+* Faculty details save
+*/
+
 exports.save = function (req, res) {
-var faculty=new Faculty(req.body);
-faculty.save(function (err,docs) {
-  if (!err) 
-  {    req.flash('success', 'successfully saved');
-   	   res.redirect('/faculty/list');
-       console.log('save successfully');
-  }  
-  else
-  {   
-	  /*	req.flash('errors', 'not saved');
-	  	if(err.errors.faculty_name)
-	  	{
-	  		req.flash('warning','Faculty Name must be Filled and must be 30 max Characters');
-	  	}
-	  	if(err.errors.faculty_email)
-	  	{
-	  		req.flash('warning','Faculty Email must be Filled & correct ID');
-	  	}
-	  	if(err.errors.faculty_password)
-	  	{
-	  		req.flash('warning','Faculty Password must be Filled and must be 20 max Characters');
-	  	}
-	  	
-	   res.redirect('/faculty');
-	  	console.log('not saved');
-	  	console.log(err);
-	  	//res.end();*/
-  }
-});
+  var faculty=new Faculty(req.body);
+  faculty.save(function (err,docs) {
+    if (!err) 
+      {   req.flash('success', 'successfully saved');
+   	      res.redirect('/faculty/list');
+          console.log('save successfully');
+      }  
+    else
+      {  
+        console.log(err);
+        Department.find (function (err1,departments) {
+          Post.find (function (err2,posts) {
+            return res.render('faculty/add_faculty',{
+              title: 'Faculty',
+              departments:departments,
+              posts:posts,
+              errors: utils.errors(err.errors || err),
+              faculty:faculty
+            });
+          });
+        });
+      }
+  });
 }
 
-//show department list
+/**
+* show faculty list
+*/
+
 exports.show =function(req,res){
+  /*Faculty
+    .find()
+    .populate('faculty_dept_id')
+    .populate('faculty_desig_id')
+    .exec(function (err, result) {*/
+
 Faculty.find (function (err,faculty) {
-	Department.find (function (err,depts) {
-		Post.find (function (err,post) {
+	Department.find (function (err,departments) {
+		Post.find (function (err,posts) {
       if(err)
         console.error('No data found')
        else
@@ -65,8 +78,10 @@ Faculty.find (function (err,faculty) {
            res.render('faculty/show', {
               title: 'Faculty',
               faculties:faculty,
-              departments:depts,
-              posts:post
+              departments:departments,
+              posts:posts
+           /*    depts: result.faculty_dept_id,
+            posts: result.faculty_desig_id,*/
      });    
 }
 });
@@ -74,9 +89,12 @@ Faculty.find (function (err,faculty) {
 });
 }
 
-//delete a data from list
+/**
+* Delete a faculty details from list
+*/
+
 exports.destroy =function(req,res){
-Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
+  Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
        if(err)
        {
           req.flash('errors','not deleted');
@@ -93,7 +111,7 @@ Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
 //render edit data page
 exports.edit =function(req,res){
    Faculty.findById(req.param('_id'),function (err,facs) {
-      Department.find (function (err,depts) {
+      Department.find (function (err,departments) {
         Post.find (function (err,posts) {
 
             if(err)
@@ -103,7 +121,7 @@ exports.edit =function(req,res){
                res.render('faculty/edit',{
                 title:'Faculty',
                 fac:facs,
-                dept:depts,
+                departments:departments,
                 post:posts
            });
           }

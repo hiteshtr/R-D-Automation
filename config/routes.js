@@ -63,7 +63,7 @@ module.exports = function (app, passport, io) {
 
  // Faculty Routes
   var faculty=require('../app/controllers/faculty_controller.js');
-  app.get('/faculty',faculty.faculty_resignation);
+  app.get('/faculty',faculty.add_faculty);
   app.post('/faculty',faculty.save);
   app.get('/faculty/list',faculty.show);
   app.del('/faculty/:id',faculty.destroy);

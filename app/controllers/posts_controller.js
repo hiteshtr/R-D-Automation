@@ -1,7 +1,15 @@
+/**
+* Module dependencies.
+*/
+
 var mongoose = require('mongoose')
-, Post = mongoose.model('Post')
-var utils = require('../../lib/utils')
-  , _ = require('underscore');
+ ,  utils = require('../../lib/utils')
+ ,  _ = require('underscore')
+ ,  Post = mongoose.model('Post');
+
+/**
+* Add a new post 
+*/
 
 exports.add_post = function (req, res) {
 	res.render('posts/add_post', { 
@@ -10,14 +18,17 @@ exports.add_post = function (req, res) {
   });
 }
 
-//save info
+/**
+* save new post details
+*/
+
 exports.save = function (req, res) {
 var post=new Post(req.body);
 post.save(function (err,docs) {
   if (!err) 
-  {    req.flash('success', 'successfully saved');
-   	   res.redirect('/posts/list');
-       console.log('save successfully');
+  {   req.flash('success', 'successfully added a post');
+   	  res.redirect('/posts/list');
+      console.log('new post details saved successfully');
   }  
   else
   {
