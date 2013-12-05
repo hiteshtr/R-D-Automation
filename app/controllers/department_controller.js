@@ -1,15 +1,15 @@
 var mongoose = require('mongoose')
  , Department = mongoose.model('Department')
-var utils = require('../../../lib/utils')
+var utils = require('../../lib/utils')
   , _ = require('underscore');
 
 
-exports.index = function (req, res) {
-	res.render('department/index',{ title: 'Department'});
+exports.add_department = function (req, res) {
+	res.render('department/add_department',{ title: 'Add Department'});
 }
 
 //save info
-exports.store = function (req, res) {
+exports.save = function (req, res) {
 new Department({
 	    department: req.body.dept_name,
         	

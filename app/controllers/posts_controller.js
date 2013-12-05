@@ -1,14 +1,14 @@
 var mongoose = require('mongoose')
 , Post = mongoose.model('Post')
-var utils = require('../../../lib/utils')
+var utils = require('../../lib/utils')
   , _ = require('underscore');
 
-exports.index = function (req, res) {
-	res.render('posts/index',{ title: 'Posts'});
+exports.add_post = function (req, res) {
+	res.render('posts/add_post',{ title: 'Posts'});
 }
 
 //save info
-exports.store = function (req, res) {
+exports.save = function (req, res) {
 new Post({
 	  post_name: req.body.post_name,
     post_type: req.body.post_type,

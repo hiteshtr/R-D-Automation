@@ -3,14 +3,14 @@ var mongoose = require('mongoose')
  , Department = mongoose.model('Department')
  , Post = mongoose.model('Post')
 
-var utils = require('../../../lib/utils')
+var utils = require('../../lib/utils')
   , _ = require('underscore');
 
-exports.index = function (req, res) {
+exports.faculty_resignation = function (req, res) {
 	Department.find (function (err,depts) {
 		 Post.find (function (err,post) {
 
-	          res.render('faculty/index',{
+	          res.render('faculty/faculty_resignation',{
 	          title: 'Faculty',
 	          dept:depts,
               posts:post
@@ -20,7 +20,7 @@ exports.index = function (req, res) {
 }
 
 //save info
-exports.store = function (req, res) {
+exports.save = function (req, res) {
 new Faculty({
 	faculty_name: req.body.faculty_name,
     faculty_dept_id: req.body.faculty_dept_id,

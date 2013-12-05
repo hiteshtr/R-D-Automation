@@ -3,14 +3,14 @@ var mongoose = require('mongoose')
 	, Department = mongoose.model('Department')
 	, Projectclass = mongoose.model('Projectclass');
 
-var utils = require('../../../lib/utils')
+var utils = require('../../lib/utils')
 	, _ = require('underscore')
 	, async = require('async');
 
-exports.index = function (req, res) {
+exports.new_project = function (req, res) {
 	 Department.find (function (err,depts) {
          Projectclass.find (function (err,pcs) {
-	         res.render('project/index',{
+	         res.render('project/new_project',{
 	          title: 'Project',
 	          dept:depts,
               pclasses:pcs
@@ -19,7 +19,7 @@ exports.index = function (req, res) {
 });	         
 }
 
-exports.store = function (req, res) {
+exports.save = function (req, res) {
 	var project = new Project(req.body);
 	project.save(function (err) {
 		if (err) {

@@ -1,0 +1,146 @@
+extends ../layouts/default
+
+block main
+    .container
+      .row
+        .col-sm-3
+           img(src='images/BVgsCN.jpg',class="img-responsive", alt='IITJ logo', width='80', height='80')
+        .col-sm-8
+         center
+           h3|Indian Institute of Technology Jodhpur
+    
+           h4|Research & Development
+            
+                  
+                      
+block content  
+
+      form#formAddData(action='/adhoc', name='getData', method='post',class='form-horizontal')
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        .form-group
+          .col-sm-12
+           center
+            h4|Request for Ad-hoc Appointment
+        hr
+
+        .form-group
+          .col-sm-1
+          .col-sm-11
+            b|Note : Required Fields are indicated with * mark.
+        
+        hr     
+        .form-group
+          .col-sm-1
+          .col-sm-4
+              label(for='projectno',class="control-label") Project No. *
+          .col-sm-6
+              input#projectno(type='text',class="form-control", name="projectno",placeholder="Project No",autofocus='autofocus',required)
+          
+          
+        .form-group
+          
+          .col-sm-4.col-sm-offset-1
+              label(for='prot',class="control-label") Project Title *
+          .col-sm-6
+              input#prot(type='text',class="form-control", name="prot",placeholder="Project Title",required)      
+          
+
+        .form-group
+          
+          .col-sm-4.col-sm-offset-1
+              label(for='pcd',class="control-label") Project Completion Date
+          .col-sm-6
+              input#pcd(type='date', class="form-control",name="pcd",placeholder="Project Completion Date")
+          .col-sm-1
+
+        .form-group
+          .col-sm-4.col-sm-offset-1
+              label(for='cname',class="control-label") Name of the Candidate *
+          .col-sm-6
+              input#cname(type='text', class="form-control",placeholder="Candidate Name",name="cname",required)
+          
+        .form-group    
+          .col-sm-4.col-sm-offset-1
+              label(for='dob',class="control-label") Date of Birth
+          .col-sm-6
+              input#dob(type='date',class="form-control", name="dob", placeholder="Date of Birth")
+       
+        .form-group   
+          .col-sm-4.col-sm-offset-1
+              label(for='padd',class="control-label") Permanent Address
+          .col-sm-6
+              input#padd(type='text',class="form-control", name="padd",placeholder="Permanent Address") 
+        
+        .form-group     
+          .col-sm-4.col-sm-offset-1
+             label(for='phno',class="control-label") Phone No.
+          .col-sm-6
+             input#phno(type='text', class="form-control",name="phno",placeholder="Phone No")
+       
+        .form-group            
+          .col-sm-4.col-sm-offset-1
+             label(for='eid',class="control-label") Email ID *
+          .col-sm-6
+             input#eid(type='email', class="form-control",name="eid",placeholder="Email ID",required)
+
+        .form-group  
+          .col-sm-4.col-sm-offset-1
+             label(for='post',class="control-label") Post suggested
+          .col-sm-6
+             input#post(type='text', class="form-control",name="post",placeholder="Post Suggested")
+
+        .form-group  
+          .col-sm-4.col-sm-offset-1
+             label(for='salary',class="control-label,text-left") Monthly consolidated salary
+          .col-sm-6
+             input#salary(type='text', class="form-control",name="salary",placeholder="Monthly Salary")
+
+        .form-group 
+          .col-sm-4.col-sm-offset-1
+             label(for='doa',class="control-label,text-left") Duration of Ad-hoc appointment
+          .col-sm-1
+             label(for='from',class="control-label") From
+          .col-sm-2
+             input#datefrom(type='date', class="form-control",name="from", placeholder="From")
+          
+
+          .col-sm-1
+             label(for='from',class="control-label") To 
+          .col-sm-2
+             input#dateto(type='date',class="form-control", name="to", placeholder="To")
+
+        .form-group 
+          .col-sm-4.col-sm-offset-1
+             label(for='justification',class="control-label,text-left") Justification for Ad-hoc appointment
+          .col-sm-6
+             input#justification(type='text', class="form-control",name="justification",placeholder="justification")
+            
+        .form-group
+            .col-sm-4.col-sm-offset-1
+             label(for='piname',class="control-label,text-left") Name of Project Investigator
+            .col-sm-6
+             input#piname(type='text', class="form-control",name="piname",placeholder="Project Investigator Name")
+
+        .form-group 
+            .col-sm-4.col-sm-offset-1
+             label(for='pfno',class="control-label") PF No. 
+            .col-sm-6
+             input#pfno(type='text',class="form-control", name="pfno", placeholder="PF No")
+              
+        
+        .form-group
+       
+            .col-sm-4.col-sm-offset-5
+               input(type='submit', name='submit', value='Submit' ,data-loading-text="Loading...",class="btn btn-default")
+
+
+
+
+
+
+       
+      
+
+
+
+

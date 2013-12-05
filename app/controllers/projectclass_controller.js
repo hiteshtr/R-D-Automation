@@ -1,16 +1,16 @@
 var mongoose = require('mongoose');
-var utils = require('../../../lib/utils');
+var utils = require('../../lib/utils');
 var _ = require('underscore');
 
 var Projectclass = mongoose.model('Projectclass');
 
 
-exports.index = function (req, res) {
-	res.render('Projectclass/index',{ title: 'Project Class'});
+exports.add_projectclass = function (req, res) {
+	res.render('Projectclass/add_projectclass',{ title: 'Project Class'});
 }
 
 //save info
-exports.store = function (req, res) {
+exports.save = function (req, res) {
 new Projectclass({
 	     project_class_code: req.body.pclasscode_name,
         project_class: req.body.pclass_name,     	
