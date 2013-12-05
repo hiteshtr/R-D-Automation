@@ -25,7 +25,8 @@ exports.save = function (req, res) {
 		if (err) {
 			return res.render('project/new_project', {
 		        errors: utils.errors(err.errors),
-		        title: 'Add new project details'
+		        title: 'Add new project details',
+
 		      })
 		}
 		req.flash('success', 'successfully saved project details');
@@ -43,6 +44,7 @@ exports.show =function(req,res){
 		   		res.render('project/show', {
 					title: 'List of Projects',
 					errors: utils.errors(err.errors)
+					
 				});
 	   		};
    		res.render('project/show', {

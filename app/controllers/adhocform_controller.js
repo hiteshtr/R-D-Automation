@@ -1,6 +1,7 @@
 /**
 * Module dependencies.
 */
+
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
@@ -11,7 +12,7 @@ var AdhocAppointment = mongoose.model('AdhocAppointment');
 */
 
 exports.adhocform = function (req, res) {
-	res.render('adhoc/adhocform',{ title: 'Request for Ad-hoc Appointment'});
+	res.render('adhoc/adhocform',{ title: 'Request for Ad-hoc Appointment',adhoc:new AdhocAppointment({})});
 }
 
 
@@ -21,9 +22,9 @@ exports.adhocform = function (req, res) {
 
 exports.save = function(req, res) {
 
-var adhocmodel= new AdhocAppointment(req.body);
+var adhoc= new AdhocAppointment(req.body);
     
-adhocmodel.save(function (err,info) {
+adhoc.save(function (err,info) {
     if (!err) //return handleError(err);
     {
     req.flash('success', 'Form has been submitted successfully');
@@ -45,7 +46,7 @@ adhocmodel.save(function (err,info) {
       else{  */
         console.log("not saved");
         console.log(err);
-        res.render('adhoc/adhocform',{title: 'Request for Ad-hoc Appointment',errors: utils.errors(err.errors || err)});
+        res.render('adhoc/adhocform',{title: 'Request for Ad-hoc Appointment',adhoc:adhoc,errors: utils.errors(err.errors || err)});
         }
  });
   //save

@@ -13,16 +13,16 @@ var _ = require('underscore');
 */
 
 var FormSchema = new Schema({
-  project_no: { type: String, default: '',validate:[ function(v){return v.length > 0;},'Project number is required..']},
-  project_title: { type: String, default: '',validate:[validate.alphanumericWithSpace,'Project title is required..']},
+  project_no: { type: String, default: '',required:'Project number is required.'},
+  project_title: { type: String, default: '',validate:[validate.alphanumericWithSpace,'Project title is required.']},
   project_completion_date: { type: Date, default: ''},
-  candidate_name: { type : String, default:'',validate:[validate.alphaWithSpace,'Candidate name is required and should be only alphabates..']},
+  candidate_name: { type : String, default:'',validate:[validate.alphaWithSpace,'Candidate name is required and should be only alphabates.']},
   date_of_birth: { type : Date, default:''},
   permanent_address: { type : String, default:''},
-  phone_no: { type : String, default: '',validate:[validate.numericOrBlank,'phone number should be numeric..']},
-  email_id: { type : String, default:'',unique:true,validate: [validate.email,'invalid email id..']},
+  phone_no: { type : String, default: '',validate:[validate.numericOrBlank,'phone number should be numeric.']},
+  email_id: { type : String, default:'',unique:true,validate: [validate.email,'invalid email id.']},
   post_suggested: { type : String, default:''},
-  monthly_consolidated_salary: { type : String, default: '',validate:[validate.numericOrBlank,'salary should be numeric..']},
+  monthly_consolidated_salary: { type : String, default: '',validate:[validate.numericOrBlank,'salary should be numeric.']},
   from:{ type: Date, default:''},
   to:{ type: Date, default:''},
   justification: { type : String, default:''},
