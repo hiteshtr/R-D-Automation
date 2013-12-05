@@ -21,8 +21,8 @@ block content
         label(class="control-label") Department
       .col-sm-5
         select(name="faculty_dept_id", class="form-control")
-          - each dp in dept
-            option(value=dp._id selected faculty.faculty_dept_id == dp._id ? true : false)= dp.department
+          - each department in departments
+            option(value=dp._id,selected=faculty.faculty_dept_id == dp._id ? true : false)= dp.department
             
       .col-sm-2
     
@@ -32,8 +32,8 @@ block content
         label(class="control-label") Designation
       .col-sm-5
         select(name="faculty_desig_id", class="form-control")
-          - each po in posts
-            option(value=po._id selected faculty.faculty_desig_id == po._id)= po.post_name
+          - each post in posts
+            option(value=po._id,selected=faculty.faculty_desig_id == po._id ? true : false)= po.post_name
       .col-sm-2
                
      .form-group
