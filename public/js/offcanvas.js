@@ -11,10 +11,12 @@ function enablefaculty(id1,id2,id3) {
 }
 
 //click on edit in list of post
-function enablepost(id1,id2,id3,id4,id5){
+function enablepost(id1,id2,id3,id4,id5,id6,id7){
 	document.getElementById(id1).disabled = false;
 	document.getElementById(id2).disabled = false;
 	document.getElementById(id3).disabled = false;
 	document.getElementById(id4).disabled = false;
 	document.getElementById(id5).disabled = false;
+  document.getElementById(id6).disabled = false;
+  document.getElementById(id7).disabled = false;
 }
