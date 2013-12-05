@@ -9,7 +9,7 @@ var  _ = require('underscore');
  */
 
 var DeptSchema = new Schema({
-  department: { type: String, default:'',required:true }
+  department: { type: String, default:'',required:'Department name is required.' }
   });
 
 mongoose.model('Department', DeptSchema);

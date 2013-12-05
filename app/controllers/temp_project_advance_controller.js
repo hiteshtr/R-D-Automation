@@ -31,7 +31,7 @@ new TemporaryProjectAdvance({
 	advance_sanctioned : req.body.sanc,
 	pfno_advance_holder : req.body.advhol,
 	bank_ac_no : req.body.bac
-}).save(function (err) {
+}).save(function (err,info) {
   if (!err) 
   {    req.flash('success','Form has been submitted successfully');
    	   res.redirect('/temp_project_advance');

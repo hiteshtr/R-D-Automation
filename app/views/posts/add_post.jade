@@ -5,7 +5,7 @@ block main
       h2|Posts
 
 block content
-  form(class="formDecor", method='post')
+  form(class="formDecor", method='post',action='/posts')
         input(type='hidden', name='_csrf', value="#{csrf_token}")
         center
           h4|Add a Project post
@@ -18,7 +18,7 @@ block content
           .col-sm-3
              label(for='pn',class="control-label") Post Name
           .col-sm-5
-             input#pn.NameClass(type="text", name="post_name", placeholder="Enter a post name...", class="form-control", id="post_input")
+             input#pn.NameClass(type="text", name="post_name", placeholder="Enter a post name", class="form-control", id="post_input",value=posts.post_name)
           .col-sm-2
       
          .form-group
@@ -26,7 +26,7 @@ block content
           .col-sm-3      
              label(for='pq',class="control-label") Post Qualification
           .col-sm-5
-             input#pq.NameClass(type="text", name="post_qualification", placeholder="Enter the post qualification...", class="form-control", id="post_qualification")
+             input#pq.NameClass(type="text", name="post_qualification", placeholder="Enter the post qualification...", class="form-control", id="post_qualification",value=posts.post_qualification)
           .col-sm-2
 
          .form-group
@@ -34,10 +34,10 @@ block content
           .col-sm-3
             label(for='pt',class="control-label") Post Type
           .col-sm-5
-            select(name="post_type", id="post_type", class="form-control")
+            select(name="post_type", id="post_type", class="form-control",value=posts.post_type)
                 
-                option(value=1) Contractual Position
-                option(value=2) Permanent Position
+                option(value=1 selected=posts.post_type==1? true : false) Contractual Position
+                option(value=2 selected=posts.post_type==2? true : false) Permanent Position
           .col-sm-2
          .form-group
           .col-sm-2
@@ -46,10 +46,10 @@ block content
           .col-sm-5
             select(name="post_desig", id="post_desig", class="form-control")
                
-               option(value=1) Scientific Staff
-               option(value=2) Technical Staff
-               option(value=3) Admiistrative Staff
-               option(value=4) Academic Staff
+               option(value=1 selected=posts.post_desig==1? true : false) Scientific Staff
+               option(value=2 selected=posts.post_desig==2? true : false) Technical Staff
+               option(value=3 selected=posts.post_desig==3? true : false) Admiistrative Staff
+               option(value=4 selected=posts.post_desig==4? true : false) Academic Staff
           .col-sm-2
 
          .form-group

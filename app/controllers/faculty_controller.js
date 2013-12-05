@@ -21,21 +21,16 @@ exports.faculty_resignation = function (req, res) {
 
 //save info
 exports.save = function (req, res) {
-new Faculty({
-	faculty_name: req.body.faculty_name,
-    faculty_dept_id: req.body.faculty_dept_id,
-    faculty_desig_id: req.body.faculty_desig_id,
-    faculty_email: req.body.faculty_email,
-    faculty_password: req.body.faculty_password    	
-}).save(function (err,docs) {
+var faculty=new Faculty(req.body);
+faculty.save(function (err,docs) {
   if (!err) 
   {    req.flash('success', 'successfully saved');
    	   res.redirect('/faculty/list');
        console.log('save successfully');
   }  
   else
-  {
-	  	req.flash('errors', 'not saved');
+  {   
+	  /*	req.flash('errors', 'not saved');
 	  	if(err.errors.faculty_name)
 	  	{
 	  		req.flash('warning','Faculty Name must be Filled and must be 30 max Characters');
@@ -49,10 +44,10 @@ new Faculty({
 	  		req.flash('warning','Faculty Password must be Filled and must be 20 max Characters');
 	  	}
 	  	
-	  	res.redirect('/faculty');
+	   res.redirect('/faculty');
 	  	console.log('not saved');
 	  	console.log(err);
-	  	res.end();
+	  	//res.end();*/
   }
 });
 }
