@@ -4,10 +4,11 @@ $(document).ready(function() {
   });
 });
 //click on edit in list of faculty
-function enablefaculty(id1,id2,id3) {
+function enablefaculty(id1,id2,id3,id4) {
     document.getElementById(id1).disabled = false;
     document.getElementById(id2).disabled = false;
     document.getElementById(id3).disabled = false;
+    document.getElementById(id4).disabled = false;
 }
 
 //click on edit in list of post

@@ -8,8 +8,8 @@ var  _ = require('underscore');
  * User Schema
  */
 
-var DeptSchema = new Schema({
-  department: { type: String, default:'',required:'Department name is required.' }
+var DepartmentSchema = new Schema({
+  department_name: { type: String, default:'',required:'Department name is required.' }
   });
 
-mongoose.model('Department', DeptSchema);
+mongoose.model('Department', DepartmentSchema);

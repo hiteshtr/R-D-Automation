@@ -20,7 +20,7 @@ block content
         - each dp in dept
           tr
             td= ++cnt
-            td= dp.department
+            td= dp.department_name
             td
               form(method="get", action="/department/:id/edit")
                 //input(type='hidden', name="_method", value="put") 

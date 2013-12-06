@@ -16,7 +16,7 @@ var mongoose = require('mongoose')
 exports.add_faculty = function (req, res) {
 	 Department.find (function (err,departments) {
 		  Post.find (function (err,posts) {
-        res.render('faculty/add_faculty',{
+        res.render('faculty/add',{
 	          title: 'Faculty',
             departments:departments,
             posts:posts,
@@ -43,7 +43,7 @@ exports.save = function (req, res) {
         console.log(err);
         Department.find (function (err1,departments) {
           Post.find (function (err2,posts) {
-            return res.render('faculty/add_faculty',{
+            return res.render('faculty/add',{
               title: 'Faculty',
               departments:departments,
               posts:posts,
