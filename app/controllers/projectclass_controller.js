@@ -41,15 +41,15 @@ new Projectclass({
 
 //show project class list
 exports.show =function(req,res){
-  Projectclass.find (function (err,pcs) {
+  Projectclass.find (function (err,projectclasses) {
     if(err)
       console.error('No data found')
     else
     {
-      console.log(pcs);
+      console.log(projectclasses);
       res.render('projectclass/show', {
           title: 'Project Class',
-          pclasses:pcs
+          projectclasses:projectclasses
       });   
     }
   });

@@ -54,12 +54,12 @@ module.exports = function (app, passport, io) {
 
  //Post Routes
   var posts=require('../app/controllers/posts_controller.js');
-  app.get('/posts',posts.add_post);
+  app.get('/posts',posts.add);
   app.post('/posts',posts.save);
   app.get('/posts/list',posts.show);
   app.del('/posts/:id',posts.destroy);
   app.get('/posts/:id/edit',posts.edit);
-  app.put('/posts/:id',posts.update);
+  app.put('/posts/:id', posts.update);
 
  // Faculty Routes
   var faculty=require('../app/controllers/faculty_controller.js');

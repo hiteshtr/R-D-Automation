@@ -11,8 +11,8 @@ var mongoose = require('mongoose')
 * Add a new post 
 */
 
-exports.add_post = function (req, res) {
-	res.render('posts/add_post', { 
+exports.add = function (req, res) {
+	res.render('posts/add', { 
     title: 'Add a Post',
     posts: new Post({})
   });
@@ -23,7 +23,8 @@ exports.add_post = function (req, res) {
 */
 
 exports.save = function (req, res) {
-var post=new Post(req.body);
+var post = new Post(req.body);
+console.log(post);
 post.save(function (err,docs) {
   if (!err) 
   {   req.flash('success', 'successfully added a post');
@@ -31,16 +32,19 @@ post.save(function (err,docs) {
       console.log('new post details saved successfully');
   }  
   else
-  {
-	  	
-	  	res.render('posts/add_post',{title: 'Add a Post',posts:post,errors: utils.errors(err.errors || err)});
-	  	console.log(err);
-	  	
+  {	
+  	res.render('posts/add', {
+      title: 'Add a Post',
+      posts: post,
+      errors: utils.errors(err.errors || err)
+    });
+  	console.log(err);
   }
 });
 }
 
-//show department list
+//Show List of Designation
+
 exports.show =function(req,res){
 Post.find (function (err,post) {
   if(err)
@@ -56,7 +60,8 @@ Post.find (function (err,post) {
 });
 }
 
-//delete a data from list
+//Delete Entry from posts collection
+
 exports.destroy =function(req,res){
 Post.findByIdAndRemove(req.param('_id'),function (err)  {
     if(err)
@@ -89,16 +94,16 @@ exports.edit =function(req,res){
 
 //save updated info
 exports.update =function(req,res){
-  Post.findById(req.param('_id'),function (err,docs) { 
-    docs.post_name = req.body.post_name;
-    docs.post_type = req.body.post_type;
-    docs.post_qualification = req.body.post_qualification;
-    docs.post_desig = req.body.post_desig;   
+  Post.findById(req.body._id, function (err, docs) { 
+    docs.designation = req.body.designation;
+    docs.designation_type = req.body.designation_type;
+    docs.min_qualification = req.body.min_qualification;
+    docs.staff_type = req.body.staff_type;
+    docs.min_experience = req.body.min_experience   
     docs.save(function (err) {
              if (!err) 
              {   req.flash('success', 'successfully updated');
                  res.redirect('/posts/list');
-                 console.log('save successfully');
              }  
              else
              {
@@ -112,9 +117,7 @@ exports.update =function(req,res){
                   req.flash('warning','Post Qualification must be Filled and must be max 10 Characters');
                 }
                res.redirect('/posts/list');
-               console.log('not saved');
                console.log(err);
-               res.end();
              }
 });
  
