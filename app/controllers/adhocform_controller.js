@@ -2,36 +2,36 @@
 * Module dependencies.
 */
 
-var mongoose = require('mongoose');
-var utils = require('../../lib/utils');
-var _ = require('underscore');
-var AdhocAppointment = mongoose.model('AdhocAppointment');
+var mongoose = require('mongoose')
+ ,  utils = require('../../lib/utils')
+ ,  _ = require('underscore')
+ ,  async = require('async')
+ ,  AdhocAppointment = mongoose.model('AdhocAppointment');
 
 /**
 * Adhoc Form
 */
 
 exports.adhocform = function (req, res) {
-	res.render('adhoc/adhocform',{ title: 'Request for Ad-hoc Appointment',adhoc:new AdhocAppointment({})});
+	res.render('adhoc/adhocform',{ 
+      title: 'Request for Ad-hoc Appointment',
+      adhoc:new AdhocAppointment({})
+  });
 }
-
 
 /**
 * Adhoc Form data Save
 */
 
 exports.save = function(req, res) {
-
-var adhoc= new AdhocAppointment(req.body);
-    
-adhoc.save(function (err,info) {
-    if (!err) //return handleError(err);
+  var adhoc= new AdhocAppointment(req.body);
+  adhoc.save(function (err,info) {
+    if (!err) 
     {
     req.flash('success', 'Form has been submitted successfully');
     res.redirect('/adhoc');
-    console.log("Form has been submitted successfully");
     }
-  else
+    else
     {//send error
        /*console.log(err);
        console.log(err.code);
@@ -44,12 +44,15 @@ adhoc.save(function (err,info) {
         }
 
       else{  */
-        console.log("not saved");
+        
         console.log(err);
-        res.render('adhoc/adhocform',{title: 'Request for Ad-hoc Appointment',adhoc:adhoc,errors: utils.errors(err.errors || err)});
-        }
- });
-  //save
+        res.render('adhoc/adhocform',{
+            title: 'Request for Ad-hoc Appointment',
+            adhoc:adhoc,
+            errors: utils.errors(err.errors || err)});
+    }
+  });
+  
 };
 
 

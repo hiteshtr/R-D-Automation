@@ -5,9 +5,10 @@
 var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
+ , async = require('async')
  ,  Faculty = mongoose.model('Faculty')
  ,  Department = mongoose.model('Department')
- ,  Post = mongoose.model('Post');
+ ,  Designation = mongoose.model('Designation');
 
  /**
 * Add new Faculty form
@@ -15,11 +16,11 @@ var mongoose = require('mongoose')
 
 exports.add_faculty = function (req, res) {
 	 Department.find (function (err,departments) {
-		  Post.find (function (err,posts) {
+		  Designation.find (function (err,designations) {
         res.render('faculty/add',{
 	          title: 'Faculty',
             departments:departments,
-            posts:posts,
+            designations:designations,
             faculty: new Faculty({})
          });
       });
@@ -33,26 +34,27 @@ exports.add_faculty = function (req, res) {
 exports.save = function (req, res) {
   var faculty=new Faculty(req.body);
   faculty.save(function (err,docs) {
-    if (!err) 
-      {   req.flash('success', 'successfully saved');
-   	      res.redirect('/faculty/list');
-          console.log('save successfully');
-      }  
-    else
-      {  
+    if(err) 
+      { 
         console.log(err);
         Department.find (function (err1,departments) {
-          Post.find (function (err2,posts) {
+          Designation.find (function (err2,designations) {
             return res.render('faculty/add',{
-              title: 'Faculty',
-              departments:departments,
-              posts:posts,
-              errors: utils.errors(err.errors || err),
-              faculty:faculty
+                   title: 'Faculty',
+                   departments:departments,
+                   designations:designations,
+                   faculty:faculty,
+                   errors: utils.errors(err.errors || err) 
             });
           });
         });
-      }
+      }  
+    else
+      {
+        req.flash('success', 'New faculty details have been added successfully.');
+        res.redirect('/faculty/list');
+        console.log('Faculty details saved successfully');
+      }  
   });
 }
 
@@ -68,7 +70,7 @@ exports.show =function(req,res){
     departments = result;
   });
 
-  Post.find({}, function (err, result) {
+  Designation.find({}, function (err, result) {
     if (err) {};
     designations = result;
   });
@@ -80,21 +82,20 @@ exports.show =function(req,res){
     .exec(function (err, faculties) {
       if(err)
       {
-        res.render('faculty/show', {
-            title: 'Faculty',
-            faculties:faculties,
-            errors:utils.errors(err.errors)
+        return res.render('faculty/show', {
+               title: 'Faculty',
+               faculties:faculties,
+               departments:departments,
+               designations:designations,
+               errors:utils.errors(err.errors)
         });
-      } 
-      else
-      {
-        res.render('faculty/show', {
-            title: 'Faculty',
-            faculties:faculties,
-            departments:departments,
-            designations:designations
-        });    
       }
+      res.render('faculty/show', {
+          title: 'Faculty',
+          faculties: faculties,
+          departments: departments,
+          designations: designations
+      });
   });
 }
 
@@ -102,117 +103,58 @@ exports.show =function(req,res){
 * Delete a faculty details from list
 */
 
-exports.destroy =function(req,res){
+exports.delete =function(req,res){
   Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
        if(err)
-       {
+       {  
           req.flash('errors','not deleted');
-          console.error('Data not Removed');
+          res.redirect('/faculty/list');
+          console.log('Data not Removed');
        }
        else
        { 
-        req.flash('success','successfully deleted');
-        res.redirect('/faculty/list')
+          req.flash('success','Successfully deleted.');
+          res.redirect('/faculty/list');
        }
- });     
+  });     
 }
 
-
-//render edit data page
-exports.edit =function(req,res){
-   Faculty.findById(req.param('_id'),function (err,facs) {
-      Department.find (function (err,departments) {
-        Post.find (function (err,posts) {
-
-            if(err)
-              console.error('Data not Received')
-            else
-            {   console.log('Data Received')
-               res.render('faculty/edit',{
-                title:'Faculty',
-                fac:facs,
-                departments:departments,
-                post:posts
-           });
-          }
-       });
-      });
-    });
-}
-
-//save updated info
-exports.update =function(req,res){
- /* console.log()
-  Faculty.update({ "_id":req.body_id)}, 
-                {$set: {"faculty_name":req.body.faculty_name , "faculty_dept_id":req.body.faculty_dept_id , "faculty_desig_id":req.body.faculty_desig_id}},
-function(err,docs){
-    if (!err) 
-             {   req.flash('success', 'successfully updated');
-                 res.redirect('/faculty/list');
-                 console.log('save successfully');
-             }  
-             else
-             {
-               req.flash('errors', err);    
-               res.redirect('/faculty/list');
-               console.log('not saved');
-               console.log(err);
-               res.end();
-             }
-}
-);
-}*/
-  Faculty.findById(req.body._id,function (err,docs){   
-           docs.faculty_name = req.body.faculty_name;
-           docs.faculty_dept_id = req.body.faculty_dept_id;
-           docs.faculty_desig_id = req.body.faculty_desig_id;
-           docs.save(function (err) {
-             if (!err) 
-             {   req.flash('success', 'successfully updated');
-                 res.redirect('/faculty/list');
-                 console.log('save successfully');
-             }  
-             else
-             {
-               req.flash('errors', 'not saved');    
-               res.redirect('/faculty/list');
-               console.log('not saved');
-               console.log(err);
-               
-             }
-});
- 
-  });
-}
-
-/*exports.update =function(req,res){
-  Post.findById(req.body._id, function (err, docs) { 
-    docs.designation = req.body.designation;
-    docs.designation_type = req.body.designation_type;
-    docs.min_qualification = req.body.min_qualification;
-    docs.staff_type = req.body.staff_type;
-    docs.min_experience = req.body.min_experience   
-    docs.save(function (err) {
-             if (!err) 
-             {   req.flash('success', 'successfully updated');
-                 res.redirect('/posts/list');
-             }  
-             else
-             {
-               req.flash('errors', 'not saved');    
-               if(err.errors.post_name)
-                {
-                  req.flash('warning','Post Name must be Filled and must be max 20 Characters');
-                }
-               if(err.errors.post_qualification)
-                {
-                  req.flash('warning','Post Qualification must be Filled and must be max 10 Characters');
-                }
-               res.redirect('/posts/list');
-               console.log(err);
-             }
-});
- 
-  });
-}
+/**
+* Update a faculty details in list
 */
+
+exports.update =function(req,res){
+  Faculty.findById(req.body._id,function (err,docs){   
+    docs.faculty_name = req.body.faculty_name;
+    docs.faculty_dept_id = req.body.faculty_dept_id;
+    docs.faculty_desig_id = req.body.faculty_desig_id;
+
+    docs.save(function (err) {
+     if(err) 
+     {     
+        if(err.errors.faculty_name)
+        {
+          req.flash('errors',err.errors.faculty_name.message);
+        }
+        if(err.errors.faculty_dept_id)
+        {
+          req.flash('errors',err.errors.faculty_dept_id.message);
+        }
+        if(err.errors.faculty_desig_id)
+        {
+          req.flash('errors',err.errors.faculty_desig_id.message);
+        }
+       return res.redirect('/faculty/list');        
+       console.log('not saved');
+       console.log(err);     
+     }  
+     else
+     {   
+        req.flash('success', 'Faculty details updated successfully');
+        res.redirect('/faculty/list');
+        console.log('updated successfully');
+     }
+   
+    });
+  });
+}

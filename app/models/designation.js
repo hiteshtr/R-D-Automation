@@ -12,8 +12,8 @@ var _ = require('underscore');
  * Post Schema
  */
 
-var PostSchema = new Schema({
-    designation: { type: String, default:'', required:'Name of designation is required.'},
+var DesignationSchema = new Schema({
+    designation_name: { type: String, default:'', required:'Name of designation is required.'},
     min_qualification: { type:String, default:'', required:'Minimum qualification is required.'},
     min_experience: {
     	year: Number,
@@ -26,4 +26,4 @@ var PostSchema = new Schema({
 
 /*Post Model */
 
-mongoose.model('Post', PostSchema);
+mongoose.model('Designation', DesignationSchema);

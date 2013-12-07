@@ -53,21 +53,20 @@ module.exports = function (app, passport, io) {
   app.put('/department/:id',department.update);
 
  //Post Routes
-  var posts=require('../app/controllers/posts_controller.js');
-  app.get('/posts',posts.add);
-  app.post('/posts',posts.save);
-  app.get('/posts/list',posts.show);
-  app.del('/posts/:id',posts.destroy);
-  app.get('/posts/:id/edit',posts.edit);
-  app.put('/posts/:id', posts.update);
+  var designation=require('../app/controllers/designation_controller.js');
+  app.get('/designation',designation.add);
+  app.post('/designation',designation.save);
+  app.get('/designation/list',designation.show);
+  app.del('/designation/:id',designation.destroy);
+  app.get('/designation/:id/edit',designation.edit);
+  app.put('/designation/:id', designation.update);
 
  // Faculty Routes
   var faculty=require('../app/controllers/faculty_controller.js');
   app.get('/faculty',faculty.add_faculty);
   app.post('/faculty',faculty.save);
   app.get('/faculty/list',faculty.show);
-  app.del('/faculty/:id',faculty.destroy);
-  app.get('/faculty/:id/edit',faculty.edit);
+  app.del('/faculty/:id',faculty.delete);
   app.put('/faculty/:id',faculty.update);
 
  //Project Routes

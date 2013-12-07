@@ -6,7 +6,10 @@ var Projectclass = mongoose.model('Projectclass');
 
 
 exports.add_projectclass = function (req, res) {
-	res.render('projectclass/add_projectclass',{ title: 'Project Class'});
+	res.render('projectclass/add_projectclass',{ 
+    title: 'Project Class',
+    path: req.url
+ });
 }
 
 //save info
@@ -49,7 +52,8 @@ exports.show =function(req,res){
       console.log(projectclasses);
       res.render('projectclass/show', {
           title: 'Project Class',
-          projectclasses:projectclasses
+          projectclasses:projectclasses,
+          path:req.url
       });   
     }
   });

@@ -30,7 +30,7 @@ block content
         .col-sm-4.col-sm-offset-1
           label(for='euh',class="control-label,text-left") Expenditure under the head of
         .col-sm-6
-          select(name='euh',class='form-control')
+          select(name='expenditure_under_head',class='form-control')
              option(value='con') Contigency
              option(value='cons') Consumables
              option(value='noncons') Non-consumables
@@ -49,51 +49,51 @@ block content
         
               label(for='npi',class="control-label,text-left") Name of the Project Investigator *
         .col-sm-6   
-              input#npi.NameClass(type='text', name='npi',class="form-control",placeholder="Project Investigator Name",required)
+              input#npi.NameClass(type='text', name='name_p_investigator',class="form-control",placeholder="Project Investigator Name",value=tempPrjAdvance.name_p_investigator,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1
           
               label(for='pf',class="control-label") P F No. *
         .col-sm-6      
-              input#pf.NameClass(type='text', name='pf',class="form-control",placeholder="P F No",required)
+              input#pf.NameClass(type='text', name='pf_no',class="form-control",placeholder="P F No",value=tempPrjAdvance.pf_no,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1     
               label(for='pn',class="control-label") Project No. *
         .col-sm-6     
-              input#pn.NameClass(type='text', name='prn',class="form-control",placeholder="Project No",required)
+              input#pn.NameClass(type='text', name='project_number',class="form-control",placeholder="Project No",value=tempPrjAdvance.project_number,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1      
               label(for='aar',class="control-label,text-left") Amount of Advance required *
         .col-sm-6     
-              input#aar.NameClass(type='text', name='aar',class="form-control",placeholder="Amount of Advance required",required)
+              input#aar.NameClass(type='text', name='amount_advance_required',class="form-control",placeholder="Amount of Advance required",value=tempPrjAdvance.amount_advance_required,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1  
            
               label(for='purpo',class="control-label,text-left") Purpose (with justification)
         .col-sm-6
-              input#purpo.NameClass(type='text', name='purpo',class="form-control",placeholder="Purpose")
+              input#purpo.NameClass(type='text', name='purpose',class="form-control",placeholder="Purpose",value=tempPrjAdvance.purpose)
 
       .form-group
         .col-sm-4.col-sm-offset-1     
               label(for='sanc',class="control-label,text-left") Advance to be sanctioned in the name of (Permanent employee only) *
         .col-sm-6
-              input#sanc.NameClass(type='text', name='sanc',class="form-control",placeholder="Advance to be sanctioned in the name of ",required)
+              input#sanc.NameClass(type='text', name='advance_sanctioned',class="form-control",placeholder="Advance to be sanctioned in the name of ",value=tempPrjAdvance.advance_sanctioned,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1 
               label(for='advhol',class="control-label,text-left") P.F. No of the Advance holder *
         .col-sm-6
-              input#advhol.NameClass(type='text', name='advhol',class="form-control",placeholder="P.F. No of the Advance holder",required)
+              input#advhol.NameClass(type='text', name='pfno_advance_holder',class="form-control",placeholder="P.F. No of the Advance holder",value=tempPrjAdvance.pfno_advance_holder,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1 
               label(for='bac',class="control-label,text-left") Bank A/c No. for money transfer *
         .col-sm-6
-              input#bac.NameClass(type='text', name='bac',class="form-control",placeholder="Bank A/c No.",required)
+              input#bac.NameClass(type='text', name='bank_ac_no',class="form-control",placeholder="Bank A/c No.",value=tempPrjAdvance.bank_ac_no,required)
       
         .col-sm-1
       // /span

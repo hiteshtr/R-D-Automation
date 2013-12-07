@@ -5,16 +5,16 @@
 var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
- ,  Post = mongoose.model('Post');
+ ,  Designation = mongoose.model('Designation');
 
 /**
 * Add a new post 
 */
 
 exports.add = function (req, res) {
-	res.render('posts/add', { 
-    title: 'Add a Post',
-    posts: new Post({})
+	res.render('designation/add', { 
+    title: 'Add a Designation',
+    designation: new Designation({})
   });
 }
 
@@ -23,19 +23,19 @@ exports.add = function (req, res) {
 */
 
 exports.save = function (req, res) {
-var post = new Post(req.body);
-console.log(post);
-post.save(function (err,docs) {
+var designation = new Designation(req.body);
+console.log(designation);
+designation.save(function (err,docs) {
   if (!err) 
   {   req.flash('success', 'successfully added a post');
-   	  res.redirect('/posts/list');
+   	  res.redirect('/designation/list');
       console.log('new post details saved successfully');
   }  
   else
   {	
-  	res.render('posts/add', {
-      title: 'Add a Post',
-      posts: post,
+  	res.render('designation/add', {
+      title: 'Add a Designation',
+      designation: designation,
       errors: utils.errors(err.errors || err)
     });
   	console.log(err);
@@ -46,15 +46,15 @@ post.save(function (err,docs) {
 //Show List of Designation
 
 exports.show =function(req,res){
-Post.find (function (err,post) {
+Designation.find (function (err,designation) {
   if(err)
     console.error('No data found')
   else
   {
-    console.log(post);
-    res.render('posts/show', {
-            title: 'Posts',
-            posts:post
+    console.log(designation);
+    res.render('designation/show', {
+            title: 'Designations',
+            designations:designation
         });    
 }
 });
@@ -63,7 +63,7 @@ Post.find (function (err,post) {
 //Delete Entry from posts collection
 
 exports.destroy =function(req,res){
-Post.findByIdAndRemove(req.param('_id'),function (err)  {
+Designation.findByIdAndRemove(req.param('_id'),function (err)  {
     if(err)
     {
         req.flash('errors','not deleted');
@@ -72,21 +72,21 @@ Post.findByIdAndRemove(req.param('_id'),function (err)  {
     else
     { 
       req.flash('success','successfully deleted');
-      res.redirect('/posts/list');
+      res.redirect('/designation/list');
     }
  });
 }
 
 //render edit data page
 exports.edit =function(req,res){
-      Post.findById(req.param('_id'),function (err,post) {
+      Designation.findById(req.param('_id'),function (err,designation) {
             if(err)
               console.error('Data not Received')
             else
             {   console.log('Data Received')
-               res.render('posts/edit',{
-                title:'Posts',
-                po:post
+               res.render('designation/edit',{
+                title:'Designations',
+                po:designation
            });
           }
        });
@@ -94,8 +94,8 @@ exports.edit =function(req,res){
 
 //save updated info
 exports.update =function(req,res){
-  Post.findById(req.body._id, function (err, docs) { 
-    docs.designation = req.body.designation;
+  Designation.findById(req.body._id, function (err, docs) { 
+    docs.designation_name = req.body.designation_name;
     docs.designation_type = req.body.designation_type;
     docs.min_qualification = req.body.min_qualification;
     docs.staff_type = req.body.staff_type;
@@ -103,20 +103,20 @@ exports.update =function(req,res){
     docs.save(function (err) {
              if (!err) 
              {   req.flash('success', 'successfully updated');
-                 res.redirect('/posts/list');
+                 res.redirect('/designation/list');
              }  
              else
              {
                req.flash('errors', 'not saved');    
-               if(err.errors.post_name)
+               if(err.errors.designation_name)
                 {
                   req.flash('warning','Post Name must be Filled and must be max 20 Characters');
                 }
-               if(err.errors.post_qualification)
+               if(err.errors.min_qualification)
                 {
                   req.flash('warning','Post Qualification must be Filled and must be max 10 Characters');
                 }
-               res.redirect('/posts/list');
+               res.redirect('/designation/list');
                console.log(err);
              }
 });

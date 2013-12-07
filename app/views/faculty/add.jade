@@ -34,11 +34,11 @@ block content
         label(class="control-label") Designation
       .col-sm-5
         select(name="faculty_desig_id", class="form-control")
-          - each post in posts
+          - each designation in designations
             if(faculty.faculty_desig_id)
-              option(id=post._id, value=post._id,selected=faculty.faculty_desig_id.toString() == post._id.toString() ? true : false)= post.designation
+              option(id=designation._id, value=designation._id,selected=faculty.faculty_desig_id.toString() == designation._id.toString() ? true : false)= designation.designation_name
             else
-              option(id=post._id, value=post._id,selected=faculty.faculty_desig_id == post._id ? true : false)= post.designation
+              option(id=designation._id, value=designation._id,selected=faculty.faculty_desig_id == designation._id ? true : false)= designation.designation_name
       .col-sm-2
                
      .form-group
@@ -46,7 +46,7 @@ block content
       .col-sm-3  
         label(class="control-label") Email
       .col-sm-5
-        input(type="email", name="faculty_email", placeholder="Enter faculty email", class="form-control", id="faculty_email",value=faculty.faculty_email)
+        input(type="text", name="faculty_email", placeholder="Enter faculty email", class="form-control", id="faculty_email",value=faculty.faculty_email)
       .col-sm-2
      
 

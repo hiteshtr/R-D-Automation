@@ -22,29 +22,29 @@ block content
               form( method="post", action="/faculty/#{faculty._id}") 
                 input(type='hidden', name="_method", value="delete") 
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
-                input(name="_id", type="hidden", value=faculty._id.toHexString()) 
-                button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
-                  
-            td
-              input(type='text',class='form-control',name="faculty_name",value=faculty.faculty_name, disabled='true',id='faculty_name#{i}')= faculty.faculty_name
-
-            td
-              select.form-control(type='text', disabled='true',id='department_name#{i}')
-                each department in departments
-                  option(value=department._id, selected=faculty.faculty_dept_id._id.toString() == department._id.toString() ? true : false)= department.department_name
-              
-            td  
-              select.form-control(type='text', disabled='true',id='designation#{i}')
-                each desig in designations
-                  option(value=desig._id, selected=faculty.faculty_desig_id._id.toString() == desig._id.toString() ? true : false)= desig.designation
-                
-            td
-              input(name="_id", type="hidden", value=faculty._id)
-              button.btn.btn-default(onclick="enablefaculty('update#{i}','faculty_name#{i}','designation#{i}','department_name#{i}')") Edit
-
-            td
-              form( method="post", action="/faculty/#{faculty._id}") 
-                input(type='hidden', name="_method", value="put") 
-                input(type='hidden', name='_csrf', value="#{csrf_token}")
                 input(name="_id", type="hidden", value=faculty._id) 
+                button.btn.btn-default.glyphicon.glyphicon-trash(type='submit',onclick="return confirm('Are you sure to delete?')")
+
+            form( method="post", action="/faculty/#{faculty._id}") 
+              input(type='hidden', name="_method", value="PUT") 
+              input(type='hidden', name='_csrf', value="#{csrf_token}")
+              input(name="_id", type="hidden", value=faculty._id) 
+                  
+              td
+                input(type='text',class='form-control',name="faculty_name",value=faculty.faculty_name, disabled='true',id='faculty_name#{i}')= faculty.faculty_name
+
+              td
+                select.form-control(type='text', disabled='true',name='faculty_dept_id', id='department_name#{i}')
+                  each department in departments
+                    option(value=department._id, selected=faculty.faculty_dept_id._id.toString() == department._id.toString() ? true : false)= department.department_name
+                
+              td  
+                select.form-control(type='text', disabled='true',name='faculty_desig_id' , id='designation_name#{i}')
+                  each desig in designations
+                    option(value=desig._id, selected=faculty.faculty_desig_id._id.toString() == desig._id.toString() ? true : false)= desig.designation_name
+                  
+              td
+                button.btn.btn-default(type="button", onclick="enablefaculty('update#{i}','faculty_name#{i}','department_name#{i}','designation_name#{i}')") Edit
+
+              td
                 button.btn.btn-default(type='submit', disabled='true',id='update#{i}',onclick="return confirm('Are you sure to Update?')") Update

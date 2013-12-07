@@ -2,10 +2,10 @@ extends ../layouts/default
 
 block main
   center
-      h2|Add New Post
+      h2|Add New Designation
 
 block content
-  form(class="formDecor", method='post',action='/posts')
+  form(class="formDecor", method='post',action='/designation')
     input(type='hidden', name='_csrf', value="#{csrf_token}")
     .form-horizontal(role="form")
      .form-group
@@ -13,7 +13,7 @@ block content
       .col-sm-3
          label(for='designation',class="control-label") Designation
       .col-sm-5
-         input(type="text", name="designation", placeholder="Enter designation", class="form-control", id="designation",value=posts.designation)
+         input(type="text", name="designation_name", placeholder="Enter designation", class="form-control", id="designation",value=designation.designation_name)
       .col-sm-2
   
      .form-group
@@ -21,7 +21,7 @@ block content
       .col-sm-3      
          label(for='min_qualification',class="control-label") Minimum Qualification
       .col-sm-5
-         input(type="text", name="min_qualification", placeholder="Enter minimum qualification", class="form-control", id="min_qualification",value= posts.min_qualification)
+         input(type="text", name="min_qualification", placeholder="Enter minimum qualification", class="form-control", id="min_qualification",value= designation.min_qualification)
       .col-sm-2
 
      .form-group
@@ -48,8 +48,8 @@ block content
         label(for='designation_type',class="control-label") Designation Type
       .col-sm-5
         select(name="designation_type", id="designation_type", class="form-control")            
-          option(value=1,selected=posts.designation_type==1 ? true : false) Contractual Position
-          option(value=2,selected=posts.designation_type==2 ? true : false) Permanent Position
+          option(value=1,selected=designation.designation_type==1 ? true : false) Contractual Position
+          option(value=2,selected=designation.designation_type==2 ? true : false) Permanent Position
       .col-sm-2
      .form-group
       .col-sm-2
@@ -57,10 +57,10 @@ block content
         label(for='staff_type',class="control-label") Designation Staff
       .col-sm-5
         select(name="staff_type", id="staff_type", class="form-control")  
-          option(value=1,selected=posts.staff_type==1 ? true : false) Scientific Staff
-          option(value=2,selected=posts.staff_type==2 ? true : false) Technical Staff
-          option(value=3,selected=posts.staff_type==3 ? true : false) Admiistrative Staff
-          option(value=4,selected=posts.staff_type==4 ? true : false) Academic Staff
+          option(value=1,selected=designation.staff_type==1 ? true : false) Scientific Staff
+          option(value=2,selected=designation.staff_type==2 ? true : false) Technical Staff
+          option(value=3,selected=designation.staff_type==3 ? true : false) Admiistrative Staff
+          option(value=4,selected=designation.staff_type==4 ? true : false) Academic Staff
       .col-sm-2
 
      .form-group

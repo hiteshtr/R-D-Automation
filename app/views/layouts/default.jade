@@ -31,19 +31,19 @@ html(lang='en')
                 a.list-group-item(href='#') Link
           //- } else {
           .list-group
-            a.list-group-item.active(href='/projectclass') Project Class
-            a.list-group-item(href='/department') Department
-            a.list-group-item(href='/faculty') Faculty
-            a.list-group-item(href='/project') Project
-            a.list-group-item(href='/adhoc') Ad-Hoc Form
+            - console.log(path)
+            a.list-group-item(href='/department', class=path=='/department'?'active':undefined) Department
+            a.list-group-item(href='/faculty', class=path=='/faculty'?'active':undefined) Faculty
+            a.list-group-item(href='/project', class=path=='/project'?'active':undefined) Project
+            a.list-group-item(href='/adhoc', class=path=='/adhoc'?'active':undefined) Ad-Hoc Form
             a.list-group-item(href='#') No-Dues Form
-            a.list-group-item(href='/temp_project_advance') Temporary Project Advance
-            a.list-group-item(href='/travel_advance_approval') Travel Advance Approval
-            a.list-group-item(href='/projectclass/list') List of Project Class
-            a.list-group-item(href='/department/list') List of Departments
-            a.list-group-item(href='/posts/list') List of Posts
-            a.list-group-item(href='/faculty/list') List of Faculties
-            a.list-group-item(href='/project/list') List of Projects
+            a.list-group-item(href='/temp_project_advance', class=path=='/temp_project_advance'?'active':undefined) Temporary Project Advance
+            a.list-group-item(href='/travel_advance_approval', class=path=='/travel_advance_approval'?'active':undefined) Travel Advance Approval
+            a.list-group-item(href='/projectclass/list', class=path=='/projectclass/list'?'active':undefined) List of Project Class
+            a.list-group-item(href='/department/list', class=path=='/department/list'?'active':undefined) List of Departments
+            a.list-group-item(href='/designation/list', class=path=='/designation/list'?'active':undefined) List of Designations
+            a.list-group-item(href='/faculty/list', class=path=='/faculty/list'?'active':undefined) List of Faculties
+            a.list-group-item(href='/project/list', class=path=='/project/list'?'active':undefined) List of Projects
 
           //- }
         // /span
