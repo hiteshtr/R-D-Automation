@@ -24,6 +24,31 @@ var ProjectSchema = new Schema({
             sanctioned_amount:  { type: Number, default:'', required:true, validate:[validate.numeric] },
             project_class_id:  { type: Schema.ObjectId, ref: 'Projectclass' },
             department_id:  { type: Schema.ObjectId, ref: 'Department' },
+            attachments:[
+                {
+                    attachment_url: { type: String, default: '' },
+                    attachment_type: { type: String, default: '' }
+                }
+            ],
+            investigator: [
+                {
+                    faculty_id: { type: Schema.Types.ObjectId, ref: 'Faculty' },
+                    role: { type: String, default: '' }
+                }
+            ],
+            project_post: [
+                {
+                    designation_id: { type: Schema.Types.ObjectId, ref: 'Designation' },
+                    salary: { type: Number, default: '' }
+                }
+            ],
+            funds:[
+                {
+                    fund_type: { type: String, default: '' },
+                    fund_amount: { type: Number, default: '' },
+                    fund_category: { type: String, default: '' }
+                }
+            ]
     
   });
 
