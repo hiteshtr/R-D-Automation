@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var validate = require('mongoose-validate');
+var validate = require('../../lib/validate.js');
 
 var Schema = mongoose.Schema
   , crypto = require('crypto')
@@ -22,23 +22,24 @@ var ProjectSchema = new Schema({
             start_date:  { type: Date, default:'', required:true },
             end_date:  { type: Date, default:'', required:true },
             sanctioned_amount:  { type: Number, default:'', required:true, validate:[validate.numeric] },
-            project_class_id:  { type: Schema.ObjectId, ref: 'Projectclass' },
-            department_id:  { type: Schema.ObjectId, ref: 'Department' },
+            project_class_id:  { type: Schema.ObjectId, ref: 'Projectclass', required: true },
+            department_id:  { type: Schema.ObjectId, ref: 'Department', required:true },
             attachments:[
                 {
-                    attachment_url: { type: String, default: '' },
-                    attachment_type: { type: String, default: '' }
+                    name: { type: String, default: '' },
+                    type: { type: String, default: '' },
+                    url: { type: String, default: '' }
                 }
             ],
             investigator: [
                 {
-                    faculty_id: { type: Schema.Types.ObjectId, ref: 'Faculty' },
+                    faculty_id: { type: Schema.Types.ObjectId, ref: 'Faculty'},
                     role: { type: String, default: '' }
                 }
             ],
             project_post: [
                 {
-                    designation_id: { type: Schema.Types.ObjectId, ref: 'Designation' },
+                    designation_id: { type: Schema.Types.ObjectId, ref: 'Designation'},
                     salary: { type: Number, default: '' }
                 }
             ],

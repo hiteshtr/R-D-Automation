@@ -103,7 +103,7 @@ exports.show =function(req,res){
 * Delete a faculty details from list
 */
 
-exports.delete =function(req,res){
+exports.destroy =function(req,res){
   Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
        if(err)
        {  

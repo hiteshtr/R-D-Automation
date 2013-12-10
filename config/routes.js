@@ -66,7 +66,7 @@ module.exports = function (app, passport, io) {
   app.get('/faculty',faculty.add_faculty);
   app.post('/faculty',faculty.save);
   app.get('/faculty/list',faculty.show);
-  app.del('/faculty/:id',faculty.delete);
+  app.del('/faculty/:id',faculty.destroy);
   app.put('/faculty/:id',faculty.update);
 
  //Project Routes

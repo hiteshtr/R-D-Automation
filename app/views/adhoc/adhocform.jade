@@ -15,7 +15,7 @@ block main
                       
 block content  
 
-      form#formAddData(action='/adhoc', name='getData', method='post',class='form-horizontal')
+      form#formAddData(action='/adhoc', name='adhocform', method='post',class='form-horizontal')
         input(type='hidden', name='_csrf', value="#{csrf_token}")
         .form-group
           .col-sm-12
@@ -32,106 +32,108 @@ block content
         .form-group
           .col-sm-1
           .col-sm-4
-              label(for='projectno',class="control-label") Project No. *
+              label(for="project_no",class="control-label") Project No. *
           .col-sm-6
-              input#projectno(type='text',class="form-control", name="project_no",placeholder="Project No",autofocus='autofocus',value=adhoc.project_no,required)
+              input#project_no(type="text",class="form-control", name="project_no",placeholder="Project No",autofocus="autofocus",value=adhoc.project_no,required)
           
           
         .form-group
           
           .col-sm-4.col-sm-offset-1
-              label(for='prot',class="control-label") Project Title *
+              label(for="project_title",class="control-label") Project Title *
           .col-sm-6
-              input#prot(type='text',class="form-control", name="project_title",placeholder="Project Title",value=adhoc.project_title,required)      
+              input#project_title(type="text",class="form-control", name="project_title",placeholder="Project Title",value=adhoc.project_title,required)      
           
 
         .form-group
           
           .col-sm-4.col-sm-offset-1
-              label(for='pcd',class="control-label") Project Completion Date
+              label(for="project_completion_date",class="control-label") Project Completion Date
           .col-sm-6
-              input#pcd(type='date', class="form-control",name="project_completion_date",placeholder="Project Completion Date",value=adhoc.project_completion_date)
+              input#project_completion_date(type="text", class="form-control",name="project_completion_date",placeholder="Project Completion Date",value=adhoc.project_completion_date)
           .col-sm-1
 
         .form-group
           .col-sm-4.col-sm-offset-1
-              label(for='cname',class="control-label") Name of the Candidate *
+              label(for="candidate_name",class="control-label") Name of the Candidate *
           .col-sm-6
-              input#cname(type='text', class="form-control",placeholder="Candidate Name",name="candidate_name",value=adhoc.candidate_name,required)
+              input#candidate_name(type="text", class="form-control",placeholder="Candidate Name",name="candidate_name",value=adhoc.candidate_name,required)
           
         .form-group    
           .col-sm-4.col-sm-offset-1
-              label(for='dob',class="control-label") Date of Birth
+              label(for="date_of_birth",class="control-label") Date of Birth
           .col-sm-6
-              input#dob(type='date',class="form-control", name="date_of_birth", placeholder="Date of Birth",value=adhoc.date_of_birth)
+              input#date_of_birth(type="text",class="form-control", name="date_of_birth", placeholder="Date of Birth",value=adhoc.date_of_birth)
        
         .form-group   
           .col-sm-4.col-sm-offset-1
-              label(for='padd',class="control-label") Permanent Address
+              label(for="permanent_address",class="control-label") Permanent Address
           .col-sm-6
-              input#padd(type='text',class="form-control", name="permanent_address",placeholder="Permanent Address") 
+              input#permanent_address(type="text",class="form-control", name="permanent_address",placeholder="Permanent Address") 
         
         .form-group     
           .col-sm-4.col-sm-offset-1
-             label(for='phno',class="control-label") Phone No.
+             label(for="phone_no",class="control-label") Phone No.
           .col-sm-6
-             input#phno(type='text', class="form-control",name="phone_no",placeholder="Phone No",value=adhoc.phone_no)
+             input#phone_no(type="text", class="form-control",name="phone_no",placeholder="Phone No",value=adhoc.phone_no)
        
         .form-group            
           .col-sm-4.col-sm-offset-1
-             label(for='eid',class="control-label") Email ID *
+             label(for="email_id",class="control-label") Email ID *
           .col-sm-6
-             input#eid(type='email', class="form-control",name="email_id",placeholder="Email ID",value=adhoc.email_id,required)
+             input#email_id(type="email", class="form-control",name="email_id",placeholder="Email ID",value=adhoc.email_id,required)
 
         .form-group  
           .col-sm-4.col-sm-offset-1
-             label(for='post',class="control-label") Post suggested
+             label(for="post_suggested",class="control-label") Post suggested
           .col-sm-6
-             input#post(type='text', class="form-control",name="post_suggested",placeholder="Post Suggested",value=adhoc.post_suggested)
+             input#post_suggested(type="text", class="form-control",name="post_suggested",placeholder="Post Suggested",value=adhoc.post_suggested)
 
         .form-group  
           .col-sm-4.col-sm-offset-1
-             label(for='salary',class="control-label,text-left") Monthly consolidated salary
+             label(for="monthly_consolidated_salary",class="control-label,text-left") Monthly consolidated salary
           .col-sm-6
-             input#salary(type='text', class="form-control",name="monthly_consolidated_salary",placeholder="Monthly Salary",value=adhoc.monthly_consolidated_salary)
+             input#monthly_consolidated_salary(type="text", class="form-control",name="monthly_consolidated_salary",placeholder="Monthly Salary",value=adhoc.monthly_consolidated_salary)
 
         .form-group 
           .col-sm-4.col-sm-offset-1
-             label(for='doa',class="control-label,text-left") Duration of Ad-hoc appointment
+             label(class="control-label,text-left") Duration of Ad-hoc appointment
           .col-sm-1
-             label(for='from',class="control-label") From
+             label(for="from",class="control-label") From
           .col-sm-2
-             input#datefrom(type='date', class="form-control",name="from", placeholder="From",value=adhoc.from)
+             input#from(type="date", class="form-control",name="from", placeholder="From",value=adhoc.from)
           
 
           .col-sm-1
-             label(for='from',class="control-label") To 
+             label(for="to",class="control-label") To 
           .col-sm-2
-             input#dateto(type='date',class="form-control", name="to", placeholder="To",value=adhoc.to)
+             input#to(type="date",class="form-control", name="to", placeholder="To",value=adhoc.to)
 
         .form-group 
           .col-sm-4.col-sm-offset-1
-             label(for='justification',class="control-label,text-left") Justification for Ad-hoc appointment
+             label(for="justification",class="control-label,text-left") Justification for Ad-hoc appointment
           .col-sm-6
-             input#justification(type='text', class="form-control",name="justification",placeholder="justification",value=adhoc.justification)
+             input#justification(type="text", class="form-control",name="justification",placeholder="justification",value=adhoc.justification)
             
         .form-group
             .col-sm-4.col-sm-offset-1
-             label(for='piname',class="control-label,text-left") Name of Project Investigator
+             label(for="piname",class="control-label,text-left") Name of Project Investigator
             .col-sm-6
-             input#piname(type='text', class="form-control",name="name_of_project_investigator",placeholder="Project Investigator Name",value=adhoc.name_of_project_investigator)
+             input#piname(type="text", class="form-control",name="name_of_project_investigator",placeholder="Project Investigator Name",value=adhoc.name_of_project_investigator)
 
         .form-group 
             .col-sm-4.col-sm-offset-1
-             label(for='pfno',class="control-label") PF No. 
+             label(for="pfno",class="control-label") PF No. 
             .col-sm-6
-             input#pfno(type='text',class="form-control", name="pfno_of_project_investigator", placeholder="PF No",value=adhoc.pfno_of_project_investigator)
+             input#pfno(type="text",class="form-control", name="pfno_of_project_investigator", placeholder="PF No",value=adhoc.pfno_of_project_investigator)
               
         
         .form-group
-       
-            .col-sm-4.col-sm-offset-5
-               input(type='submit', name='submit', value='Submit' ,data-loading-text="Loading...",class="btn btn-default")
+            .col-sm-1.col-sm-offset-5
+               button.btn.btn-default(type="submit", name="submit", value="Submit" ,data-loading-text="Loading...") Submit
+            .col-sm-1
+               button.btn.btn-default(type="reset", name="Reset") Reset
+
 
 
 

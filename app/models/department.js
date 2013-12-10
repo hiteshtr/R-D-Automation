@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var validate = require('mongoose-validate');
+var validate = require('../../lib/validate.js');
 var Schema = mongoose.Schema
 var crypto = require('crypto')
 var  _ = require('underscore');

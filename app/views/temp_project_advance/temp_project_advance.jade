@@ -9,7 +9,7 @@ block main
        h4|Research & Development
 block content
   
-  form(action='/temp_project_advance', name='form2', method='post',class='form-horizontal')
+  form(action='/temp_project_advance', name='tempProAdvncForm', method='post',class='form-horizontal')
       input(type='hidden', name='_csrf', value="#{csrf_token}")
       
       .form-group
@@ -26,83 +26,77 @@ block content
       hr
 
       .form-group
-        
         .col-sm-4.col-sm-offset-1
-          label(for='euh',class="control-label,text-left") Expenditure under the head of
+          label(for='expenditure_under_head',class="control-label,text-left") Expenditure under the head of
         .col-sm-6
-          select(name='expenditure_under_head',class='form-control')
-             option(value='con') Contigency
-             option(value='cons') Consumables
-             option(value='noncons') Non-consumables
-             option(value='ta') TA
-             option(value='DON') Donation
-             option(value='SWS') Sale of Software
-             option(value='TA') Travel Grant
-             option(value='PDA') Professiona |Dev. A/C
-             option(value='INS') Institute Project
-             option(value='INT') Initiation Grant
-             option(value='DPA') Dept. Promotion A/C
-             option(value='LDA') Lab Dev. A/C
+          select(name='expenditure_under_head',class='form-control',id='expenditure_under_head')
+             option(value=1, selected=tempPrjAdvance.expenditure_under_head==1 ? true : false) Contigency
+             option(value=2, selected=tempPrjAdvance.expenditure_under_head==2 ? true : false) Consumables
+             option(value=3, selected=tempPrjAdvance.expenditure_under_head==3 ? true : false) Non-consumables
+             option(value=4, selected=tempPrjAdvance.expenditure_under_head==4 ? true : false) TA
+             option(value=5, selected=tempPrjAdvance.expenditure_under_head==5 ? true : false) Donation
+             option(value=6, selected=tempPrjAdvance.expenditure_under_head==6 ? true : false) Sale of Software
+             option(value=7, selected=tempPrjAdvance.expenditure_under_head==7 ? true : false) Travel Grant
+             option(value=8, selected=tempPrjAdvance.expenditure_under_head==8 ? true : false) Professiona |Dev. A/C
+             option(value=9, selected=tempPrjAdvance.expenditure_under_head==9 ? true : false) Institute Project
+             option(value=10, selected=tempPrjAdvance.expenditure_under_head==10 ? true : false) Initiation Grant
+             option(value=11, selected=tempPrjAdvance.expenditure_under_head==11 ? true : false) Dept. Promotion A/C
+             option(value=12, selected=tempPrjAdvance.expenditure_under_head==12 ? true : false) Lab Dev. A/C
 
       .form-group
-        .col-sm-4.col-sm-offset-1
-        
-              label(for='npi',class="control-label,text-left") Name of the Project Investigator *
+        .col-sm-4.col-sm-offset-1       
+              label(for='name_p_investigator',class="control-label,text-left") Name of the Project Investigator *
         .col-sm-6   
-              input#npi.NameClass(type='text', name='name_p_investigator',class="form-control",placeholder="Project Investigator Name",value=tempPrjAdvance.name_p_investigator,required)
+              input#name_p_investigator(type='text', name='name_p_investigator',class="form-control",placeholder="Project Investigator Name",value=tempPrjAdvance.name_p_investigator,required)
 
       .form-group
-        .col-sm-4.col-sm-offset-1
-          
-              label(for='pf',class="control-label") P F No. *
+        .col-sm-4.col-sm-offset-1         
+              label(for='pf_no',class="control-label") P F No. *
         .col-sm-6      
-              input#pf.NameClass(type='text', name='pf_no',class="form-control",placeholder="P F No",value=tempPrjAdvance.pf_no,required)
+              input#pf_no(type='text', name='pf_no',class="form-control",placeholder="P F No",value=tempPrjAdvance.pf_no,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1     
-              label(for='pn',class="control-label") Project No. *
+              label(for='project_number',class="control-label") Project No. *
         .col-sm-6     
-              input#pn.NameClass(type='text', name='project_number',class="form-control",placeholder="Project No",value=tempPrjAdvance.project_number,required)
+              input#project_number(type='text', name='project_number',class="form-control",placeholder="Project No",value=tempPrjAdvance.project_number,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1      
-              label(for='aar',class="control-label,text-left") Amount of Advance required *
+              label(for='amount_advance_required',class="control-label,text-left") Amount of Advance required *
         .col-sm-6     
-              input#aar.NameClass(type='text', name='amount_advance_required',class="form-control",placeholder="Amount of Advance required",value=tempPrjAdvance.amount_advance_required,required)
+              input#amount_advance_required(type='text', name='amount_advance_required',class="form-control",placeholder="Amount of Advance required",value=tempPrjAdvance.amount_advance_required,required)
 
       .form-group
-        .col-sm-4.col-sm-offset-1  
-           
-              label(for='purpo',class="control-label,text-left") Purpose (with justification)
+        .col-sm-4.col-sm-offset-1             
+              label(for='purpose',class="control-label,text-left") Purpose (with justification)
         .col-sm-6
-              input#purpo.NameClass(type='text', name='purpose',class="form-control",placeholder="Purpose",value=tempPrjAdvance.purpose)
+              input#purpose(type='text', name='purpose',class="form-control",placeholder="Purpose",value=tempPrjAdvance.purpose)
 
       .form-group
         .col-sm-4.col-sm-offset-1     
-              label(for='sanc',class="control-label,text-left") Advance to be sanctioned in the name of (Permanent employee only) *
+              label(for='advance_sanctioned',class="control-label,text-left") Advance to be sanctioned in the name of (Permanent employee only) *
         .col-sm-6
-              input#sanc.NameClass(type='text', name='advance_sanctioned',class="form-control",placeholder="Advance to be sanctioned in the name of ",value=tempPrjAdvance.advance_sanctioned,required)
+              input#advance_sanctioned(type='text', name='advance_sanctioned',class="form-control",placeholder="Advance to be sanctioned in the name of ",value=tempPrjAdvance.advance_sanctioned,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1 
-              label(for='advhol',class="control-label,text-left") P.F. No of the Advance holder *
+              label(for='pfno_advance_holder',class="control-label,text-left") P.F. No of the Advance holder *
         .col-sm-6
-              input#advhol.NameClass(type='text', name='pfno_advance_holder',class="form-control",placeholder="P.F. No of the Advance holder",value=tempPrjAdvance.pfno_advance_holder,required)
+              input#pfno_advance_holder(type='text', name='pfno_advance_holder',class="form-control",placeholder="P.F. No of the Advance holder",value=tempPrjAdvance.pfno_advance_holder,required)
 
       .form-group
         .col-sm-4.col-sm-offset-1 
-              label(for='bac',class="control-label,text-left") Bank A/c No. for money transfer *
+              label(for='bank_ac_no',class="control-label,text-left") Bank A/c No. for money transfer *
         .col-sm-6
-              input#bac.NameClass(type='text', name='bank_ac_no',class="form-control",placeholder="Bank A/c No.",value=tempPrjAdvance.bank_ac_no,required)
-      
+              input#bank_ac_no(type='text', name='bank_ac_no',class="form-control",placeholder="Bank A/c No.",value=tempPrjAdvance.bank_ac_no,required)
+        
+      .form-group
+        .col-sm-1.col-sm-offset-5
+             button.btn.btn-default(type='submit', name='submit', value='Submit') Submit
         .col-sm-1
-      // /span
-      
-  
-      .form-group
-        .col-sm-4.col-sm-offset-5
-             input(type='submit', name='submit', value='Submit',class="btn btn-default")
-        .col-sm-2
+             button.btn.btn-default(type="reset", name="Reset") Reset
+        
 
   
 

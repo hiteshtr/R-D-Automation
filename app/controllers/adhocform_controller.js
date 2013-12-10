@@ -32,24 +32,25 @@ exports.save = function(req, res) {
     res.redirect('/adhoc');
     }
     else
-    {//send error
-       /*console.log(err);
+    {
+       console.log(err);
        console.log(err.code);
        if(err.code==11000)
         {
          req.flash('errors','email id is already registered..!!');
          res.redirect('/adhoc');
-         console.log("email id is already registered..!!");
-         console.log("not saved");
         }
 
-      else{  */
-        
+      else
+      {   
         console.log(err);
         res.render('adhoc/adhocform',{
             title: 'Request for Ad-hoc Appointment',
             adhoc:adhoc,
-            errors: utils.errors(err.errors || err)});
+            errors: utils.errors(err.errors || err)
+
+        });
+      }
     }
   });
   

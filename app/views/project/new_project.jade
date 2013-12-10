@@ -79,7 +79,7 @@ block content
           .col-sm-3
                 label(for='sd',class="control-label") Sanction Date
           .col-sm-5
-                input#sd.NameClass(type="date", name="sanction_date", placeholder="select a date...", class="form-control")
+                input#sd.NameClass(type="text", name="sanction_date", placeholder="select a date...", class="form-control")
           .col-sm-2
          .form-group
           .col-sm-2
@@ -93,14 +93,14 @@ block content
           .col-sm-3
                  label(for='std',class="control-label") Start Date
           .col-sm-5
-                 input#std.NameClass(type="date", name="start_date", placeholder="select a date...", class="form-control")
+                 input#std.NameClass(type="text", name="start_date", placeholder="select a date...", class="form-control")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                  label(for='ed',class="control-label") End Date
           .col-sm-5
-                 input#ed.NameClass(type="date", name="end_date", placeholder="select a date...", class="form-control")
+                 input#ed.NameClass(type="text", name="end_date", placeholder="select a date...", class="form-control")
           .col-sm-2
          .form-group
           .col-sm-2
@@ -117,7 +117,7 @@ block content
                  select(name="department_id", class="form-control")
                     option(value=0) (select)
                     -each dp in dept
-                     option(value=dp._id)= dp.department
+                     option(value=dp._id)= dp.department_name
           .col-sm-2
          .form-group
           .col-sm-2
