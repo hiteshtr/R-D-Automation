@@ -13,10 +13,10 @@ var _ = require('underscore');
 */
 
 var AdhocSchema = new Schema({
-  project_no: { type: String, default: '',required:'Project number is required.'},
-  project_title: { type: String, default: '',validate:[validate.alphanumericWithSpace,'Project title is required.']},
+  project_no: { type: String, default: '',validate:[validate.empty,'Project number is required.']},
+  project_title: { type: String, default: '',required: 'Project title is required.', validate:[validate.alphanumericWithSpace,'Project title is required.']},
   project_completion_date: { type: Date, default: ''},
-  candidate_name: { type : String, default:'',validate:[validate.alphaWithSpace,'Candidate name is required and should be only alphabates.']},
+  candidate_name: { type : String, default:'',required: 'Candidate name is required.',validate:[validate.alphaWithSpace,'Candidate name should be only alphabates.']},
   date_of_birth: { type : Date, default:''},
   permanent_address: { type : String, default:''},
   phone_no: { type : String, default: '',validate:[validate.numericOrBlank,'phone number should be numeric.']},

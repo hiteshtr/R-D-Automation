@@ -91,4 +91,7 @@ module.exports = function (app, passport, io) {
   app.get('/travel_advance_approval',trvlAdvncApp.trvlAdvncAppForm);
   app.post('/travel_advance_approval',trvlAdvncApp.save);
 
+ //No Dues Routes
+  var noDues=require('../app/controllers/no_dues_controller');
+  app.get('/no_dues',noDues.noDuesForm);
 }

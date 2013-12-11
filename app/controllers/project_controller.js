@@ -8,15 +8,15 @@ var utils = require('../../lib/utils')
 	, async = require('async');
 
 exports.new_project = function (req, res) {
-	 Department.find (function (err,depts) {
-         Projectclass.find (function (err,pcs) {
-	         res.render('project/new_project',{
-	          title: 'Project',
-	          dept:depts,
-              pclasses:pcs
-	         });
-});
-});	         
+	Department.find (function (err,depts) {
+		Projectclass.find (function (err,pcs) {
+			res.render('project/new_project',{
+				title: 'Project',
+				dept:depts,
+				pclasses:pcs
+			});
+		});
+	});	         
 }
 
 exports.save = function (req, res) {
@@ -25,8 +25,7 @@ exports.save = function (req, res) {
 		if (err) {
 			return res.render('project/new_project', {
 		        errors: utils.errors(err.errors || err),
-		        title: 'Add new project details',
-
+		        title: 'Add new project details'
 		      })
 		}
 		req.flash('success', 'successfully saved project details');
@@ -43,15 +42,13 @@ exports.show =function(req,res){
 		  if (err) {
 		   		res.render('project/show', {
 					title: 'List of Projects',
-					errors: utils.errors(err.errors || err)
-					
+					errors: utils.errors(err.errors || err)	
 				});
 	   		};
    		res.render('project/show', {
 			title: 'List of Projects',
 			projects: result,
 		});
-		  // prints "The creator is Aaron"
 	});
 	/*async.parallel([
 	   function(callback){

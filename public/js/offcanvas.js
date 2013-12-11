@@ -28,3 +28,12 @@ function enableprojectclass(id1,id2,id3){
   document.getElementById(id2).disabled = false;
   document.getElementById(id3).disabled = false;
 }
+
+
+
+$(function() {
+  $(".datepicker").datepicker({
+   changeMonth: true,
+   changeYear: true
+  }); 
+});

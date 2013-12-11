@@ -5,7 +5,7 @@ block main
       h2|Projects
 block content
 
-  form(class="formDecor", method='post')
+  form(class="formDecor", method='post', action='/project')
         input(type='hidden', name='_csrf', value="#{csrf_token}")
         center
           h4|Add New Project
@@ -17,7 +17,7 @@ block content
           .col-sm-3
                label(for='pt',class="control-label") Project Title
           .col-sm-5
-               input#pt.NameClass(type="text", name="project_title", placeholder="Enter the project title...", class="form-control")
+               input#pt.form-control(type="text", name="project_title", placeholder="Enter the project title...")
           .col-sm-2       
         
 
@@ -26,7 +26,7 @@ block content
           .col-sm-3
                 label(for='sa',class="control-label") Sponsoring Agency
           .col-sm-5
-                input#sa.NameClass(type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency...", class="form-control")
+                input#sa.form-control(type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency...")
           .col-sm-2
         
 
@@ -49,7 +49,7 @@ block content
           .col-sm-3  
                  label(for='count',class="control-label") Country
           .col-sm-5
-                 input#count.NameClass(type="text", name="country", placeholder="Enter the country name...", class="form-control")
+                 input#count.form-control(type="text", name="country", placeholder="Enter the country name...")
           .col-sm-2
         
          .form-group
@@ -57,7 +57,7 @@ block content
           .col-sm-3
                  label(for='ca',class="control-label") Collaborating Agency
           .col-sm-5
-                 input#ca.NameClass(type="text", name="collaborating_agency", placeholder="Enter a collaborating agency...", class="form-control")
+                 input#ca.form-control(type="text", name="collaborating_agency", placeholder="Enter a collaborating agency...")
           .col-sm-2
 
          .form-group
@@ -65,49 +65,49 @@ block content
           .col-sm-3
                  label(for='ra',class="control-label") Research Area
           .col-sm-5
-                  input#ra.NameClass(type="text", name="research_area", placeholder="Enter the research area...", class="form-control")
+                  input#ra.form-control(type="text", name="research_area", placeholder="Enter the research area...")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                  label(for='sn',class="control-label") Sanction Number
           .col-sm-5
-                 input#sn.NameClass(type="text", name="sanction_number", placeholder="Enter the sanction number...", class="form-control")
+                 input#sn.form-control(type="text", name="sanction_number", placeholder="Enter the sanction number...")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                 label(for='sd',class="control-label") Sanction Date
           .col-sm-5
-                input#sd.NameClass(type="text", name="sanction_date", placeholder="select a date...", class="form-control")
+                input#sd.form-control.datepicker(type="text", name="sanction_date", placeholder="select a date...")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                 label(for='dur',class="control-label") Duration (in days)
           .col-sm-5
-                input#dur.NameClass(type="text", name="duration", placeholder="Enter the duration...", class="form-control") Days
+                input#dur.form-control(type="text", name="duration", placeholder="Enter the duration...") Days
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                  label(for='std',class="control-label") Start Date
           .col-sm-5
-                 input#std.NameClass(type="text", name="start_date", placeholder="select a date...", class="form-control")
+                 input#std.form-control.datepicker(type="text", name="start_date", placeholder="select a date...")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                  label(for='ed',class="control-label") End Date
           .col-sm-5
-                 input#ed.NameClass(type="text", name="end_date", placeholder="select a date...", class="form-control")
+                 input#ed.form-control.datepicker(type="text", name="end_date", placeholder="select a date...")
           .col-sm-2
          .form-group
           .col-sm-2
           .col-sm-3
                  label(for='sanamt',class="control-label") Sanctioned Amount
           .col-sm-5
-                  input#sanamt.NameClass(type="text", name="sanctioned_amount", placeholder="Enter the sanction amount...", class="form-control")
+                  input#sanamt.form-control(type="text", name="sanctioned_amount", placeholder="Enter the sanction amount...")
           .col-sm-2
          .form-group
           .col-sm-2
@@ -133,7 +133,7 @@ block content
         .form-horizontal(role="form")
           .form-group
             .col-sm-offset-5.col-sm-2
-                 button.btn.btn-default(type="submit", name="Add_Project") Add Project
+                 button.btn.btn-primary(type="submit", name="Add_Project") Add Project
             .col-sm-1
                  button.btn.btn-default(type="reset", name="Reset") Reset
 
