@@ -1,0 +1,81 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Approval for Advertisement on IITJ website and Selection Committee for Appointment in Project 
+block content
+  form( class="formDecor", method='post', action="/approval_for_advertisement" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project No.
+        .col-sm-6
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no.", value=advertisement.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-6
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=advertisement.project_title )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Position to be Advertised
+        .col-sm-6
+          select.form-control( name="position_advertise" )
+            each designation in designations
+              if(advertisement.position_advertise)
+                option( id=designation._id, value=designation._id, selected=advertisement.position_advertise.toString() == designation._id.toString() ? true : false )= designation.designation_name
+              else
+                option( id=designation._id, value=designation._id, selected=advertisement.position_advertise == designation._id ? true : false )= designation.designation_name  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Salary Range
+        .col-sm-6
+          input#salary_range.form-control( type="text", name="salary_range", placeholder="Enter salary range", value=advertisement.salary_range )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          b| Selection Committee
+        .col-sm-4
+      
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Chairman
+        .col-sm-6
+          input#chairman.form-control( type="text", name="chairman", placeholder="Enter name of chairman", value=advertisement.chairman )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Member
+        .col-sm-6
+          input#member1.form-control( type="text", name="member1", placeholder="Enter name of member", value=advertisement.member1 )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Member
+        .col-sm-6
+          input#member2.form-control( type="text", name="member2", placeholder="Enter name of member", value=advertisement.member2 )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Convenor/ Project Investigator
+        .col-sm-6
+          input#convenor.form-control( type="text", name="convenor", placeholder="Enter name of Convenor/ Project Investigator", value=advertisement.convenor )  
+        .col-sm-1    
+
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit
+          
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+        

@@ -4,30 +4,4 @@ block main
   center
       h2|Add New Project Class
 block content
-  form(class="formDecor", method='post')
-        input(type='hidden', name='_csrf', value="#{csrf_token}")
-        .form-horizontal(role="form")
-          .form-group
-            .col-sm-2
-            .col-sm-3
-             label(for='pcc',class="control-label") Project Class Code
-            .col-sm-5
-               input#pcc.NameClass(type='text', name='pclasscode_name',placeholder="Enter a project class code...",class="form-control", id="pclasscode_input")
-            .col-sm-2
-        
-          .form-group
-            .col-sm-2
-            .col-sm-3
-             label(for='pcn',class="control-label") Project Class Name
-            .col-sm-5
-               input#pcn.NameClass(type='text', name='pclass_name',placeholder="Enter a project class name...",class="form-control", id="pclass_input")
-            .col-sm-2
-           
-          .form-group
-            .col-sm-offset-5.col-sm-1
-              button.btn.btn-default(type='submit',name='submit') Add
-                 
-            .col-sm-1
-              button.btn.btn-default(type='reset',name='reset') Reset
-      
     

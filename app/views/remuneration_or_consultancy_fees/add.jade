@@ -1,0 +1,137 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Request for Release of remuneration or consultancy fees Short term consultant or Personnel
+block content
+  form( class="formDecor", method='post', action="/remuneration_or_consultancy_fees" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of PI
+        .col-sm-6
+          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter name of pi", value=remunerationConsultancy.pi_name )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PF No
+        .col-sm-6
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter pf no", value=remunerationConsultancy.pf_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-6
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=remunerationConsultancy.project_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Sanction No
+        .col-sm-6
+          input#sanction_no.form-control( type="text", name="sanction_no", placeholder="Enter sanction no", value=remunerationConsultancy.sanction_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Sanction Date
+        .col-sm-6
+          input#sanction_date.datepicker.form-control( type="text", name="sanction_date", placeholder="select sanction date", value=remunerationConsultancy.sanction_date )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Head
+        .col-sm-6
+          select#project_head.form-control( name="project_head" )
+            option( value='salary', selected=remunerationConsultancy.project_head=='salary' ? true : false ) Salary
+            option( value='contigency', selected=remunerationConsultancy.project_head=='contigency' ? true : false ) Contigency
+            option( value='consultancy', selected=remunerationConsultancy.project_head=='consultancy' ? true : false ) Consultancy Fee 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Outcome of Appointment
+        .col-sm-6
+          input#appointment.form-control( type="text", name="appointment", placeholder="Enter outcome of appointment", value=remunerationConsultancy.appointment )  
+        .col-sm-1
+        
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Remuneration/consultancy charges payable
+        .col-sm-6
+          input#charges_payable.form-control( type="text", name="charges_payable", placeholder="Enter remuneration/consultancy charges payable", value=remunerationConsultancy.charges_payable )  
+        .col-sm-1 
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Period
+        .col-sm-6
+          .input-group
+            span.input-group-addon From
+            input#from.datepicker.form-control( name="from", type="text", placeholder='select a date' ) 
+            span.input-group-addon To
+            input#to.datepicker.form-control( name="to", type="text", placeholder='select a date' ) 
+        .col-sm-1 
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Name of the Institute / consultant / expert / Individual who is not employee of IIT Jodhpur 
+        .col-sm-6
+          input#name_institute.form-control( type="text", name="name_institute", placeholder="Enter Name of the Institute / consultant / expert / Individual who is not employee of IIT Jodhpur ", value=remunerationConsultancy.name_institute )  
+        .col-sm-1 
+        
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Service Tax No.(If Applicable)
+        .col-sm-6
+          input#service_tax_no.form-control( type="text", name="service_tax_no", placeholder="Enter service tax no(if applicable)", value=remunerationConsultancy.service_tax_no )  
+        .col-sm-1 
+      
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PAN/TAN No
+        .col-sm-6
+          input#pan_tan_no.form-control( type="text", name="pan_tan_no", placeholder="Enter PAN/TAN No", value=remunerationConsultancy.pan_tan_no )  
+        .col-sm-1 
+      
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label TIN No
+        .col-sm-6
+          input#tin_no.form-control( type="text", name="tin_no", placeholder="Enter TIN No", value=remunerationConsultancy.tin_no )  
+        .col-sm-1 
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Mode of Payment
+        .col-sm-6
+          select#mode_payment.form-control( name="mode_payment" )
+            option( value='cheque', selected=remunerationConsultancy.mode_payment=='cheque' ? true : false ) Cheque
+            option( value='dd', selected=remunerationConsultancy.mode_payment=='dd' ? true : false ) DD
+            option( value='bankTransfer', selected=remunerationConsultancy.mode_payment=='bankTransfer' ? true : false ) Bank Transfer 
+        .col-sm-1
+      
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Bank Account No
+        .col-sm-6
+          input#bank_account_no.form-control( type="text", name="bank_account_no", placeholder="Enter bank account no", value=remunerationConsultancy.bank_account_no )  
+        .col-sm-1 
+      
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Bank Name
+        .col-sm-6
+          input#bank_name.form-control( type="text", name="bank_name", placeholder="Enter bank name", value=remunerationConsultancy.bank_name )  
+        .col-sm-1 
+
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit
+          
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+        

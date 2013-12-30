@@ -6,10 +6,10 @@ block main
         .col-sm-3
            img(src='images/BVgsCN.jpg',class="img-responsive", alt='IITJ logo', width='80', height='80')
         .col-sm-8
-         center
-           h3|Indian Institute of Technology Jodhpur
+          .text-center
+            h3|Indian Institute of Technology Jodhpur
     
-           h4|Research & Development
+            h4|Research & Development
             
                   
                       
@@ -19,8 +19,8 @@ block content
         input(type='hidden', name='_csrf', value="#{csrf_token}")
         .form-group
           .col-sm-12
-           center
-            h4|Request for Ad-hoc Appointment
+            .text-center
+              h4|Request for Ad-hoc Appointment
         hr
 
         .form-group
@@ -37,16 +37,14 @@ block content
               input#project_no.form-control( type="text", name="project_no",placeholder="Project No", autofocus="autofocus", value=adhoc.project_no, required )
           
           
-        .form-group
-          
+        .form-group         
           .col-sm-4.col-sm-offset-1
               label(for="project_title",class="control-label") Project Title *
           .col-sm-6
               input#project_title.form-control( type="text", name="project_title", placeholder="Project Title", value=adhoc.project_title, required )      
           
 
-        .form-group
-          
+        .form-group          
           .col-sm-4.col-sm-offset-1
               label(for="project_completion_date",class="control-label") Project Completion Date
           .col-sm-6
@@ -127,9 +125,9 @@ block content
               
         
         .form-group
-            .col-sm-1.col-sm-offset-5
+            .col-sm-4.col-sm-offset-5
                button.btn.btn-primary(type="submit", name="submit", value="Submit" ,data-loading-text="Loading...") Submit
-            .col-sm-1
+               
                button.btn.btn-default(type="reset", name="Reset") Reset
 
 

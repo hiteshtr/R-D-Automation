@@ -1,4 +1,4 @@
-!!! 5
+doctype html
 html(lang='en')
   include ../includes/head
   body
@@ -31,9 +31,7 @@ html(lang='en')
                 a.list-group-item(href='#') Link
           //- } else {
           .list-group
-            - console.log(path)
-            a.list-group-item(href='/department', class=path=='/department'?'active':undefined) Department
-            a.list-group-item(href='/faculty', class=path=='/faculty'?'active':undefined) Faculty
+            - console.log(path)           
             a.list-group-item(href='/project', class=path=='/project'?'active':undefined) Project
             a.list-group-item(href='/adhoc', class=path=='/adhoc'?'active':undefined) Ad-Hoc Form
             a.list-group-item(href='/no_dues', class=path=='/no_dues'?'active':undefined) No-Dues Form
@@ -44,6 +42,18 @@ html(lang='en')
             a.list-group-item(href='/designation/list', class=path=='/designation/list'?'active':undefined) List of Designations
             a.list-group-item(href='/faculty/list', class=path=='/faculty/list'?'active':undefined) List of Faculties
             a.list-group-item(href='/project/list', class=path=='/project/list'?'active':undefined) List of Projects
+            a.list-group-item(href='/purchase_committee', class=path=='/purchase_committee'?'active':undefined) Approval for Purchase Committee
+            a.list-group-item(href='/extension_of_duration_of_project_employee', class=path=='/extension_of_duration_of_project_employee'?'active':undefined) Extension of duration of project employee
+            a.list-group-item(href='/release_of_payment_for_students', class=path=='/release_of_payment_for_students'?'active':undefined) Release of payment for students
+            a.list-group-item(href='/approval_for_advertisement', class=path=='/approval_for_advertisement'?'active':undefined) Approval for advertisement
+            a.list-group-item(href='/disbursement_honorarium', class=path=='/disbursement_honorarium'?'active':undefined) Disbursement of honorarium from Consultancy Project
+            a.list-group-item(href='/joining_report', class=path=='/joining_report'?'active':undefined) Joining report
+            a.list-group-item(href='/remuneration_or_consultancy_fees', class=path=='/remuneration_or_consultancy_fees'?'active':undefined) Release of Remuneration or consultancy fees
+            a.list-group-item(href='/requisition_for_payment', class=path=='/requisition_for_payment'?'active':undefined) Requisition for payment
+            a.list-group-item(href='/selection_committee', class=path=='/selection_committee'?'active':undefined) Selection committee Report
+            a.list-group-item(href='/short_term_consultant', class=path=='/short_term_consultant'?'active':undefined) Request for engaging Short term consultants
+            a.list-group-item(href='/student_employment', class=path=='/student_employment'?'active':undefined) Request for Student employment
+            a.list-group-item(href='/statement_of_account', class=path=='/statement_of_account'?'active':undefined) Statement of account
 
           //- }
         // /span

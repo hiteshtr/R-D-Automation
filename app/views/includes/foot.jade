@@ -1,152 +1,146 @@
 script(src="/js/jquery-1.10.2.min.js")
+script(src="/js/jquery-ui-1.10.3.js")
 script(src="/socket.io/socket.io.js")
 script(src="/js/bootstrap.min.js")
 script(src="/js/offcanvas.js")
-script(src="/js/notification.js")
-//script(src="#{'/js' + req.path + '.js'}")
-script(src="/js/jquery.min.js") <!--http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js-->
+//script(src="/js/notification.js")
 
-//script(src="http://code.jquery.com/jquery-1.9.1.js")
-script(src="/js/jquery-ui-1.10.3.js")
+block foot
 
+//- script.
+//-       $(document).ready(function(){
+//-         var temp = ["Details", "Attachments", "Investigators", "Funds", "Project-Posts", "Travel-Details"];
 
+//-         $("#" + temp[0] + "_").click(function(){
+//-           if($("#" + temp[0]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideDown("fast");
+//-             $("#" + temp[1]).slideUp("fast");
+//-             $("#" + temp[2]).slideUp("fast");
+//-             $("#" + temp[3]).slideUp("fast");
+//-             $("#" + temp[4]).slideUp("fast");
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }else{
+//-             $("#" + temp[0]).slideUp("fast");
+//-           }
+//-         });
 
+//-         $("#" + temp[1] + "_").click(function(){
+//-           if($("#" + temp[1]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideUp("fast");
+//-             $("#" + temp[1]).slideDown("fast");
+//-             $("#" + temp[2]).slideUp("fast");
+//-             $("#" + temp[3]).slideUp("fast");
+//-             $("#" + temp[4]).slideUp("fast");
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }else{
+//-             $("#" + temp[1]).slideUp("fast");
+//-           }
+//-         });
 
-script.
-      $(document).ready(function(){
-        var temp = ["Details", "Attachments", "Investigators", "Funds", "Project-Posts", "Travel-Details"];
+//-         $("#" + temp[2] + "_").click(function(){
+//-           if($("#" + temp[2]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideUp("fast");
+//-             $("#" + temp[1]).slideUp("fast");
+//-             $("#" + temp[2]).slideDown("fast");
+//-             $("#" + temp[3]).slideUp("fast");
+//-             $("#" + temp[4]).slideUp("fast");
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }else{
+//-             $("#" + temp[2]).slideUp("fast");
+//-           }
+//-         });
 
-        $("#" + temp[0] + "_").click(function(){
-          if($("#" + temp[0]).css('display') == 'none'){
-            $("#" + temp[0]).slideDown("fast");
-            $("#" + temp[1]).slideUp("fast");
-            $("#" + temp[2]).slideUp("fast");
-            $("#" + temp[3]).slideUp("fast");
-            $("#" + temp[4]).slideUp("fast");
-            $("#" + temp[5]).slideUp("fast");
-          }else{
-            $("#" + temp[0]).slideUp("fast");
-          }
-        });
+//-         $("#" + temp[3] + "_").click(function(){
+//-           if($("#" + temp[3]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideUp("fast");
+//-             $("#" + temp[1]).slideUp("fast");
+//-             $("#" + temp[2]).slideUp("fast");
+//-             $("#" + temp[3]).slideDown("fast");
+//-             $("#" + temp[4]).slideUp("fast");
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }else{
+//-             $("#" + temp[3]).slideUp("fast");
+//-           }
+//-         });
 
-        $("#" + temp[1] + "_").click(function(){
-          if($("#" + temp[1]).css('display') == 'none'){
-            $("#" + temp[0]).slideUp("fast");
-            $("#" + temp[1]).slideDown("fast");
-            $("#" + temp[2]).slideUp("fast");
-            $("#" + temp[3]).slideUp("fast");
-            $("#" + temp[4]).slideUp("fast");
-            $("#" + temp[5]).slideUp("fast");
-          }else{
-            $("#" + temp[1]).slideUp("fast");
-          }
-        });
+//-         $("#" + temp[4] + "_").click(function(){
+//-           if($("#" + temp[4]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideUp("fast");
+//-             $("#" + temp[1]).slideUp("fast");
+//-             $("#" + temp[2]).slideUp("fast");
+//-             $("#" + temp[3]).slideUp("fast");
+//-             $("#" + temp[4]).slideDown("fast");
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }else{
+//-             $("#" + temp[4]).slideUp("fast");
+//-           }
+//-         });
 
-        $("#" + temp[2] + "_").click(function(){
-          if($("#" + temp[2]).css('display') == 'none'){
-            $("#" + temp[0]).slideUp("fast");
-            $("#" + temp[1]).slideUp("fast");
-            $("#" + temp[2]).slideDown("fast");
-            $("#" + temp[3]).slideUp("fast");
-            $("#" + temp[4]).slideUp("fast");
-            $("#" + temp[5]).slideUp("fast");
-          }else{
-            $("#" + temp[2]).slideUp("fast");
-          }
-        });
+//-         $("#" + temp[5] + "_").click(function(){
+//-           if($("#" + temp[5]).css('display') == 'none'){
+//-             $("#" + temp[0]).slideUp("fast");
+//-             $("#" + temp[1]).slideUp("fast");
+//-             $("#" + temp[2]).slideUp("fast");
+//-             $("#" + temp[3]).slideUp("fast");
+//-             $("#" + temp[4]).slideUp("fast");
+//-             $("#" + temp[5]).slideDown("fast");
+//-           }else{
+//-             $("#" + temp[5]).slideUp("fast");
+//-           }
+//-         });
 
-        $("#" + temp[3] + "_").click(function(){
-          if($("#" + temp[3]).css('display') == 'none'){
-            $("#" + temp[0]).slideUp("fast");
-            $("#" + temp[1]).slideUp("fast");
-            $("#" + temp[2]).slideUp("fast");
-            $("#" + temp[3]).slideDown("fast");
-            $("#" + temp[4]).slideUp("fast");
-            $("#" + temp[5]).slideUp("fast");
-          }else{
-            $("#" + temp[3]).slideUp("fast");
-          }
-        });
+//-       });
 
-        $("#" + temp[4] + "_").click(function(){
-          if($("#" + temp[4]).css('display') == 'none'){
-            $("#" + temp[0]).slideUp("fast");
-            $("#" + temp[1]).slideUp("fast");
-            $("#" + temp[2]).slideUp("fast");
-            $("#" + temp[3]).slideUp("fast");
-            $("#" + temp[4]).slideDown("fast");
-            $("#" + temp[5]).slideUp("fast");
-          }else{
-            $("#" + temp[4]).slideUp("fast");
-          }
-        });
+//-       function getFundTypeVal(str){
+//-         switch(str){
+//-           case "Equipments":    return 1; break;
+//-           case "Salary":        return 2; break;
+//-           case "Contingency":   return 3; break;
+//-           case "Honorarium":    return 4; break;
+//-           case "Consumables":   return 5; break;
+//-           case "Travel":        return 6; break;
+//-           case "Overhead":      return 7; break;
+//-           case "Miscellaneous": return 8; break;
+//-           default:              return 0; break;
+//-         }
+//-       }
 
-        $("#" + temp[5] + "_").click(function(){
-          if($("#" + temp[5]).css('display') == 'none'){
-            $("#" + temp[0]).slideUp("fast");
-            $("#" + temp[1]).slideUp("fast");
-            $("#" + temp[2]).slideUp("fast");
-            $("#" + temp[3]).slideUp("fast");
-            $("#" + temp[4]).slideUp("fast");
-            $("#" + temp[5]).slideDown("fast");
-          }else{
-            $("#" + temp[5]).slideUp("fast");
-          }
-        });
+//-       var currentFundType = 0;
+//-       function setCurrentFundType(val){
+//-         currentFundType = val;
+//-       }
 
-      });
+//-       var prevVal = 0;
+//-       function fundTypeClicked(val){
+//-         if(prevVal != val){
+//-           if(prevVal != 0 && prevVal != null){
+//-             document.getElementById("divradio" + prevVal).className = "radioBack";
+//-             document.getElementById("block" + prevVal).style.display = "none";
+//-           }
+//-           if(currentFundType != 0){
+//-             document.getElementById("divradio" + currentFundType).className = "radioBack";
+//-             document.getElementById("block" + currentFundType).style.display = "none";
+//-             currentFundType = 0;
+//-           }
+//-           document.getElementById("divradio" + val).className = "radioBackSelected";
+//-           document.getElementById("block" + val).style.display = "block";
+//-           /*
+//-           str = "";
+//-           for(var i=1;i<=8;i++){
+//-             str += "divradio" + i + ": " + document.getElementById("divradio" + i).className + "\n";
+//-           }
+//-           alert(str);
+//-           */
+//-           prevVal = val;
+//-         }
+//-       }
 
-      function getFundTypeVal(str){
-        switch(str){
-          case "Equipments":    return 1; break;
-          case "Salary":        return 2; break;
-          case "Contingency":   return 3; break;
-          case "Honorarium":    return 4; break;
-          case "Consumables":   return 5; break;
-          case "Travel":        return 6; break;
-          case "Overhead":      return 7; break;
-          case "Miscellaneous": return 8; break;
-          default:              return 0; break;
-        }
-      }
-
-      var currentFundType = 0;
-      function setCurrentFundType(val){
-        currentFundType = val;
-      }
-
-      var prevVal = 0;
-      function fundTypeClicked(val){
-        if(prevVal != val){
-          if(prevVal != 0 && prevVal != null){
-            document.getElementById("divradio" + prevVal).className = "radioBack";
-            document.getElementById("block" + prevVal).style.display = "none";
-          }
-          if(currentFundType != 0){
-            document.getElementById("divradio" + currentFundType).className = "radioBack";
-            document.getElementById("block" + currentFundType).style.display = "none";
-            currentFundType = 0;
-          }
-          document.getElementById("divradio" + val).className = "radioBackSelected";
-          document.getElementById("block" + val).style.display = "block";
-          /*
-          str = "";
-          for(var i=1;i<=8;i++){
-            str += "divradio" + i + ": " + document.getElementById("divradio" + i).className + "\n";
-          }
-          alert(str);
-          */
-          prevVal = val;
-        }
-      }
-
-      function showFundDetails(val){
-        var fd = document.getElementById("fundDetails" + val);
-        var ft = document.getElementById("fundTitle" + val);
-        if (fd.style.display == "block"){
-          fd.style.display = "none";
-        }else{
-          fd.style.display = "block";
-        }
-      }
-
+//-       function showFundDetails(val){
+//-         var fd = document.getElementById("fundDetails" + val);
+//-         var ft = document.getElementById("fundTitle" + val);
+//-         if (fd.style.display == "block"){
+//-           fd.style.display = "none";
+//-         }else{
+//-           fd.style.display = "block";
+//-         }
+//-       }

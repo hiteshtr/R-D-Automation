@@ -4,17 +4,17 @@ block main
   .container
    .row
     .col-sm-12
-       center
-         h3|Indian Institute of Technology Jodhpur
-         h4|Research & Development
+      .text-center
+        h3|Indian Institute of Technology Jodhpur
+        h4|Research & Development
 block content
   form(action='/travel_advance_approval', name='trvlAdvncApprovForm', method='post',class='form-horizontal')
         input(type='hidden', name='_csrf', value="#{csrf_token}")
 
         .form-group
           .col-sm-12
-            center
-             h4|Journey cum Travel Advance Approval Form
+            .text-center
+              h4|Journey cum Travel Advance Approval Form
         hr
   
         .form-group
@@ -26,56 +26,62 @@ block content
           .col-sm-4.col-sm-offset-1
                 label(for='project_no',class="control-label") Project Number *
           .col-sm-6     
-                input#project_no.form-control( type="text", name='project_no', placeholder="Project Number", value=travelAdvanceApproval.project_no, required )
+                input#project_no.form-control( type="text", name="project_no", placeholder="Project Number", value=travelAdvanceApproval.project_no, required )
 
         .form-group
           .col-sm-4.col-sm-offset-1
              
                 label(for='name_of_traveller',class="control-label") Name of the Traveller *
           .col-sm-6
-                input#name_of_traveller.form-control( type='text', name='name_of_traveller', placeholder="Traveller Name", value=travelAdvanceApproval.name_of_traveller, required )
+                input#name_of_traveller.form-control( type="text", name="name_of_traveller", placeholder="Traveller Name", value=travelAdvanceApproval.name_of_traveller, required )
 
         .form-group
           .col-sm-4.col-sm-offset-1     
                 label(for='designation',class="control-label") Designation *
           .col-sm-6
-                input#designation.form-control( type='text', name='designation', placeholder="Designation", value=travelAdvanceApproval.designation, required )
+                select.form-control(name="designation_id")
+                  each designation in designations
+                    if(travelAdvanceApproval.designation_id)
+                      option( id=designation._id, value=designation._id, selected=travelAdvanceApproval.designation_id.toString() == designation._id.toString() ? true : false )= designation.designation_name
+                    else
+                      option( id=designation._id, value=designation._id, selected=travelAdvanceApproval.designation_id == designation._id ? true : false )= designation.designation_name
+
 
         .form-group
           .col-sm-4.col-sm-offset-1     
                 label(for='pf_no',class="control-label") P F No / Roll No *
           .col-sm-6
-                input#pf_no.form-control( type='text', name='pf_no', placeholder="P F No / Roll No", value=travelAdvanceApproval.pf_no, required )
+                input#pf_no.form-control( type="text", name="pf_no", placeholder="P F No / Roll No", value=travelAdvanceApproval.pf_no, required )
 
         .form-group
           .col-sm-4.col-sm-offset-1      
                 label(for='journey_date',class="control-label") Journey Date 
           .col-sm-6
-                input#journey_date.form-control.datepicker( type='text', name='journey_date', placeholder="Journey Date", value=travelAdvanceApproval.journey_date )
+                input#journey_date.form-control.datepicker( type="text", name="journey_date", placeholder="Journey Date", value=travelAdvanceApproval.journey_date )
 
         .form-group
           .col-sm-4.col-sm-offset-1     
                 label(for='returning_date',class="control-label") Returning Date 
           .col-sm-6
-                input#returning_date.form-control.datepicker( type='text', name='returning_date', placeholder="Returning Date", value=travelAdvanceApproval.returning_date )
+                input#returning_date.form-control.datepicker( type="text", name="returning_date", placeholder="Returning Date", value=travelAdvanceApproval.returning_date )
 
         .form-group
           .col-sm-4.col-sm-offset-1    
                 label(for='travel_destination',class="control-label") Travel Destination 
           .col-sm-6
-                input#travel_destination.form-control( type='text', name='travel_destination', placeholder="Travel Destination", value=travelAdvanceApproval.travel_destination )
+                input#travel_destination.form-control( type="text", name="travel_destination", placeholder="Travel Destination", value=travelAdvanceApproval.travel_destination )
             
         .form-group
           .col-sm-4.col-sm-offset-1       
                 label(for='purpose_of_journey',class="control-label") Purpose of Journey 
           .col-sm-6
-                input#purpose_of_journey.form-control( type='text', name='purpose_of_journey', placeholder="Purpose of Journey ", value=travelAdvanceApproval.purpose_of_journey )
+                input#purpose_of_journey.form-control( type="text", name="purpose_of_journey", placeholder="Purpose of Journey ", value=travelAdvanceApproval.purpose_of_journey )
 
         .form-group
           .col-sm-4.col-sm-offset-1      
-                label(for='mode_of_travel',class="control-label") Mode of Travel
+                label(for="mode_of_travel",class="control-label") Mode of Travel
           .col-sm-6
-                select#mode_of_travel.form-control( name='mode_of_travel')
+                select#mode_of_travel.form-control( name="mode_of_travel")
                      option(value=1, selected=travelAdvanceApproval.mode_of_travel==1 ? true : false) Air
                      option(value=2, selected=travelAdvanceApproval.mode_of_travel==2 ? true : false) Rail
                      option(value=3, selected=travelAdvanceApproval.mode_of_travel==3 ? true : false)  Road
@@ -85,7 +91,7 @@ block content
           .col-sm-4.col-sm-offset-1      
                 label(for='approxiamte_fair',class="control-label,text-left") Approximate Fare(To & From) 
           .col-sm-6
-                input#approxiamte_fair.form-control( type='text', name='approxiamte_fair', placeholder="Approximate Fare(To & From)", value=travelAdvanceApproval.approxiamte_fair )
+                input#approxiamte_fair.form-control( type='text', name="approxiamte_fair", placeholder="Approximate Fare(To & From)", value=travelAdvanceApproval.approxiamte_fair )
 
         .form-group
           .col-sm-4.col-sm-offset-1    
@@ -112,9 +118,9 @@ block content
                 input#arrangement_classes.form-control( type='text', name='arrangement_classes', placeholder="Arrangement of Classes/Duties", value=travelAdvanceApproval.arrangement_classes )
              
         .form-group
-          .col-sm-1.col-sm-offset-5
+          .col-sm-4.col-sm-offset-5
                 button.btn.btn-primary(type='submit', name='submit', value='Submit',class="btn btn-default") Submit
-          .col-sm-1
+          
                 button.btn.btn-default(type="reset", name="Reset") Reset
           
 

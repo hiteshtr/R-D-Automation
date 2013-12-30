@@ -13,7 +13,7 @@ var mongoose = require('mongoose')
 var travelAdvanceSchema = new Schema({
   project_no : {type: String , default: '' , required: 'Project Number is required.'},
   name_of_traveller : {type: String , default: '' , validate:[validate.alphaWithSpace,'Traveller name is required and should be only alphabates.']},
-  designation : {type: String , default: '' , validate:[validate.alphaWithSpace,'Designation is required and should be only alphabates.']},
+  designation_id: { type: Schema.ObjectId, ref: 'Designation' ,required:'Designation is required.'},
   pf_no : {type: String , default:'', required: 'PF Number is required.'},
   journey_date : {type: Date , default: ''},
   returning_date : {type: Date , default: ''},

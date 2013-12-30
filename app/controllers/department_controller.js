@@ -1,104 +1,133 @@
+/**
+* Module dependencies.
+*/
+
 var mongoose = require('mongoose')
- , Department = mongoose.model('Department')
-var utils = require('../../lib/utils')
-  , _ = require('underscore');
+ ,  utils = require('../../lib/utils')
+ ,  _ = require('underscore')
+ ,  async = require('async')
+ ,  Faculty = mongoose.model('Faculty')
+ ,  Department = mongoose.model('Department');
+
+
+ /**
+* Add new Department
+*/
 
 
 exports.add_department = function (req, res) {
-	res.render('department/add_department',{ title: 'Add Department'});
+	res.render('department/add_department',{ 
+     title: 'Add Department',
+     department:new Department({}),
+     path:req.url
+  });
 }
 
-//save info
+
+/**
+* Save Department name
+*/
+
 exports.save = function (req, res) {
-new Department(req.body).save(function (err,docs) {
-  if (!err) 
-  {    
-    req.flash('success', 'successfully saved');
-   	res.redirect('/department/list');
-    console.log('save successfully');
-  }  
-  else
-  {
-  	
-  	res.render('department/add_department',{title: 'Add Department',errors: utils.errors(err.errors || err)});
-  	console.log('not saved');
-  	console.log(err);
-  	
-  }
-});
+  var department = new Department(req.body);
+  department.save(function (err,docs) {
+      if (!err) 
+      {    
+        req.flash('success', 'Department added successfully.');
+       	res.redirect('/department/list');
+      }  
+      else
+      {	
+      	return res.render('department/add_department',{
+                  title: 'Add Department',
+                  department: department,
+                  path: req.url,
+                  errors: utils.errors(err.errors || err)
+               });
+      	 console.log(err); 	
+      }
+  });
 }
 
-//show department list
+
+/**
+* show department list
+*/
+
 exports.show =function(req,res){
-Department.find(function (err,depts) {
-  if(err)
-    console.error('No data found')
-  else
-  {
-    console.log(depts);
-    res.render('department/show', {
-            title: 'Department',
-            dept:depts
-        });
-}
-});
+  Department.find(function (err,departments) {
+    if(err)
+      console.error('No data found')
+    else
+    {
+      res.render('department/show', {
+              title: 'Departments',
+              departments: departments,
+              path: req.url
+          });
+    }
+  });
 }
 
 
-//delete a data from list
+/**
+*delete a data from list
+*/
+
 exports.destroy =function(req,res){
 Department.findByIdAndRemove(req.param('_id'),function (err)  {
     if(err)
     {
         req.flash('errors','not deleted');
-        console.error('Data not Removed');
+        console.log(err);
     }
     else
     { 
-      req.flash('success','successfully deleted');
+      req.flash('success','Department deleted successfully.');
       res.redirect('/department/list');
     }
  });
+Faculty.remove({faculty_dept_id:req.param('_id')},function (err)  {
+      if(err)
+    {
+        req.flash('errors','not deleted');
+        console.log(err);
+    }
+    else
+    { 
+      req.flash('success','faculty deleted successfully.');
+      res.redirect('/department/list');
+    }
+ });
+
+  
 }
 
-//render edit data page
-exports.edit =function(req,res){
-      Department.findById(req.param('_id'),function (err,depts) {
-            if(err)
-              console.error('Data not Received')
-            else
-            {   console.log('Data Received')
-               res.render('department/edit',{
-                title:'Department',
-                dept:depts
-           });
-          }
-       });
-}
 
-//save updated info
+/**
+*save updated info
+*/
+
 exports.update =function(req,res){
-  Department.findById(req.param('_id'),function (err,docs) { 
-    docs.department = req.body.dept_name;
+  Department.findById(req.body._id,function (err,docs){   
+    docs.department_name = req.body.department_name;
+
     docs.save(function (err) {
-             if (!err) 
-             {   req.flash('success', 'successfully updated');
-                 res.redirect('/department/list');
-                 console.log('save successfully');
-             }  
-             else
-             {
-               req.flash('errors', 'not saved');    
-               if(err.errors.department)
-                {
-                  req.flash('warning','Department Name must be Filled and must be max 30 Characters');
-                }      
-               res.redirect('/department/list');
-               console.log('not saved');
-               console.log(err);
-               res.end();
-             }
-});
- 
+       if(err) 
+       {     
+          if(err.errors.department_name)
+          {
+            req.flash('errors',err.errors.department_name.message);
+          }
+          return res.redirect('/department/list');        
+          console.log(err);     
+       }  
+       else
+       {   
+          req.flash('success', 'Department name updated successfully.');
+          res.redirect('/department/list');
+       }   
+    });
   });
-}
+}  
+ 

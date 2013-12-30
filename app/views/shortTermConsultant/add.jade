@@ -1,0 +1,127 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Request for engaging short-term Consultants/ Personnel who are not the employees of IIT Jodhpur for Project Work 
+block content
+ form( class="formDecor", method='post', action="/short_term_consultant" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal( role="form" )
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of PI
+        .col-sm-6
+          input#name_pi.form-control( type="text", name="name_pi", placeholder="Enter name of pi", value=shortTerm.name_pi )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PF No
+        .col-sm-6
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter pf no", value=shortTerm.pf_no ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-6
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=shortTerm.project_no ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Head
+        .col-sm-6
+          select#project_head.form-control( name="project_head" )            
+            option( value='salary', selected=shortTerm.project_head=='salary' ? true : false ) Salary
+            option( value='contigency', selected=shortTerm.project_head=='contigency' ? true : false ) Contingency
+            option( value='honorarium', selected=shortTerm.project_head=='honorarium' ? true : false ) Honorarium     
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Area of short-term project work 
+        .col-sm-6
+          select#project_work.form-control( name="project_work" )            
+            option( value='academic', selected=shortTerm.project_work=='academic' ? true : false ) Academic
+            option( value='research', selected=shortTerm.project_work=='research' ? true : false ) Research
+            option( value='design', selected=shortTerm.project_work=='design' ? true : false ) Design
+            option( value='development', selected=shortTerm.project_work=='development' ? true : false ) Development
+            option( value='adminstrative', selected=shortTerm.project_work=='adminstrative' ? true : false ) Administrative 
+            option( value='semi_professional', selected=shortTerm.project_work=='semi_professional' ? true : false ) Semi-professional
+            option( value='other', selected=shortTerm.project_work=='other' ? true : false ) Others miscellaneous
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Name of the short-term / part-time consultant / person who is not employee of IITJ to be engaged for project short-term project work
+        .col-sm-6
+          input#part_time_consultant.form-control( type="text", name="part_time_consultant", placeholder="Enter part time consultant", value=shortTerm.part_time_consultant )
+        .col-sm-1
+            
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Designation & Organisational details
+        .col-sm-6
+          input#designation.form-control( type="text", name="designation", placeholder="Enter designation & organisational details", value=shortTerm.designation )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Whether NOC obtained from the current employer, if employed
+        .col-sm-6
+          input#noc.form-control( type="text", name="noc", placeholder="if employed", value=shortTerm.noc ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Consultancy charges / remuneration payable to
+        .col-sm-6
+         select#consultancy_charge.form-control( name="consultancy_charge" )            
+           option( value=1, selected=shortTerm.consultancy_charge==1 ? true : false ) Individual
+           option( value=2, selected=shortTerm.consultancy_charge==2 ? true : false ) Organisation  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Bank Account Number
+        .col-sm-6
+          input#bank_account_no.form-control( type="text", name="bank_account_no", placeholder="Enter bank account no", value=shortTerm.bank_account_no ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Bank Name
+        .col-sm-6
+          input#bank_name.form-control( type="text", name="bank_name", placeholder="Enter bank name", value=shortTerm.bank_name )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) PAN Number / Service Tax Regn No.
+        .col-sm-6
+          input#pan_service_tax.form-control( type="text", name="pan_service_tax", placeholder="Enter PAN no/ service tax reg. no", value=shortTerm.pan_service_tax )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Duration of short-term consultancy/ semi-professional job
+        .col-sm-6
+          .input-group
+            span.input-group-addon From
+            input#from.datepicker.form-control( name="from", type="text", placeholder='select a date') 
+            span.input-group-addon To
+            input#to.datepicker.form-control( name="to", type="text", placeholder='select a date')  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Amount of consultancy charges / remuneration payable 
+        .col-sm-6
+          input#amount.form-control( type="text", name="amount", placeholder="Enter amount of consultancy charges / remuneration payable", value=shortTerm.amount )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-6
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+          button.btn.btn-default( type="reset", name="Reset" ) Reset

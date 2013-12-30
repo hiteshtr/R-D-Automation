@@ -12,10 +12,11 @@ var mongoose = require('mongoose')
 * Adhoc Form
 */
 
-exports.adhocform = function (req, res) {
-	res.render('adhoc/adhocform',{ 
+exports.add = function (req, res) {
+	res.render('adhoc/add',{ 
       title: 'Request for Ad-hoc Appointment',
-      adhoc:new AdhocAppointment({})
+      adhoc: new AdhocAppointment({}),
+      path: req.url
   });
 }
 
@@ -44,9 +45,10 @@ exports.save = function(req, res) {
       else
       {   
         console.log(err);
-        res.render('adhoc/adhocform',{
+        return res.render('adhoc/add',{
             title: 'Request for Ad-hoc Appointment',
-            adhoc:adhoc,
+            adhoc: adhoc,
+            path: req.url,
             errors: utils.errors(err.errors || err)
 
         });

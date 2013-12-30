@@ -1,0 +1,161 @@
+extends ../layouts/default
+
+block main
+  center
+    h2|Report of the Selection Committee  
+block content
+ form( class="formDecor", method='post', action="/selection_committee" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=selection.project_no )
+        .col-sm-1
+
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-7
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=selection.project_title )
+        .col-sm-1 
+
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project Completion Date
+        .col-sm-7
+          input#project_completion_date.form-control.datepicker( type="text", name="project_completion_date", placeholder="select a date", value=selection.project_completion_date )
+        .col-sm-1  
+     
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Date of Written Exam
+        .col-sm-7
+          input#writtenexam_date.form-control.datepicker( type="text", name="writtenexam_date", placeholder="select a date", value=selection.writtenexam_date )
+        .col-sm-1         
+     
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Date of Interview
+        .col-sm-7
+          input#interview_date.form-control.datepicker( type="text", name="interview_date", placeholder="select a date", value=selection.interview_date )   
+        .col-sm-1
+
+     .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label No of Candidates
+        .col-sm-7
+          .table-responsive
+            table( class='table table-bordered' )
+             tr
+               th Applied Candidates
+               th Called Candidates
+               th Appeared in Written Exam
+               th Qualified Candidates
+               th Interviewed Candidates
+             tr
+               td 
+                 input#applied( type='text', name='applied', class="form-control", value=selection.applied )
+               td
+                 input#called( type='text', name='called', class="form-control", value=selection.called )
+               td
+                 input#appeared( type='text', name='appeared', class="form-control", value=selection.appeared )
+               td
+                 input#qualified( type='text', name='qualified', class='form-control', value=selection.qualified )
+               td
+                 input#interviewed( type='text', name='interviewed', class='form-control', value=selection.interviewed )
+        .col-sm-1
+      
+      .col-sm-12
+         b|The Selection Committee recommends appointment of the following persons: 
+
+      .col-sm-12
+        .table-responsive
+          table#appointmentList( class='table table-bordered' )
+           tr
+             th #
+             th Name 
+             th PF No(if alloted)
+             th Date of Birth
+             th Permanent Address
+             th Designation
+             th Initial Salary(Consolidated)
+             th Term of Appointment
+             th
+               button.btn.btn-default( type="button", name="add", onclick="generateRow()" ) Add
+
+      .col-sm-12
+         b|The following persons may be kept on waiting list: 
+
+      .col-sm-12
+        .table-responsive
+          table#waitingList( class='table table-bordered' )
+           tr
+             th #
+             th Name 
+             th PF No(if alloted)
+             th Date of Birth
+             th Permanent Address
+             th Designation
+             th Initial Salary(Consolidated)
+             th Term of Appointment
+             th
+               button.btn.btn-default( type="button", name="add1", onclick="generateRoww()" ) Add
+        
+     .form-group
+        .col-sm-4.col-sm-offset-4
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+        .col-sm-4
+block foot    
+  script.
+    var i=1;
+    function generateRow() {
+      var appointmentList = document.getElementById("appointmentList");
+      var row = appointmentList.insertRow(i);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+
+      cell1.innerHTML = i;
+      cell2.innerHTML = "<input type='text' id='name"+i+" name='appoint["+i+"][name]' class='form-control'>";
+      cell3.innerHTML = "<input type='text' id='pfno"+i+"' name='appoint["+i+"][pfno]' class='form-control'>";
+      cell4.innerHTML = "<input type='text' id='date_of_birth"+i+"' name='appoint["+i+"][date_of_birth]' class='form-control' onclick='dynamicDate()'>";
+      cell5.innerHTML = "<input type='text' id='address"+i+"' name='appoint["+i+"][address]' class='form-control'>";
+      cell6.innerHTML = "<input type='text' id='designation"+i+"' name='appoint["+i+"][designation]' class='form-control'>";
+      cell7.innerHTML = "<input type='text' id='salary"+i+"' name='appoint["+i+"][salary]' class='form-control'>";
+      cell8.innerHTML = "<input type='text' id='appointment"+i+"' name='appoint["+i+"][appointment]' class='form-control'>";
+      i++;
+    }
+  
+    var j=1;
+    function generateRoww() {
+      var waitingList = document.getElementById("waitingList");
+      var row = waitingList.insertRow(j);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+
+      cell1.innerHTML = j;
+      cell2.innerHTML = "<input type='text' id='name"+j+"' name='waiting["+j+"][name]' class='form-control'>";
+      cell3.innerHTML = "<input type='text' id='pfno"+j+"' name='waiting["+j+"][pfno]' class='form-control'>";
+      cell4.innerHTML = "<input type='text' id='date_of_birth"+j+"' name='waiting["+j+"][date_of_birth]' class='form-control'>";
+      cell5.innerHTML = "<input type='text' id='address"+j+"' name='waiting["+j+"][address]' class='form-control'>";
+      cell6.innerHTML = "<input type='text' id='designation"+j+"' name='waiting["+j+"][designation]' class='form-control'>";
+      cell7.innerHTML = "<input type='text' id='salary"+j+"' name='waiting["+j+"][salary]' class='form-control'>";
+      cell8.innerHTML = "<input type='text' id='appointment"+j+"' name='waiting["+j+"][appointment]' class='form-control'>";
+      j++;
+    }
+   

@@ -40,7 +40,6 @@ module.exports = function (app, passport, io) {
   app.post('/projectclass',projectclass.save);
   app.get('/projectclass/list',projectclass.show);
   app.del('/projectclass/:id',projectclass.destroy);
-  app.get('/projectclass/:id/edit',projectclass.edit);
   app.put('/projectclass/:id',projectclass.update);
 
  //Department Routes
@@ -49,7 +48,6 @@ module.exports = function (app, passport, io) {
   app.post('/department',department.save);
   app.get('/department/list',department.show);
   app.del('/department/:id',department.destroy);
-  app.get('/department/:id/edit',department.edit);
   app.put('/department/:id',department.update);
 
  //Post Routes
@@ -58,7 +56,6 @@ module.exports = function (app, passport, io) {
   app.post('/designation',designation.save);
   app.get('/designation/list',designation.show);
   app.del('/designation/:id',designation.destroy);
-  app.get('/designation/:id/edit',designation.edit);
   app.put('/designation/:id', designation.update);
 
  // Faculty Routes
@@ -78,20 +75,84 @@ module.exports = function (app, passport, io) {
 
  //Adhoc Routes
   var adhoc = require('../app/controllers/adhocform_controller');
-  app.get('/adhoc',adhoc.adhocform);
+  app.get('/adhoc',adhoc.add);
   app.post('/adhoc',adhoc.save);
 
  //Temp_Project_Advance_Routes
-  var tmpProAdvnc=require('../app/controllers/temp_project_advance_controller');
-  app.get('/temp_project_advance',tmpProAdvnc.tmpProAdvncForm);
+  var tmpProAdvnc=require('../app/controllers/tempProjectAdvance_controller');
+  app.get('/temp_project_advance',tmpProAdvnc.add);
   app.post('/temp_project_advance',tmpProAdvnc.save);
 
  //Travel_Advance_Approval Routes
-  var trvlAdvncApp=require('../app/controllers/travel_advance_approval_controller');
-  app.get('/travel_advance_approval',trvlAdvncApp.trvlAdvncAppForm);
+  var trvlAdvncApp=require('../app/controllers/travelAdvanceApproval_controller');
+  app.get('/travel_advance_approval',trvlAdvncApp.add);
   app.post('/travel_advance_approval',trvlAdvncApp.save);
 
  //No Dues Routes
   var noDues=require('../app/controllers/no_dues_controller');
-  app.get('/no_dues',noDues.noDuesForm);
+  app.get('/no_dues',noDues.add);
+  app.post('/no_dues',noDues.save);
+
+
+  //purchase committee
+  var purchaseCommittee =require('../app/controllers/purchaseCommittee_controller');
+  app.get('/purchase_committee',purchaseCommittee.add);
+  app.post('/purchase_committee',purchaseCommittee.save);
+
+  
+  //extension of duration
+  var extensionOfDuration=require('../app/controllers/extensionOfDuration_controller');
+  app.get('/extension_of_duration_of_project_employee',extensionOfDuration.add);
+  app.post('/extension_of_duration_of_project_employee',extensionOfDuration.save);
+
+  //release of payment
+  var releaseOfPayment=require('../app/controllers/releaseOfPayment_controller');
+  app.get('/release_of_payment_for_students',releaseOfPayment.add);
+  app.post('/release_of_payment_for_students',releaseOfPayment.save);
+
+  //advertisement approval
+  var advertisement=require('../app/controllers/advertisement_controller');
+  app.get('/approval_for_advertisement',advertisement.add);
+  app.post('/approval_for_advertisement',advertisement.save);
+
+  //disbursement honorarium
+  var disbursementHonorarium=require('../app/controllers/disbursementHonorarium_controller');
+  app.get('/disbursement_honorarium',disbursementHonorarium.add);
+  app.post('/disbursement_honorarium',disbursementHonorarium.save);
+
+  //joining report
+  var joiningReport=require('../app/controllers/joiningReport_controller');
+  app.get('/joining_report',joiningReport.add);
+  app.post('/joining_report',joiningReport.save);
+
+  //remuneration or consultancy fees
+  var remunerationConsultancy=require('../app/controllers/remunerationConsultancy_controller');
+  app.get('/remuneration_or_consultancy_fees',remunerationConsultancy.add);
+  app.post('/remuneration_or_consultancy_fees',remunerationConsultancy.save);
+
+  //requisition for payment
+  var requisitionPayment=require('../app/controllers/requisitionPayment_controller');
+  app.get('/requisition_for_payment',requisitionPayment.add);
+  app.post('/requisition_for_payment',requisitionPayment.save);
+
+  //selection committee
+  var selectionCommittee=require('../app/controllers/selectionCommittee_controller');
+  app.get('/selection_committee',selectionCommittee.add);
+  app.post('/selection_committee',selectionCommittee.save);
+
+  //short term consultant
+  var shortTermConsultant=require('../app/controllers/shortTermConsultant_controller');
+  app.get('/short_term_consultant',shortTermConsultant.add);
+  app.post('/short_term_consultant',shortTermConsultant.save);
+
+  //student employment
+  var studentEmployment=require('../app/controllers/studentEmployment_controller');
+  app.get('/student_employment',studentEmployment.add);
+  app.post('/student_employment',studentEmployment.save);
+
+ //statement of account
+ var statementOfAccount=require('../app/controllers/statementOfAccount_controller');
+ app.get('/statement_of_account',statementOfAccount.add);
+ app.post('/statement_of_account',statementOfAccount.save);
+
 }

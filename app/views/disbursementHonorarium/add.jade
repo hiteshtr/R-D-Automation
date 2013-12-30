@@ -1,0 +1,73 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Disbursement of honorarium from Consultancy Project 
+block content
+  form( class="formDecor", method='post', action="/disbursement_honorarium" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of PI
+        .col-sm-6
+          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter name of PI", value=disbursementhonorarium.pi_name )
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PF No
+        .col-sm-6
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter pf no", value=disbursementhonorarium.pf_no )  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-6
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=disbursementhonorarium.project_no )  
+      
+      .col-sm-12
+        .table-responsive
+          table#myTable( class='table table-bordered' )
+            tr
+              th #
+              th Name/ PF No. 
+              th Designation/ Department
+              th Amount(In Rs.) 
+              th Bank A/C No. 
+              th PAN No 
+              th.text-center
+                button.btn.btn-default( type="button", name="addRow", onclick="generateRow()" ) Add
+            tr
+              td
+              td
+              td Total Amount
+              td
+                input#total_amount.form-control( type="text", name="total_amount" value=disbursementhonorarium.total_amount, readonly )
+              td
+           
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit" ) Submit
+          
+          button.btn.btn-default( type="reset" ) Reset
+block foot    
+  script.
+   var i=1;
+   function generateRow() {
+     var table = document.getElementById("myTable");
+     var row = table.insertRow(i);
+     var cell1 = row.insertCell(0);
+     var cell2 = row.insertCell(1);
+     var cell3 = row.insertCell(2);
+     var cell4 = row.insertCell(3);
+     var cell5 = row.insertCell(4);
+     var cell6 = row.insertCell(5);
+
+     cell1.innerHTML = i;
+     cell2.innerHTML = "<input type='text' id='name"+i+"' name='details["+i+"][name]' class='form-control'>";
+     cell3.innerHTML = "<input type='text' id='designation"+i+"' name='details["+i+"][designation]' class='form-control'>";
+     cell4.innerHTML = '<input type="text" id="amount'+i+'" name="amount" onkeyup="total(this, \'total_amount\')" class="form-control">';
+     cell5.innerHTML = "<input type='text' id='bankacno"+i+"' name='details["+i+"][bankacno]' class='form-control'>";
+     cell6.innerHTML = "<input type='text' id='pan"+i+"' name='details["+i+"][pan]' class='form-control'>";
+     i++;
+   }

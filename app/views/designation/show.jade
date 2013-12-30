@@ -5,8 +5,71 @@ block main
       h2|List of Designations
 
 block content
-  a.btn.btn-primary(href="/designation") Add New Designation
-  br
+  button.btn.btn-primary(type="button", name="AddDesig", id="AddDesig") Add New Designation
+  
+  form#AddDesignation(class="formDecor", method='post',action='/designation', hidden)
+    input(type='hidden', name='_csrf', value="#{csrf_token}")
+    br
+    .form-horizontal(role="form")
+     .form-group
+      .col-sm-2
+      .col-sm-3
+         label(for='designation',class="control-label") Designation
+      .col-sm-5
+         input#designation.form-control(type="text", name="designation_name", placeholder="Enter designation", value=designation.designation_name)
+      .col-sm-2
+  
+     .form-group
+      .col-sm-2
+      .col-sm-3      
+         label(for='min_qualification',class="control-label") Minimum Qualification
+      .col-sm-5
+         input#min_qualification.form-control(type="text", name="min_qualification", placeholder="Enter minimum qualification", value=designation.min_qualification)
+      .col-sm-2
+
+     .form-group
+      .col-sm-2
+      .col-sm-3      
+        label(class="control-label" for="min_experience") Minimum Experience
+      .col-sm-5
+        .row
+          .col-sm-6
+            .input-group
+              span.input-group-addon Year
+              input.form-control(name="min_experience[year]", id="year", type="number", min="0", value=designation.min_experience.year)
+                
+          .col-sm-6
+            .input-group
+              span.input-group-addon Month
+              input.form-control(name="min_experience[month]", id="month", type="number", min="0", value=designation.min_experience.month)              
+      .col-sm-2  
+
+     .form-group
+      .col-sm-2
+      .col-sm-3
+        label(for='designation_type',class="control-label") Designation Type
+      .col-sm-5
+        select(name="designation_type", id="designation_type", class="form-control")            
+          option(value=1, selected=designation.designation_type==1 ? true : false) Contractual Position
+          option(value=2, selected=designation.designation_type==2 ? true : false) Permanent Position
+      .col-sm-2
+     .form-group
+      .col-sm-2
+      .col-sm-3
+        label(for='staff_type',class="control-label") Designation Staff
+      .col-sm-5
+        select(name="staff_type", id="staff_type", class="form-control")  
+          option(value=1, selected=designation.staff_type==1 ? true : false) Scientific Staff
+          option(value=2, selected=designation.staff_type==2 ? true : false) Technical Staff
+          option(value=3, selected=designation.staff_type==3 ? true : false) Admiistrative Staff
+          option(value=4, selected=designation.staff_type==4 ? true : false) Academic Staff
+      .col-sm-2
+
+     .form-group
+      .col-sm-offset-5.col-sm-4
+        button.btn.btn-default(type="submit", name='add') Add
+      
+        button.btn.btn-default(type="reset",name='reset') Reset  
   br
   .table-responsive
     table(class='table table-condensed')
@@ -55,6 +118,21 @@ block content
                   option(value=3, selected=parseInt(designation.staff_type) == 3? true:false) Admiistrative Staff
                   option(value=4, selected=parseInt(designation.staff_type) == 4? true:false) Academic Staff
               td
-                a.btn.btn-default(onclick="enablepost('update#{i}','designation_name#{i}','minimum_qualification#{i}','designation_type#{i}','staff_type#{i}','year#{i}','month#{i}')") Edit
+                a.btn.btn-default(onclick="enable('update#{i}','designation_name#{i}','minimum_qualification#{i}','designation_type#{i}','staff_type#{i}','year#{i}','month#{i}')") Edit
               td 
                 button.btn.btn-default(type='submit', disabled='true',id='update#{i}',onclick="return confirm('Are you sure to Update?')") Update
+block foot
+  script.
+    function enable(id1,id2,id3,id4,id5,id6,id7){
+      document.getElementById(id1).disabled = false;
+      document.getElementById(id2).disabled = false;
+      document.getElementById(id3).disabled = false;
+      document.getElementById(id4).disabled = false;
+      document.getElementById(id5).disabled = false;
+      document.getElementById(id6).disabled = false;
+      document.getElementById(id7).disabled = false;
+    }
+
+    $( "#AddDesig" ).click(function() {
+      $( "#AddDesignation" ).slideToggle( "slow" );
+    });

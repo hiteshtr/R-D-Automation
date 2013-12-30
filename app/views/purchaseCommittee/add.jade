@@ -1,0 +1,53 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Approval for Purchase Committee and Fund for Purchase
+block content
+ form( class="formDecor", method='post', action="/purchase_committee" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Fund for Purchase
+        .col-sm-3
+          input#below( type="radio", name="above_5_lakh", value='false' checked )
+          label.control-label below 5 Lakh
+        .col-sm-2
+          input#above( type="radio", name="above_5_lakh", value='true' )
+          label.control-label above 5 lakh
+        .col-sm-3
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No.
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=purchase.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-7
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=purchase.project_title )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Name of Equipment
+        .col-sm-7
+          input#equipment_name.form-control( type="text", name="equipment_name", placeholder="Enter equipment name", value=purchase.equipment_name )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label(class="control-label") Cost of Equipment
+        .col-sm-7
+          input#equipment_cost.form-control( type="text", name="equipment_cost", placeholder="Enter equipment Cost", value=purchase.equipment_cost )  
+        .col-sm-1   
+
+      .form-group
+          .col-sm-4.col-sm-offset-4
+            button.btn.btn-primary( type="submit", name="Submit" ) Submit   
+            button.btn.btn-default( type="reset", name="Reset" ) Reset
+      

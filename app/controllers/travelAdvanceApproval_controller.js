@@ -4,17 +4,22 @@
 var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
+ ,  Designation = mongoose.model('Designation')
  ,  TravelAdvanceApproval= mongoose.model('TravelAdvanceApproval');
 
 /**
 *Journey cum Travel Advance Approval Form 
 */
 
-exports.trvlAdvncAppForm = function (req, res) {
-res.render('travel_advance_approval/travel_advance_approval',{ 
-	title: 'Journey cum Travel Advance Approval Form',
-    travelAdvanceApproval : new TravelAdvanceApproval({})
-});
+exports.add = function (req, res) {
+  Designation.find (function (err,designations) {
+	res.render('travelAdvanceApproval/add',{ 
+		title: 'Journey cum Travel Advance Approval Form',
+	    travelAdvanceApproval : new TravelAdvanceApproval({}),
+	    designations: designations,
+	    path:req.url
+	});
+  });
 }
 
 
@@ -33,11 +38,15 @@ exports.save = function (req, res) {
 	}  
 	else
 	{
-		  res.render('travel_advance_approval/travel_advance_approval',{
+      Designation.find (function (err1,designations) {
+		return res.render('travelAdvanceApproval/add',{
 		  	  title:'Journey cum Travel Advance Approval Form',
-		  	  errors: utils.errors(err.errors || err),
-		  	  travelAdvanceApproval:travelAdvanceApproval
+		  	   travelAdvanceApproval:travelAdvanceApproval,
+		  	   designations: designations,
+		  	  path:req.url,
+		  	  errors: utils.errors(err.errors || err)		  	 
 		  });
+	 });
 		  console.log(err);  	
 	 }
 	  

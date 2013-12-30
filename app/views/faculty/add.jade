@@ -1,8 +1,8 @@
 extends ../layouts/default
 
 block main
-  center
-      h2|Add New Faculty
+  .text-center
+    h2|Add New Faculty
 block content
             
   form(class="formDecor", method='post',action='/faculty')
@@ -51,8 +51,8 @@ block content
      
 
      .form-group
-        .col-sm-1.col-sm-offset-5
+        .col-sm-4.col-sm-offset-5
            button.btn.btn-default(type="submit", name="Register") Register
-        .col-sm-1
+        
            button.btn.btn-default(type="reset", name="Reset") Reset
         

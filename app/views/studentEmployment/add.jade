@@ -1,0 +1,258 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Request for Employment of Students in Projects   
+block content
+ form(class="formDecor", method='post', action="/student_employment")
+    input(type='hidden', name='_csrf', value="#{csrf_token}")
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-3.col-sm-offset-4
+          b| Project Details:
+        .col-sm-5
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Name of PI
+        .col-sm-7
+          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter name of PI", value=students.pi_name )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No.
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=students.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-4
+          b| Student Information: 
+        .col-sm-5
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Name of Student
+        .col-sm-7
+          input#student_name.form-control( type="text", name="student_name", placeholder="Enter name", value=students.student_name )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Roll No.
+        .col-sm-7
+          input#roll_no.form-control( type="text", name="roll_no", placeholder="Enter roll no", value=students.roll_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Units Registered
+        .col-sm-7
+          .table-responsive
+            table( class='table table-bordered' )
+              tr
+                td Course Units
+                td
+                  input#course_units.form-control( type='text', name='course_units', placeholder='course units', value=students.course_units )
+              tr
+                td  Thesis Units
+                td
+                  input#thesis_units.form-control( type='text', name='thesis_units', placeholder='thesis units', value=students.thesis_units )
+        .col-sm-1    
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Programme
+        .col-sm-7
+          select.form-control#programme( name="programme" )            
+            option( value='ug', selected=students.programme=='ug' ? true : false ) UG
+            option( value='mTech', selected=students.programme=='mTech' ? true : false ) M.Tech
+            option( value='phD', selected=students.programme=='phD' ? true : false ) Ph.D 
+        .col-sm-1 
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Department
+        .col-sm-7
+          select.form-control( name="emp_dept_id" )
+            each department in departments
+              if( students.emp_dept_id )
+                option( id=department._id, value=department._id, selected=students.emp_dept_id.toString() == department._id.toString() ? true : false )= department.department_name
+              else
+                option( id=department._id, value=department._id, selected=students.emp_dept_id == department._id ? true : false )= department.department_name
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label CPI (should be > 6)
+        .col-sm-7
+          input#cpi.form-control( type='text', name='cpi', value=students.cpi )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Bank A/C No
+        .col-sm-7
+          input#bankacno.form-control( type='text', name='bankacno', value=students.bankacno )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Bank Name
+        .col-sm-7
+          select#bank_name.form-control( name="bank_name", value=students.bank_name )            
+            option( value='sbi', selected=students.bank_name=='sbi' ? true : false ) State Bank of India
+            option( value='pnb', selected=students.bank_name=='pnb' ? true : false ) Punjab National Bank
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-4
+          b|  Terms of Appointment :
+        .col-sm-5
+
+       .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Employment Type
+        .col-sm-7
+          select#employment_type.form-control(name="employment_type", onchange="enableElements()" )            
+            option( value='part_time', selected=students.employment_type=='part_time' ? true : false ) Part Time
+            option( value='full_time', selected=students.employment_type=='full_time' ? true : false ) Full Time
+            option( value='summer_employee', selected=students.employment_type=='summer_employee' ? true : false ) Summer Employee  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label For Part Time
+        .col-sm-7
+          .table-responsive
+            table(class='table table-bordered')
+              tr
+                td working hours per week
+                td
+                  input#hours_per_week.form-control( type='text', name='hours_per_week', placeholder='Working hours per week', value=students.hours_per_week )
+              tr
+                td  Rate per hour Rs
+                td
+                  input#per_hour_rs.form-control( type='text', name='per_hour_rs', placeholder='rate per hour rs', value=students.per_hour_rs )      
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label For Full Time
+        .col-sm-7
+          .table-responsive
+            table(class='table table-bordered')
+              tr
+                td Monthly Consolidated Salary Rs
+                td
+                  input#consolidated_salary.form-control( type='text', name='consolidated_salary', placeholder='Monthly Consolidated Salary Rs', disabled='true', value=students.consolidated_salary )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Job Period
+        .col-sm-7
+          .input-group
+            span.input-group-addon From
+            input#start_date.form-control( name="start_date", type="text", placeholder='select a date' ) 
+            span.input-group-addon To
+            input#end_date.form-control( name="end_date", type="text", placeholder='select a date', onchange="diffrenceInDate('start_date', 'end_date', 'duration')" )   
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label( for='duration', class="control-label" ) Duration (in days)
+        .col-sm-5
+          input#duration.form-control( type="text", name="duration", placeholder="Enter the duration", readonly="readonly" ) Days
+
+      .form-group
+        .col-sm-10.col-sm-offset-1
+          b| Part-time norms
+          .table-responsive
+           table( class='table table-bordered')
+            tr
+              th Category
+              th Rate per hour
+              th Maximum hours per week
+            tr
+              td UG
+              td Rs. 60 to 100
+              td 10 hours 
+            tr
+              td M.Tech/Dual degree
+              td Rs. 100 to 200
+              td 15 hours
+            tr
+              td Ph.D 
+              td Rs. 100 to 200
+              td 20 hours
+        .col-sm-1
+
+      .form-group
+        .col-sm-10.col-sm-offset-1
+          b| Full-time norms
+          .table-responsive
+           table( class='table table-bordered' )
+            tr
+              th Category
+              th Amount Rs. Per month 
+            tr
+              td UG
+              td 8,000/- or above 
+            tr
+              td PG
+              td 12000/- or above
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+
+block foot
+  script.
+    $(function() {
+      $("#start_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#end_date" ).datepicker( "option", "minDate", selectedDate );
+        }
+      });
+      $("#end_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#start_date" ).datepicker( "option", "maxDate", selectedDate );
+        }
+      });
+    });
+  script(src='/js/durationDate.js')
+  script.
+   function enableElements()
+    {
+     employment = document.getElementById("employment_type");
+      if(employment.value == 'part_time')
+      {
+        document.getElementById("hours_per_week").disabled = false;
+        document.getElementById("per_hour_rs").disabled = false;
+        document.getElementById("consolidated_salary").disabled = true;
+      }
+
+     else if(employment.value == 'full_time')
+     {
+        document.getElementById("hours_per_week").disabled = true;
+        document.getElementById("per_hour_rs").disabled = true;
+        document.getElementById("consolidated_salary").disabled = false;
+     }
+     else
+     {
+        document.getElementById("hours_per_week").disabled = true;
+        document.getElementById("per_hour_rs").disabled = true;
+        document.getElementById("consolidated_salary").disabled = true;
+     }
+    }

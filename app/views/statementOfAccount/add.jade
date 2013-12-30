@@ -1,0 +1,139 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Statement of Accounts for Settlement of Temporary Advance
+block content
+  form( class="formDecor", method='post', action="/statement_of_account" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of advance holder
+        .col-sm-6
+          input#advance_holder_name.form-control( type="text", name="advance_holder_name", placeholder="Enter name of advanceholder", value=statementAccount.advance_holder_name )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Designation
+        .col-sm-6
+          select.form-control(name="designation_id")
+            each designation in designations
+              if(statementAccount.designation_id)
+                option( id=designation._id, value=designation._id, selected=statementAccount.designation_id.toString() == designation._id.toString() ? true : false )= designation.designation_name
+              else
+                option( id=designation._id, value=designation._id, selected=statementAccount.designation_id == designation._id ? true : false )= designation.designation_name 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PF No
+        .col-sm-6
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter pf no", value=statementAccount.pf_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Type of Advance/Budget Head
+        .col-sm-6
+          select#type_of_advance.form-control( name="type_of_advance" )            
+            option( value='consumables', selected=statementAccount.type_of_advance=='consumables' ? true : false ) Consumables
+            option( value='non_consumables', selected=statementAccount.type_of_advance=='non_consumables' ? true : false ) Non-Consumables
+            option( value='contigency', selected=statementAccount.type_of_advance=='contigency' ? true : false ) Contingency
+            option( value='ta', selected=statementAccount.type_of_advance=='ta' ? true : false ) TA
+            option( value='other', selected=statementAccount.type_of_advance=='other' ? true : false ) Others
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Advance Ref. No
+        .col-sm-6
+          input#advance_ref_no.form-control( type="text", name="advance_ref_no", placeholder="Enter advance reference no", value=statementAccount.advance_ref_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Date
+        .col-sm-6
+          input#date.datepicker.form-control( type="text", name="date", placeholder="Select a date" )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Cheque No
+        .col-sm-6
+          input#cheque_no.form-control( type="text", name="cheque_no", placeholder="Enter cheque no", value=statementAccount.cheque_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Amount of Advance
+        .col-sm-6
+          input#amount.form-control( type="text", name="amount", placeholder="Enter amount of advance", value=statementAccount.amount )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Excess amount claimed / Balance deposited
+        .col-sm-6
+          input#excess_amount.form-control( type="text", name="excess_amount", placeholder="Enter Excess amount claimed / Balance deposited:", value=statementAccount.excess_amount )               
+        .col-sm-1
+
+    
+      .col-sm-12
+        .table-responsive
+          table#myTable( class='table table-bordered' )
+            tr
+              th #
+              th Date
+              th Cash/Memo Receipt No
+              th Name 
+              th Particulars 
+              th Amount
+              th Stock Register
+              th Page
+              th
+                 button.btn.btn-default( type="button", name="addRow", onclick="generateRow()" ) Add
+            tr
+              td
+              td
+              td
+              td
+              td Total Amount
+              td
+                input#total_amount.form-control( type="text", name="total_amount", value=statementAccount.total_amount, readonly)  
+              td
+              td
+      
+
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit
+          
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+block foot    
+  script.
+    var i=1;
+    function generateRow() {
+      var table = document.getElementById("myTable");
+      var row = table.insertRow(i);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+
+      cell1.innerHTML = i;
+      cell2.innerHTML = "<input type='text' id='date"+i+"' name='details["+i+"][date]' class='form-control'>";
+      cell3.innerHTML = "<input type='text' id='receipt_no"+i+"' name='details["+i+"][receipt_no]' class='form-control'>";
+      cell4.innerHTML = "<input type='text' id='name"+i+"' name='details["+i+"][name]' class='form-control'>";
+      cell5.innerHTML = "<input type='text' id='particulars"+i+"' name='details["+i+"][particulars]' class='form-control'>";
+      cell6.innerHTML = '<input type="text" id="amount'+i+'" name="details['+i+'][amount]" onkeyup="total(this, \'total_amount\')" class="form-control">';
+      cell7.innerHTML = "<input type='text' id='stock_register"+i+"' name='details["+i+"][stock_register]' class='form-control'>";
+      cell8.innerHTML = "<input type='text' id='page"+i+"' name='details["+i+"][page]' class='form-control'>";
+      i++;     
+    }

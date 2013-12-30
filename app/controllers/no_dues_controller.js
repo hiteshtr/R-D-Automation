@@ -4,17 +4,22 @@
 var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
- ,  async = require('async')    
+ ,  async = require('async')  
+ ,  Designation = mongoose.model('Designation')  
  ,  NoDues=mongoose.model('NoDues');
 
 /**
 * no Dues Form
 */
 
-exports.noDuesForm = function (req, res) {
-  res.render('no_dues/no_dues',{
-      title: 'No Dues Form',
-      noDues: new NoDues({})
+exports.add = function (req, res) {
+  Designation.find (function (err,designations) {
+    res.render('no_dues/add',{
+        title: 'No Dues Form',
+        designations:designations,
+        noDues: new NoDues({}),
+        path:req.url
+    });
   });
 }
 
@@ -26,7 +31,6 @@ exports.noDuesForm = function (req, res) {
 exports.save = function (req, res) {
 
   var noDues = new NoDues(req.body);
-  console.log(noDues);
   noDues.save(function (err,info) {
     if (!err) 
     {    req.flash('success','Form has been submitted successfully');
@@ -34,13 +38,15 @@ exports.save = function (req, res) {
     }  
     else
     {
-    	
-      res.render('no_dues/no_dues',{
+    	Designation.find (function (err1,designations) {
+        return res.render('no_dues/add',{
           title:'No Dues Form',
           noDues:noDues,
+          designations:designations,
+          path:req.url,
           errors: utils.errors(err.errors || err)
+        });
       });
-      console.log(err);
     }
     
   });

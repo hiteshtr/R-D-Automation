@@ -6,13 +6,13 @@ block main
 block content
   - var cnt = 0;
   #accordion.panel-group
-    each project in projects
+    each project, i in projects
       .panel.panel-default
         .panel-heading
           h4.panel-title
-            a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+            a(data-toggle='collapse', data-parent='#accordion', href='#collapse#{i}')
               | #{project.project_title}
-        #collapseOne.panel-collapse.collapse.in
+        .panel-collapse.collapse(id="collapse#{i}")
           .panel-body
             // Nav tabs
             ul.nav.nav-tabs
@@ -111,6 +111,7 @@ block content
                 if(project.attachments.length == 0)
                   p No Files are attached to current project
               #investigators.tab-pane.fade
+                
               #funds.tab-pane.fade
               #project_posts.tab-pane.fade
               #travel_details.tab-pane.fade

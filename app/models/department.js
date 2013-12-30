@@ -1,15 +1,21 @@
-var mongoose = require('mongoose')
-var validate = require('../../lib/validate.js');
-var Schema = mongoose.Schema
-var crypto = require('crypto')
-var  _ = require('underscore');
+/**
+* Module dependencies.
+*/
+var validate = require('../../lib/validate.js')
+ ,  mongoose = require('mongoose')
+ ,  Schema = mongoose.Schema
+ ,  _ = require('underscore');
 
 /**
- * User Schema
+ * Department Schema
  */
 
 var DepartmentSchema = new Schema({
-  department_name: { type: String, default:'',required:'Department name is required.' }
-  });
+  department_name: { type: String, default:'', validate:[validate.empty,'Department name is required.'] }
+});
+
+/**
+ * Department Model
+ */
 
 mongoose.model('Department', DepartmentSchema);

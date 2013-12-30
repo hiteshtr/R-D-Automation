@@ -10,21 +10,46 @@ var mongoose = require('mongoose')
  ,  Department = mongoose.model('Department')
  ,  Designation = mongoose.model('Designation');
 
+
  /**
 * Add new Faculty form
 */
 
-exports.add_faculty = function (req, res) {
-	 Department.find (function (err,departments) {
-		  Designation.find (function (err,designations) {
-        res.render('faculty/add',{
-	          title: 'Faculty',
-            departments:departments,
-            designations:designations,
-            faculty: new Faculty({})
-         });
+exports.add_faculty = function (req, res) {	 
+
+  async.parallel([
+        function(callback){
+          Department.find({}, function (err, departments) {
+            if (err) {
+              callback(err, null);
+            };
+            callback(null, departments);
+          });
+        },
+        function(callback){
+          Designation.find({}, function (err, designations) {
+            if (err) {
+              callback(err, null);
+            };
+            callback(null, designations);
+          });
+        }
+  ], function (err, results){
+      if (err) {
+        res.render('users/index', {
+          path: req.url,
+          errors: utils.errors(err.errors)
+        });
+      };
+      res.render('faculty/add',{
+        title: 'Faculty',
+        departments:results[0],
+        designations:results[1],
+        faculty: new Faculty({}),
+        path:req.url
       });
-  });
+  });   
+  
 }
 
 /**
@@ -32,29 +57,68 @@ exports.add_faculty = function (req, res) {
 */
 
 exports.save = function (req, res) {
-  var faculty=new Faculty(req.body);
-  faculty.save(function (err,docs) {
-    if(err) 
-      { 
-        console.log(err);
-        Department.find (function (err1,departments) {
-          Designation.find (function (err2,designations) {
-            return res.render('faculty/add',{
-                   title: 'Faculty',
-                   departments:departments,
-                   designations:designations,
-                   faculty:faculty,
-                   errors: utils.errors(err.errors || err) 
-            });
-          });
+  var faculty = new Faculty(req.body);
+    async.parallel([
+      function(callback){
+        Department.find({}, function (err, departments) {
+          if (err) {
+            callback(err, null);
+          };
+          callback(null, departments);
         });
-      }  
-    else
-      {
-        req.flash('success', 'New faculty details have been added successfully.');
-        res.redirect('/faculty/list');
-        console.log('Faculty details saved successfully');
-      }  
+      },
+      function(callback){
+        Designation.find({}, function (err, designations) {
+          if (err) {
+            callback(err, null);
+          };
+          callback(null, designations);
+        });
+      }
+    ], function (err, results){
+       if (err) {
+          res.render('users/index', {
+            path: req.url,
+            errors: utils.errors(err.errors)
+          });
+        };
+
+    faculty.save(function (err,docs) {
+      if(err) 
+        { 
+          console.log(err);
+          Faculty
+          .find()
+          .populate('faculty_dept_id')
+          .populate('faculty_desig_id')
+          .exec(function (err1, faculties) {
+            if(err1)
+            {
+              return res.render('users/index', {
+                     path:req.url,
+                     errors:utils.errors(err.errors)
+              });
+            }
+            else
+            {
+              return res.render('faculty/show',{
+                     title: 'Faculty',
+                     departments:results[0],
+                     designations:results[1],
+                     faculties: faculties,
+                     faculty:faculty,
+                     path:req.url,
+                     errors: utils.errors(err.errors || err)             
+              });
+            }
+          });
+        }  
+      else
+        {
+          req.flash('success', 'New faculty details have been added successfully.');
+          res.redirect('/faculty/list');
+        }  
+    });
   });
 }
 
@@ -63,18 +127,31 @@ exports.save = function (req, res) {
 */
 
 exports.show =function(req,res){
-  var departments, designations;
 
-  Department.find({}, function (err, result) {
-    if (err) {};
-    departments = result;
-  });
-
-  Designation.find({}, function (err, result) {
-    if (err) {};
-    designations = result;
-  });
-
+  async.parallel([
+      function(callback){
+        Department.find({}, function (err, departments) {
+          if (err) {
+            callback(err, null);
+          };
+          callback(null, departments);
+        });
+      },
+      function(callback){
+        Designation.find({}, function (err, designations) {
+          if (err) {
+            callback(err, null);
+          };
+          callback(null, designations);
+        });
+      }
+    ], function (err, results){
+       if (err) {
+          res.render('users/index', {
+            path: req.url,
+            errors: utils.errors(err.errors)
+          });
+        };
   Faculty
     .find()
     .populate('faculty_dept_id')
@@ -82,20 +159,23 @@ exports.show =function(req,res){
     .exec(function (err, faculties) {
       if(err)
       {
-        return res.render('faculty/show', {
-               title: 'Faculty',
-               faculties:faculties,
-               departments:departments,
-               designations:designations,
+        return res.render('users/index', {
+               path:req.url,
                errors:utils.errors(err.errors)
         });
       }
-      res.render('faculty/show', {
-          title: 'Faculty',
-          faculties: faculties,
-          departments: departments,
-          designations: designations
-      });
+      else
+      {
+        res.render('faculty/show', {
+            title: 'Faculty',
+            faculty: new Faculty({}),
+            faculties: faculties,
+            departments: results[0],
+            designations: results[1],
+            path:req.url
+        });
+      }
+    });
   });
 }
 
@@ -109,7 +189,7 @@ exports.destroy =function(req,res){
        {  
           req.flash('errors','not deleted');
           res.redirect('/faculty/list');
-          console.log('Data not Removed');
+          console.log(err);
        }
        else
        { 
@@ -124,11 +204,12 @@ exports.destroy =function(req,res){
 */
 
 exports.update =function(req,res){
-  Faculty.findById(req.body._id,function (err,docs){   
+  Faculty.findById(req.body._id,function (err1,docs){   
     docs.faculty_name = req.body.faculty_name;
     docs.faculty_dept_id = req.body.faculty_dept_id;
     docs.faculty_desig_id = req.body.faculty_desig_id;
-
+    docs.faculty_email = req.body.faculty_email;
+    console.log(err1);
     docs.save(function (err) {
      if(err) 
      {     
@@ -144,15 +225,18 @@ exports.update =function(req,res){
         {
           req.flash('errors',err.errors.faculty_desig_id.message);
         }
+        if(err.errors.faculty_email)
+        {
+          req.flash('errors',err.errors.faculty_email.message);
+        }
+        req.flash('errors','Faculty details not updated');
        return res.redirect('/faculty/list');        
-       console.log('not saved');
        console.log(err);     
      }  
      else
      {   
         req.flash('success', 'Faculty details updated successfully');
         res.redirect('/faculty/list');
-        console.log('updated successfully');
      }
    
     });

@@ -5,6 +5,7 @@
 var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
+ ,  Faculty = mongoose.model('Faculty')
  ,  Designation = mongoose.model('Designation');
 
 /**
@@ -14,7 +15,8 @@ var mongoose = require('mongoose')
 exports.add = function (req, res) {
 	res.render('designation/add', { 
     title: 'Add a Designation',
-    designation: new Designation({})
+    designation: new Designation({}),
+    path:req.url
   });
 }
 
@@ -24,37 +26,46 @@ exports.add = function (req, res) {
 
 exports.save = function (req, res) {
 var designation = new Designation(req.body);
-console.log(designation);
-designation.save(function (err,docs) {
-  if (!err) 
-  {   req.flash('success', 'successfully added a post');
-   	  res.redirect('/designation/list');
-      console.log('new post details saved successfully');
-  }  
-  else
-  {	
-  	res.render('designation/add', {
-      title: 'Add a Designation',
-      designation: designation,
-      errors: utils.errors(err.errors || err)
-    });
-  	console.log(err);
-  }
-});
+  designation.save(function (err,docs) {
+    if (!err) 
+    {   req.flash('success', 'successfully added a post');
+     	  res.redirect('/designation/list');
+        console.log('new post details saved successfully');
+    }  
+    else
+    {	
+      Designation.find (function (err1,designations) {
+        if(err1)
+          console.log(err1);
+        else
+        {
+        	res.render('designation/show', {
+            title: 'Add a Designation',
+            designation: designation,
+            designations:designations,
+            path:req.url,
+            errors: utils.errors(err.errors || err)
+          });
+        	console.log(err);
+        }
+      })
+    }
+  });
 }
 
 //Show List of Designation
 
 exports.show =function(req,res){
-Designation.find (function (err,designation) {
+Designation.find (function (err,designations) {
   if(err)
-    console.error('No data found')
+    console.log(err);
   else
   {
-    console.log(designation);
     res.render('designation/show', {
             title: 'Designations',
-            designations:designation
+            designation: new Designation({}),
+            designations:designations,
+            path:req.url
         });    
 }
 });
@@ -75,22 +86,20 @@ Designation.findByIdAndRemove(req.param('_id'),function (err)  {
       res.redirect('/designation/list');
     }
  });
+Faculty.update({faculty_desig_id:req.param('_id')},{ $set: { faculty_desig_id: null }},function (err)  {
+    if(err)
+    {
+        req.flash('errors','not deleted');
+        console.error('Data not Removed');
+    }
+    else
+    { 
+      req.flash('success','successfully deleted');
+      res.redirect('/designation/list');
+    }
+ });
 }
 
-//render edit data page
-exports.edit =function(req,res){
-      Designation.findById(req.param('_id'),function (err,designation) {
-            if(err)
-              console.error('Data not Received')
-            else
-            {   console.log('Data Received')
-               res.render('designation/edit',{
-                title:'Designations',
-                po:designation
-           });
-          }
-       });
-}
 
 //save updated info
 exports.update =function(req,res){

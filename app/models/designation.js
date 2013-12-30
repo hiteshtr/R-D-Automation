@@ -19,8 +19,8 @@ var DesignationSchema = new Schema({
     	year: Number,
     	month: Number
     },
-    designation_type: { type:String ,default:'',required:'Post type is required.'},
-    staff_type: { type:String,default:'',required:'Designation staff type is required.' }
+    designation_type: { type:String , default:'', required:'Post type is required.'},
+    staff_type: { type:String, default:'', required:'Designation staff type is required.' }
 });
 
 

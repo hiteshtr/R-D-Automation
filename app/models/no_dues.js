@@ -2,6 +2,7 @@
 * Module dependencies.
 */
 var validate = require('../../lib/validate.js');
+var check = require('validator').check;
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var _ = require('underscore');
@@ -13,18 +14,16 @@ var _ = require('underscore');
 */
 
 var NoDuesSchema = new Schema({
-  employee_name: {type : String, default:'', validate:[validate.alphaWithSpace,'Employee name is required and should be only alphabates.'] },
+  employee_name: { type : String, default:'', validate:[validate.alphaWithSpace,'Employee name is required and should be only alphabates.'] },
   Pf_no: {type : String, default: '', validate:[validate.empty,'PF number is required.'] },
-  designation: { type : String, default:'', validate:[validate.empty,'Designation is required.'] },
+  designation_id: { type: Schema.ObjectId, ref: 'Designation' ,required:'Designation is required.'},
   project_no: { type: String, default: '', validate:[validate.empty,'Project number is required.'] },
   from: { type: Date, default:'' },
   to: { type: Date, default:'' },
   resignation_date: { type: Date, default:'' },
   re_emp_project_no: { type: String, default: '' },
-  bank_account_no: { type: Number, default:'', validate:[validate.int,'bank account number should be numeric.'] }
+  bank_account_no: { type: Number, default:'', validate:[validate.isInt,'Account no should be integer']}
 });
-
-
 
 /*No Dues Form Model */
 

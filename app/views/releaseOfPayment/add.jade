@@ -1,0 +1,85 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Request for Release of Payment for Students  
+block content
+  form( class="formDecor", method='post', action="/release_of_payment_for_students" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project No.
+        .col-sm-6
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=releaseOfPayment.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of PI
+        .col-sm-6
+          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter PI name", value=releaseOfPayment.pi_name )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PF No
+        .col-sm-6
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter PF no", value=releaseOfPayment.pf_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of Student
+        .col-sm-6
+          input#student_name.form-control( type="text", name="student_name", placeholder="Enter student name", value=releaseOfPayment.student_name )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Bank Account No
+        .col-sm-6
+          input#bank_account_no.form-control( type="text", name="bank_account_no", placeholder="Enter bank account no", value=releaseOfPayment.bank_account_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Period of Work
+        .col-sm-6
+          .input-group
+            span.input-group-addon From
+            input#from.form-control.datepicker( name="from", type="text", placeholder="select a date", value=releaseOfPayment.from ) 
+            span.input-group-addon To
+            input#to.form-control.datepicker( name="to", type="text", placeholder="select a date", value=releaseOfPayment.to )         
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Outcome of Appointment
+        .col-sm-6
+          input#outcome.form-control( type="text", name="outcome", placeholder="Enter outcome of appointment", value=releaseOfPayment.outcome )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Mode of Payment
+        .col-sm-6
+          select#mode_of_payment.form-control( name="mode_of_payment" )            
+            option( value='cash', selected=releaseOfPayment.mode_of_payment=='cash' ? true : false ) Cash
+            option( value='cheque', selected=releaseOfPayment.mode_of_payment=='cheque' ? true : false ) Cheque
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Remuneration Payable
+        .col-sm-6
+          .input-group
+            span.input-group-addon Rs.
+            input#payable.form-control( name="payable", type="text", placeholder='Enter remuneration payable', value=releaseOfPayment.payable ) 
+
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit
+          
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+        

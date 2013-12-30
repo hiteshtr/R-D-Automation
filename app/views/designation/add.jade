@@ -27,7 +27,7 @@ block content
      .form-group
       .col-sm-2
       .col-sm-3      
-        label(class="control-label" for="min_experience") Minimum Experience
+        label( class="control-label", for="min_experience" ) Minimum Experience
       .col-sm-5
         .row
           .col-sm-6
@@ -45,27 +45,27 @@ block content
      .form-group
       .col-sm-2
       .col-sm-3
-        label(for='designation_type',class="control-label") Designation Type
+        label( for='designation_type', class="control-label" ) Designation Type
       .col-sm-5
-        select(name="designation_type", id="designation_type", class="form-control")            
-          option(value=1,selected=designation.designation_type==1 ? true : false) Contractual Position
-          option(value=2,selected=designation.designation_type==2 ? true : false) Permanent Position
+        select( name="designation_type", id="designation_type", class="form-control" )            
+          option( value=1, selected=designation.designation_type==1 ? true : false ) Contractual Position
+          option( value=2, selected=designation.designation_type==2 ? true : false ) Permanent Position
       .col-sm-2
      .form-group
       .col-sm-2
       .col-sm-3
-        label(for='staff_type',class="control-label") Designation Staff
+        label( for='staff_type', class="control-label" ) Designation Staff
       .col-sm-5
-        select(name="staff_type", id="staff_type", class="form-control")  
-          option(value=1,selected=designation.staff_type==1 ? true : false) Scientific Staff
-          option(value=2,selected=designation.staff_type==2 ? true : false) Technical Staff
-          option(value=3,selected=designation.staff_type==3 ? true : false) Admiistrative Staff
-          option(value=4,selected=designation.staff_type==4 ? true : false) Academic Staff
+        select( name="staff_type", id="staff_type", class="form-control" )  
+          option( value=1, selected=designation.staff_type==1 ? true : false ) Scientific Staff
+          option( value=2, selected=designation.staff_type==2 ? true : false ) Technical Staff
+          option( value=3, selected=designation.staff_type==3 ? true : false ) Admiistrative Staff
+          option( value=4, selected=designation.staff_type==4 ? true : false ) Academic Staff
       .col-sm-2
 
      .form-group
-      .col-sm-offset-5.col-sm-1
+      .col-sm-offset-5.col-sm-4
         button.btn.btn-default(type="submit", name='add') Add
-      .col-sm-1
+      
         button.btn.btn-default(type="reset",name='reset') Reset
       

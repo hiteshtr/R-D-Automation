@@ -1,0 +1,106 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Joining Report 
+block content
+ form( class="formDecor", method='post', action="/joining_report" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Name of Candidate
+        .col-sm-7
+          input#candidate_name.form-control( type="text", name="candidate_name", placeholder="Enter candidate name", value=joiningReport.candidate_name )
+        .col-sm-
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Contact No
+        .col-sm-7
+          input#contact_no.form-control( type="text", name="contact_no", placeholder="Enter Contact no", value=joiningReport.contact_no )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Designation
+        .col-sm-7
+          select.form-control(name="designation_id")
+            each designation in designations
+              if(joiningReport.designation_id)
+                option( id=designation._id, value=designation._id, selected=joiningReport.designation_id.toString() == designation._id.toString() ? true : false )= designation.designation_name
+              else
+                option( id=designation._id, value=designation._id, selected=joiningReport.designation_id == designation._id ? true : false )= designation.designation_name
+        .col-sm-1 
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=joiningReport.project_no )  
+        .col-sm-1 
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Date of Joining
+        .col-sm-7
+          input#date_joining.form-control.datepicker( type="text", name="date_joining", placeholder="Select date", value=joiningReport.date_joining )  
+        .col-sm-1    
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Bank Name
+        .col-sm-7
+          input#bank_name.form-control( type="text", name="bank_name", placeholder="Enter bank name", value=joiningReport.bank_name ) 
+        .col-sm-1    
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Bank A/C No
+        .col-sm-7
+          input#bankacno.form-control( type="text", name="bankacno", placeholder="Enter account no", value=joiningReport.bankacno ) 
+        .col-sm-1     
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Salary
+        .col-sm-7
+          .input-group
+            span.input-group-addon Rs.     
+            input#salary.form-control( name="salary", type="text", placeholder="Enter salary", value=joiningReport.salary ) 
+            span.input-group-addon per month  
+        .col-sm-1   
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label(class="control-label,text-left") No of days in the joining month
+        .col-sm-7
+          input#days.form-control( name="days", type="text", placeholder='Enter days in joining month', value=joiningReport.days ) 
+        .col-sm-1
+
+      .form-group  
+        .col-sm-10.col-sm-offset-1
+         .checkbox
+          input( type='checkbox', name='bond' ) 
+          label.control-label I have enclosed the original agreement on Rs. 100/- bond paper duly signed on all pages (applicable only in case of selection committee but not Adhoc Appointment.
+        .col-sm-1
+          
+      .form-group         
+        .col-sm-10.col-sm-offset-1
+         .checkbox
+          input( type='checkbox', name='declaration' ) 
+          label.control-label Declaration: I have read and understood the terms & conditions of the appointment and agree to abide by them. 
+        .col-sm-1
+
+      .form-group
+        .col-sm-10.col-sm-offset-1
+          font( color='#C11B17' ) Note: Please provide self attested copy of following documents: 1. Pan Card 2. Permanent Address Proof.
+        .col-sm-1
+        br
+        br
+          
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+      

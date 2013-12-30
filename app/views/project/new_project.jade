@@ -2,189 +2,122 @@ extends ../layouts/default
 
 block main
   center
-      h2|Projects
+      h2 Add New Project
 block content
 
   form(class="formDecor", method='post', action='/project')
-        input(type='hidden', name='_csrf', value="#{csrf_token}")
-        center
-          h4|Add New Project
-        
-        hr
-        .form-horizontal(role="form")
-         .form-group
-          .col-sm-2
-          .col-sm-3
-               label(for='pt',class="control-label") Project Title
-          .col-sm-5
-               input#pt.form-control(type="text", name="project_title", placeholder="Enter the project title...")
-          .col-sm-2       
-        
+    input(type='hidden', name='_csrf', value="#{csrf_token}")
+    .form-horizontal(role="form")
 
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                label(for='sa',class="control-label") Sponsoring Agency
-          .col-sm-5
-                input#sa.form-control(type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency...")
-          .col-sm-2
-        
+      .form-group
+        label.col-sm-3(for='project_title',class="control-label") Project Title
+        .col-sm-9
+          input#pt.form-control(type="text", name="project_title", placeholder="Enter the project title")
 
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                label(for='ta',class="control-label") Type of Agency
-          .col-sm-5
-                select(name="type_of_agency", class="form-control")
-                   option(value=0) (select)
-                   option(value=1) Industry
-                   option(value=2) PSU
-                   option(value=3) Central Govt.
-                   option(value=4) State Govt.
-                   option(value=5) Others
-          .col-sm-2
-        
-         .form-group
-          .col-sm-2
-          .col-sm-3  
-                 label(for='count',class="control-label") Country
-          .col-sm-5
-                 input#count.form-control(type="text", name="country", placeholder="Enter the country name...")
-          .col-sm-2
-        
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='ca',class="control-label") Collaborating Agency
-          .col-sm-5
-                 input#ca.form-control(type="text", name="collaborating_agency", placeholder="Enter a collaborating agency...")
-          .col-sm-2
+      .form-group
+        label.col-sm-3(for='project_no',class="control-label") Project Number
+        .col-sm-9
+          input#pt.form-control(type="text", name="project_no", placeholder="Provide project number")
 
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='ra',class="control-label") Research Area
-          .col-sm-5
-                  input#ra.form-control(type="text", name="research_area", placeholder="Enter the research area...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='sn',class="control-label") Sanction Number
-          .col-sm-5
-                 input#sn.form-control(type="text", name="sanction_number", placeholder="Enter the sanction number...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                label(for='sd',class="control-label") Sanction Date
-          .col-sm-5
-                input#sd.form-control.datepicker(type="text", name="sanction_date", placeholder="select a date...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                label(for='dur',class="control-label") Duration (in days)
-          .col-sm-5
-                input#dur.form-control(type="text", name="duration", placeholder="Enter the duration...") Days
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='std',class="control-label") Start Date
-          .col-sm-5
-                 input#std.form-control.datepicker(type="text", name="start_date", placeholder="select a date...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='ed',class="control-label") End Date
-          .col-sm-5
-                 input#ed.form-control.datepicker(type="text", name="end_date", placeholder="select a date...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                 label(for='sanamt',class="control-label") Sanctioned Amount
-          .col-sm-5
-                  input#sanamt.form-control(type="text", name="sanctioned_amount", placeholder="Enter the sanction amount...")
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                  label(for='deptm',class="control-label") Department
-          .col-sm-5
-                 select(name="department_id", class="form-control")
-                    option(value=0) (select)
-                    -each dp in dept
-                     option(value=dp._id)= dp.department_name
-          .col-sm-2
-         .form-group
-          .col-sm-2
-          .col-sm-3
-                  label(for='pc',class="control-label") Project Class
-          .col-sm-5
-                  select(name="project_class_id", class="form-control")
-                    option(value=0) (select)
-                    - each pc in pclasses
-                     option(value=pc._id)= pc.project_class
-          .col-sm-2
-      
-        .form-horizontal(role="form")
-          .form-group
-            .col-sm-offset-5.col-sm-2
-                 button.btn.btn-primary(type="submit", name="Add_Project") Add Project
-            .col-sm-1
-                 button.btn.btn-default(type="reset", name="Reset") Reset
+      .form-group
+        label.col-sm-3(for='sponsoring_agency',class="control-label") Sponsoring Agency
+        .col-sm-9
+          input#sa.form-control(type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency")
 
-   //- div.bodyContent2
-      div.subTitle List of Projects
-      cnt = 0;
-      - each prj in projects
-          div.listTable.gridRow
-            div.listTableRow(style="font-weight: bold; font-size: 18px; padding-bottom: 5px;")
-              div.listTableRowItem(style="width: 3%; vertical-align: top; color: #00b7ff;")= ++cnt
-                .
-              div.listTableRowItem(style="width: 89%; vertical-align: top; color: #00b7ff;")= prj.project_title
-              //div.listTableRowItem(style="width: 1%; vertical-align: top;")
-                form(method="get", action="/dord/project/:id/edit")
-                  input(name="_id", type="hidden", value=prj._id.toHexString())
-                  input(type="submit", value="Edit", class="formLink")
-            div.listTableRow(style="padding-bottom: 5px;").bb
-              div(style="width: 93%; margin-left: 40px; padding-bottom: 5px;").lbb
-                div.listTableRowItem(style="width: 50%; vertical-align: top;")
-                  str = "Area of Research: "
-                  ra_str = prj.research_area
-                  div= str + ra_str
-                  - each dp in dept
-                    if dp._id == prj.department_id
-                      str = "Department: "
-                      dp_str = dp.department
-                      div= str + dp_str
-                div.listTableRowItem(style="width: 43%; vertical-align: top;")
-                  sp_str = "Sponsoring Agency: " + prj.sponsoring_agency
-                  div= sp_str
-                  cou_str = "Country: " + prj.country
-                  div= cou_str
-              div(style="width: 93%; margin-left: 40px;")
-                div.listTableRow(style="padding-bottom: 5px;").lbb
-                  div.listTableRowItem(style="width: 30%; vertical-align: top;")
-                    dur_str = "Duration: " + prj.duration + " days"
-                    div.bold= dur_str
-                  div.listTableRowItem(style="width: 30%; vertical-align: top;")
-                    st_str = "Start Date: " + prj.start_date
-                    div= st_str
-                  div.listTableRowItem(style="width: 30%; vertical-align: top;")
-                    end_str = "End Date: " + prj.end_date
-                    div= end_str
-                div.listTableRow(style="width: 93%; vertical-align: top;")
-                  div.listTableRowItem(style="width: 100%; vertical-align: top;")
-                    amt_str = "Sanctioned Amount: " + prj.sanctioned_amount + " INR"
-                    div.bold= amt_str
-              div(style="width: 93%; padding-bottom: 5px;")
-                div.listTableRowItem(style="width: 50%; vertical-align: top;")
-                    form(method="get", action="/dord/project/info/:id")
-                      input(name="_id", type="hidden", value=prj._id.toHexString())
-                      input(type="submit", value="More Info", class="formLink")
-      if cnt == 0
-        div.listTable No entries found
+      .form-group
+        label.col-sm-3(for='type_of_agency',class="control-label") Type of Agency
+        .col-sm-9
+          select(name="type_of_agency", class="form-control")
+            option(value='industry') Industry
+            option(value='psu') PSU
+            option(value='central_gov') Central Govt.
+            option(value='state_gov') State Govt.
+            option(value='others') Others
+    
+      .form-group
+        label.col-sm-3(for='country',class="control-label") Country
+        .col-sm-9
+          input#count.form-control(type="text", name="country", placeholder="Enter the country name")
+
+      .form-group
+        label.col-sm-3(for='collaborating_agency',class="control-label") Collaborating Agency
+        .col-sm-9
+          input#ca.form-control(type="text", name="collaborating_agency", placeholder="Enter a collaborating agency")
+
+      .form-group
+        label.col-sm-3(for='research_area',class="control-label") Research Area
+        .col-sm-9
+          input#ra.form-control(type="text", name="research_area", placeholder="Enter the research area")
+
+      .form-group
+        label.col-sm-3(for='sanction_number',class="control-label") Sanction Number
+        .col-sm-9
+          input#sn.form-control(type="text", name="sanction_number", placeholder="Enter the sanction number")
+
+      .form-group
+        label.col-sm-3(for='sanction_date',class="control-label") Sanction Date
+        .col-sm-9
+          input#sd.form-control.datepicker(type="text", name="sanction_date", placeholder="select a date")
+
+      .form-group
+        label.col-sm-3(for='start_date',class="control-label") Start Date
+        .col-sm-9
+          input#start_date.form-control(type="text", name="start_date", placeholder="select a date")
+
+      .form-group
+        label.col-sm-3(for='end_date',class="control-label") End Date
+        .col-sm-9
+          input#end_date.form-control(type="text", name="end_date", placeholder="select a date", onchange="diffrenceInDate('start_date', 'end_date', 'duration')")
+
+      .form-group
+        label.col-sm-3(for='duration',class="control-label") Duration (in days)
+        .col-sm-5
+          input#duration.form-control(type="text", name="duration", placeholder="Enter the duration", readonly="readonly") Days
+
+      .form-group
+        label.col-sm-3(for='sanctioned_amount',class="control-label") Sanctioned Amount
+        .col-sm-9
+          input#sanamt.form-control(type="text", name="sanctioned_amount", placeholder="Enter the sanction amount")
+
+      .form-group
+        label.col-sm-3(for='department_id',class="control-label") Department
+        .col-sm-9
+          select(name="department_id", class="form-control")
+            each dp in dept
+              option(value=dp._id)= dp.department_name
+
+      .form-group
+        label.col-sm-3(for='project_class_id',class="control-label") Project Class
+        .col-sm-9
+          select(name="project_class_id", class="form-control")
+            each pc in pclasses
+              option(value=pc._id)= pc.project_class
+
+      .form-group
+        .col-sm-offset-3.col-sm-9
+          button.btn.btn-primary(type="submit", name="Add_Project") Add Project
+          button.btn.btn-default(type="reset", name="Reset") Reset
+
+block foot
+  script.
+    $(function() {
+      $("#start_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#end_date" ).datepicker( "option", "minDate", selectedDate );
+        }
+      });
+      $("#end_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#start_date" ).datepicker( "option", "maxDate", selectedDate );
+        }
+      });
+    });
+  script(src='/js/durationDate.js')

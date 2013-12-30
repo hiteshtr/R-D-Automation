@@ -8,28 +8,80 @@ var utils = require('../../lib/utils')
 	, async = require('async');
 
 exports.new_project = function (req, res) {
-	Department.find (function (err,depts) {
-		Projectclass.find (function (err,pcs) {
-			res.render('project/new_project',{
-				title: 'Project',
-				dept:depts,
-				pclasses:pcs
+	async.parallel([
+	   function(callback){
+	      Projectclass.find({}, function (err, projectclass) {
+	      	if (err) {
+	      		callback(err, null);
+	      	};
+	      	callback(null, projectclass);
+	      });
+	   },
+	   function(callback){
+	      Department.find({}, function (err, department) {
+	      	if (err) {
+	      		callback(err, null);
+	      	};
+	      	callback(null, department);
+	      });
+	   }
+	], function (err, results){
+	   if (err) {
+	   		res.render('users/index', {
+	   			path: req.url,
+				errors: utils.errors(err.errors)
 			});
+	   };
+		res.render('project/new_project',{
+			project: new Project({}),
+			path: req.url,
+			dept: results[1],
+			pclasses: results[0],
+			title: 'Add new project details'
 		});
-	});	         
+	});   
 }
 
 exports.save = function (req, res) {
 	var project = new Project(req.body);
-	project.save(function (err) {
-		if (err) {
-			return res.render('project/new_project', {
-		        errors: utils.errors(err.errors || err),
-		        title: 'Add new project details'
-		      })
-		}
-		req.flash('success', 'successfully saved project details');
-		res.redirect('/project/list');
+
+	async.parallel([
+	   function(callback){
+	      Projectclass.find({}, function (err, projectclass) {
+	      	if (err) {
+	      		callback(err, null);
+	      	};
+	      	callback(null, projectclass);
+	      });
+	   },
+	   function(callback){
+	      Department.find({}, function (err, department) {
+	      	if (err) {
+	      		callback(err, null);
+	      	};
+	      	callback(null, department);
+	      });
+	   }
+	], function (err, results){
+	   if (err) {
+	   		res.render('users/index', {
+	   			path: req.url,
+				errors: utils.errors(err.errors)
+			});
+	   };
+		project.save(function (err) {
+			if (err) {
+				return res.render('project/new_project', {
+			        errors: utils.errors(err.errors || err),
+			        path: req.url,
+					dept: results[1],
+					pclasses: results[0],
+			        title: 'Add new project details'
+			      })
+			}
+			req.flash('success', 'successfully saved project details');
+			res.redirect('/project/list');
+		});
 	});
 }
 

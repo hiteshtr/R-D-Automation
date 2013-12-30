@@ -21,7 +21,6 @@ new Projectclass({
   if (!err) 
   {    req.flash('success', 'successfully saved');
    	   res.redirect('/projectclass/list');
-       console.log('save successfully');
   }  
   else
   {
@@ -35,7 +34,6 @@ new Projectclass({
 	  		req.flash('warning','Project Class Name must be Filled and must be max 30 Characters');
 	  	}
 	  	res.redirect('/projectclass');
-	  	console.log('not saved');
 	  	console.log(err);
 	  	res.end();
   }
@@ -49,7 +47,6 @@ exports.show =function(req,res){
       console.error('No data found')
     else
     {
-      console.log(projectclasses);
       res.render('projectclass/show', {
           title: 'Project Class',
           projectclasses:projectclasses,
@@ -83,10 +80,10 @@ exports.edit =function(req,res){
         if(err)
           console.error('Data not Received')
         else
-        {   console.log('Data Received')
-           res.render('projectclass/edit',{
-            title:'Project Class',
-            pc:pclass
+        {
+          res.render('projectclass/edit',{
+          title:'Project Class',
+          pc:pclass
        });
       }
    });
@@ -100,9 +97,9 @@ exports.update =function(req,res){
     docs.project_class = req.body.pclass_name;
     docs.save(function (err, data) {
              if (!err) 
-             {   req.flash('success', 'successfully updated');
-                 res.redirect('/Projectclass/list');
-                 console.log('save successfully');
+             {   
+                req.flash('success', 'successfully updated');
+                res.redirect('/Projectclass/list');
              }  
              else
              {
@@ -116,7 +113,6 @@ exports.update =function(req,res){
                   req.flash('warning','Project Class Name must be Filled and must be max 30 Characters');
                 } 
                res.redirect('/Projectclass/list');
-               console.log('not saved');
                console.log(err);
                res.end();
              }

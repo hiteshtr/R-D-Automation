@@ -1,0 +1,163 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Request for Extension of Duration of Project Employee
+block content
+  form( class="formDecor", method='post', action="/extension_of_duration_of_project_employee" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No.
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=extensionDuration.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-7
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=extensionDuration.project_title )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Name of Employee
+        .col-sm-7
+          input#employee_name.form-control( type="text", name="employee_name", placeholder="Enter employee name", value=extensionDuration.employee_name ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label PF No.
+        .col-sm-7
+          input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter PF no", value=extensionDuration.pf_no ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          b| Present Appointment
+        .col-sm-4
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Mode
+        .col-sm-7
+          select#mode.form-control( name="mode" )            
+            option( value=1, selected=extensionDuration.mode==1 ? true : false ) Ad-hoc
+            option( value=2, selected=extensionDuration.mode==2 ? true : false ) through selection committee
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Designation
+        .col-sm-7
+          select.form-control(name="designation_id")
+            each designation in designations
+              if(extensionDuration.designation_id)
+                option( id=designation._id, value=designation._id, selected=extensionDuration.designation_id.toString() == designation._id.toString() ? true : false )= designation.designation_name
+              else
+                option( id=designation._id, value=designation._id, selected=extensionDuration.designation_id == designation._id ? true : false )= designation.designation_name
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label( class="control-label,text-left" ) Current Salary Per Month
+        .col-sm-4
+          .input-group
+            span.input-group-addon Rs.
+            input#salary.form-control( type="text", name="salary", placeholder="Enter salary", value=extensionDuration.salary )
+            span.input-group-addon -
+        .col-sm-3 
+          select#type_salary.form-control( name="type_salary" )            
+            option( value=1, selected=extensionDuration.type_salary==1 ? true : false ) Basic
+            option( value=2, selected=extensionDuration.type_salary==2 ? true : false ) Consolidated
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Joining Date
+        .col-sm-7
+          input#joining_date.datepicker.form-control( type="text", name="joining_date", placeholder="select a date", value=extensionDuration.joining_date ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Date of Term Expiry
+        .col-sm-7
+          input#expiry_date.datepicker.form-control( type="text", name="expiry_date", placeholder="select a date", value=extensionDuration.expiry_date ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          b| Justification for Extension
+        .col-sm-4
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Service Record
+        .col-sm-7
+           select( name="service_record", id="service_record", class="form-control" )            
+             option( value=1, selected=extensionDuration.service_record==1 ? true : false ) Satisfactory
+             option( value=2 , selected=extensionDuration.service_record==2 ? true : false ) Unsatisfactory
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label( class="control-label,text-left" ) Whether it is a project requirement 
+        .col-sm-7
+          select( name="project_requirement", id="project_requirement", class="form-control" )            
+             option( value=1 , selected=extensionDuration.project_requirement==1 ? true : false ) Yes
+             option( value=2 , selected=extensionDuration.project_requirement==2 ? true : false ) No 
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Any Other Comment
+        .col-sm-7
+          input#comment.form-control( type="text", name="comment", placeholder="comment", value=extensionDuration.comment ) 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          b| Extension Desired
+        .col-sm-4
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Period
+        .col-sm-7
+           .input-group
+              span.input-group-addon From
+              input#from.datepicker.form-control( name="from", type="text", placeholder='select a date' ) 
+              span.input-group-addon To
+              input#to.datepicker.form-control( name="to", type="text", placeholder='select a date' )    
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Salary Per Month
+        .col-sm-4
+          .input-group
+              span.input-group-addon Rs.
+              input#salary_month.form-control( type="text", name="salary_month", placeholder="Enter salary", value=extensionDuration.salary_month ) 
+              span.input-group-addon -
+        .col-sm-3
+            select( name="salary_type", id="salary_type", class="form-control" )            
+               option( value=1, selected=extensionDuration.salary_type==1 ? true : false ) Basic
+               option( value=2, selected=extensionDuration.salary_type==2 ? true : false ) Consolidated
+        .col-sm-1
+
+      .form-group
+        .col-sm-1
+        .col-sm-10
+          font( color='#C11B17' ) Note : Salary enhanced should be requested only after one year. If it is being requested in less than one year, a justification may be provided. 
+        .col-sm-1
+          
+      .form-group
+        .col-sm-4.col-sm-offset-4
+           button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+           button.btn.btn-default( type="reset", name="Reset" ) Reset
+        .col-sm-4
+     
