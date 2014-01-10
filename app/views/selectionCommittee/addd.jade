@@ -1,0 +1,296 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h2|Report of the Selection Committee  
+block content
+ form( class="formDecor", method='post', action="/selection_committee" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project No
+        .col-sm-7
+          input#project_no.form-control( type="text", name="project_no", placeholder="Enter project no", value=selection.project_no )
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-7
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=selection.project_title )
+        .col-sm-1 
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label( class="control-label,text-left" ) Project Completion Date
+        .col-sm-7
+          input#project_completion_date.form-control.datepicker( type="text", name="project_completion_date", placeholder="select a date", value=selection.project_completion_date )
+        .col-sm-1  
+     
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label( class="control-label,text-left" ) Date of Written Exam
+        .col-sm-7
+          input#writtenexam_date.form-control.datepicker( type="text", name="writtenexam_date", placeholder="select a date", value=selection.writtenexam_date )
+        .col-sm-1         
+     
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label Date of Interview
+        .col-sm-7
+          input#interview_date.form-control.datepicker( type="text", name="interview_date", placeholder="select a date", value=selection.interview_date )   
+        .col-sm-1
+
+      .form-group
+        .col-sm-3.col-sm-offset-1
+          label.control-label No. of Candidates
+        .col-sm-7
+          .table-responsive
+            table( class='table table-bordered' )
+             tr
+               th Applied Candidates
+               th Called Candidates
+               th Appeared in Written Exam
+               th Qualified Candidates
+               th Interviewed Candidates
+             tr
+               td 
+                 input#applied( type='text', name='applied', class="form-control", value=selection.applied )
+               td
+                 input#called( type='text', name='called', class="form-control", value=selection.called )
+               td
+                 input#appeared( type='text', name='appeared', class="form-control", value=selection.appeared )
+               td
+                 input#qualified( type='text', name='qualified', class='form-control', value=selection.qualified )
+               td
+                 input#interviewed( type='text', name='interviewed', class='form-control', value=selection.interviewed )
+        .col-sm-1
+      
+      .col-sm-12
+         b|The Selection Committee recommends appointment of the following persons: 
+                 
+      .col-sm-12
+        .table-responsive
+          table#appointmentList(name='appointmentList' class='table table-bordered' )
+            tr
+              th
+                button.btn.btn-default.glyphicon.glyphicon-trash#delete1( type='button', onclick="deleteRow(\'appointmentList\')" )
+              th.col-sm-2 Name 
+              th.col-sm-2 PF No
+              th.col-sm-1 Date of Birth
+              th.col-sm-1 Permanent Address
+              th.col-sm-1 Designation
+              th.col-sm-1 Initial Salary
+              th.col-sm-3 Term of Appointment
+              th              
+                button.btn.btn-default#add1( type='button', class='addButton', name='add1', onclick="generateRoww()" ) Add
+                
+
+      .col-sm-12
+         b|The following persons may be kept on waiting list: 
+
+      .col-sm-12
+        .table-responsive
+          table#waitingList( class='table table-bordered' )
+           tr
+             th.text-center 
+                button.btn.btn-default.glyphicon.glyphicon-trash#delete2( type='button', onclick="deleteRow(\'waitingList\')" )
+             th.col-sm-2 Name 
+             th.col-sm-2 PF No
+             th.col-sm-1 Date of Birth
+             th.col-sm-1 Permanent Address
+             th.col-sm-1 Designation
+             th.col-sm-1 Initial Salary
+             th.col-sm-3 Term of Appointment
+             th             
+               button.btn.btn-default#add2( type='button', class='addButton', name='add2', data-toggle="modal", data-target="#myModal", onclick='passID("waitingList")' ) Add
+               
+        
+      .form-group
+        .col-sm-4.col-sm-offset-4
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit 
+
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+        .col-sm-4
+
+      // generate modal when click on add button    
+      .modal.fade( id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+        .modal-dialog
+          .modal-content
+            .form-horizontal
+              .modal-header
+                button( type="button", class="close", data-dismiss="modal", aria-hidden="true" )&times
+                b| Add Candidate Detail in List
+              .modal-body 
+                  .form-group
+                    .col-sm-6
+                      input#tableID.form-control( type="hidden", name="tableID")              
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Name of Candidate
+                    .col-sm-6
+                      input#name_of_candidate.form-control( type="text", name="name_of_candidate", placeholder="Enter name of Candidate" )
+                    .col-sm-1
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label PF No
+                    .col-sm-6
+                      input#pf_no.form-control( type="text", name="pf_no", placeholder="Enter pf no" )
+                    .col-sm-1 
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Date of Birth
+                    .col-sm-6
+                      input#date_of_birth.datepicker.form-control( type="text", name="date_of_birth", placeholder="Select a date" )
+                    .col-sm-1 
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Permanent Address
+                    .col-sm-6
+                      input#permanent_address.form-control( type="text", name="permanent_address", placeholder="Enter permanent address" )
+                    .col-sm-1 
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Designation
+                    .col-sm-6
+                      select.form-control(name="designation")
+                        each designation in designations
+                          option( id=designation._id, value=designation._id )= designation.designation_name
+                    .col-sm-1 
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Initial Salary
+                    .col-sm-6
+                      .input-group
+                        span.input-group-addon Rs.
+                        input#initial_salary.form-control( type="text", name="initial_salary", placeholder="Enter salary" )
+                    .col-sm-1 
+                  .form-group
+                    .col-sm-4.col-sm-offset-1
+                      label.control-label Term of Appointment
+                    .col-sm-6
+                      .input-group
+                        span.input-group-addon Year
+                        input.form-control(name="appoint[appointment][year]", id="year", type="number", min="0")
+                        span.input-group-addon Month
+                        input.form-control(name="appoint[appointment][month]", id="month", type="number", min="0")
+                    .col-sm-1 
+              .modal-footer
+                button( type="button", class="btn btn-default", data-dismiss="modal" onclick="generateRow('tableID','name_of_candidate','pf_no','date_of_birth','permanent_address','designation','initial_salary','year','month')" ) Save
+                button( type="button", class="btn btn-default", data-dismiss="modal" ) Close
+
+block foot    
+  script.
+
+    var i=1;
+    var j=1;
+    function generateRow(tableID,name_of_candidate,pf_no,date_of_birth,permanent_address,designation,initial_salary,year,month) {
+        if( document.getElementById(tableID).value=="appointmentList" )
+        { 
+
+          var appointmentList = document.getElementById("appointmentList"); 
+          var rowCount = appointmentList.rows.length;
+          var row = appointmentList.insertRow(rowCount);
+
+          var cell1 = row.insertCell(0);
+          /*var element1 = document.createElement("input");
+               element1.type = "checkbox";
+               cell1.appendChild(element1);*/
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+          var cell6 = row.insertCell(5);
+          var cell7 = row.insertCell(6);
+          var cell8 = row.insertCell(7);
+          
+          //cell1.innerHTML = rowCount;
+          cell1.innerHTML = "<input type='checkbox'>";
+          cell2.innerHTML = "<input type='text' id='name"+rowCount+" name='appoint["+rowCount+"][name]' class='form-control' value='"+document.getElementById(name_of_candidate).value+"' readonly>";
+          cell3.innerHTML = "<input type='text' id='pfno"+rowCount+"' name='appoint["+rowCount+"][pfno]' class='form-control' value='"+document.getElementById(pf_no).value+"' readonly>";
+          cell4.innerHTML = "<input type='text' id='date_of_birth_app"+rowCount+"' name='appoint["+rowCount+"][date_of_birth]' class='form-control' value='"+document.getElementById(date_of_birth).value+"' readonly>";
+          cell5.innerHTML = "<input type='text' id='address"+rowCount+"' name='appoint["+rowCount+"][address]' class='form-control' value='"+document.getElementById(permanent_address).value+"' readonly>";
+          cell6.innerHTML = "<input type='text' id='designation_id"+rowCount+"' name='appoint["+rowCount+"][designation_id]' class='form-control' value='"+document.getElementById("designation")+"' readonly>";
+          cell7.innerHTML = "<input type='text' id='salary"+rowCount+"' name='appoint["+rowCount+"][salary]' class='form-control' value='"+document.getElementById(initial_salary).value+"' readonly>";
+          cell8.innerHTML = "<div class='input-group'><span class='input-group-addon'> Year</span><input type='text' id='year"+rowCount+"' name='appoint["+rowCount+"][appointment][year]' class='form-control' value='"+document.getElementById(year).value+"' readonly/><span class='input-group-addon'> Month</span><input type='text' id='year"+rowCount+"' name='appoint["+rowCount+"][appointment][year]' class='form-control' value='"+document.getElementById(month).value+"' readonly/></div>";
+        }
+        else if( document.getElementById(tableID).value=="waitingList" )
+        {
+          var waitingList = document.getElementById("waitingList");
+          var rowCount = waitingList.rows.length;
+          var row = waitingList.insertRow(rowCount);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+          var cell6 = row.insertCell(5);
+          var cell7 = row.insertCell(6);
+          var cell8 = row.insertCell(7);
+          
+          cell1.innerHTML = "<input type='checkbox'>";
+          cell2.innerHTML = "<input type='text' id='name"+j+"' name='waiting["+j+"][name]' class='form-control' value='"+document.getElementById(name_of_candidate).value+"' readonly>";
+          cell3.innerHTML = "<input type='text' id='pfno"+j+"' name='waiting["+j+"][pfno]' class='form-control' value='"+document.getElementById(pf_no).value+"' readonly>";
+          cell4.innerHTML = "<input type='text' id='date_of_birth"+j+"' name='waiting["+j+"][date_of_birth]' class='form-control' value='"+document.getElementById(date_of_birth).value+"' readonly>";
+          cell5.innerHTML = "<input type='text' id='address"+j+"' name='waiting["+j+"][address]' class='form-control' value='"+document.getElementById(permanent_address).value+"' readonly>";
+          cell6.innerHTML = "<input type='text' id='designation_id"+j+"' name='waiting["+j+"][designation_id]' class='form-control' value='"+document.getElementById(designation)+"' readonly>";
+          cell7.innerHTML = "<input type='text' id='salary"+j+"' name='waiting["+j+"][salary]' class='form-control' value='"+document.getElementById(initial_salary).value+"' readonly>";
+          cell8.innerHTML = "<div class='input-group'><span class='input-group-addon'> Year</span><input type='text' id='year"+j+"' name='waiting["+j+"][appointment][year]' class='form-control' value='"+document.getElementById(year).value+"' readonly/><span class='input-group-addon'> Month</span><input type='text' id='year"+j+"' name='waiting["+j+"][appointment][year]' class='form-control' value='"+document.getElementById(month).value+"' readonly/></div>";
+          j++;
+        }
+    }
+    
+    function passID(id) {
+      document.getElementById("tableID").value=id;
+    }
+
+    function deleteRow(tableID) {
+      try {
+            var table = document.getElementById(tableID);
+            var rowCount = table.rows.length;
+ 
+            for(var i=0; i<rowCount; i++) {
+              var row = table.rows[i];
+              var chkbox = row.cells[0].childNodes[0];
+                if(null != chkbox && true == chkbox.checked) {
+                  table.deleteRow(i);
+                  rowCount--;
+                  i--;
+                }
+            }
+          }catch(e) {
+                    alert(e);
+            }
+    }
+    
+    function generateRoww() {
+      var table = document.getElementById("appointmentList");
+      var row = table.insertRow(i);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+
+      cell1.innerHTML = i;
+      cell2.innerHTML = "<input type='text' id='name"+i+" name='appoint["+i+"][name]' class='form-control' value='"+document.getElementById(name_of_candidate).value+"' readonly>";
+      cell3.innerHTML = "<input type='text' id='pfno"+i+"' name='appoint["+i+"][pfno]' class='form-control' value='"+document.getElementById(pf_no).value+"' readonly>";
+      cell4.innerHTML = "<input type='text' id='date_of_birth_app"+i+"' name='appoint["+i+"][date_of_birth]' class='form-control' value='"+document.getElementById(date_of_birth).value+"' readonly>";
+      cell5.innerHTML = "<input type='text' id='address"+i+"' name='appoint["+i+"][address]' class='form-control' value='"+document.getElementById(permanent_address).value+"' readonly>";
+      cell6.innerHTML = "<input type='text' id='designation_id"+i+"' name='appoint["+i+"][designation_id]' class='form-control' value='"+document.getElementById("designation")+"' readonly>";
+      cell7.innerHTML = "<input type='text' id='salary"+i+"' name='appoint["+i+"][salary]' class='form-control' value='"+document.getElementById(initial_salary).value+"' readonly>";
+      cell8.innerHTML = "<div class='input-group'><span class='input-group-addon'> Year</span><input type='text' id='year"+i+"' name='appoint["+i+"][appointment][year]' class='form-control' value='"+document.getElementById(year).value+"' readonly/><span class='input-group-addon'> Month</span><input type='text' id='year"+i+"' name='appoint["+i+"][appointment][year]' class='form-control' value='"+document.getElementById(month).value+"' readonly/></div>";
+      i++;
+
+      $(".datepicker").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       dateFormat: "yy,mm,dd"
+      });     
+    }
+
+    

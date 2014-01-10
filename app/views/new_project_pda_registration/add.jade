@@ -1,0 +1,369 @@
+extends ../layouts/default
+
+block main
+  .text-center
+    h3|Form for New Project/PDA Registration 
+block content
+  form( class="formDecor", method='post', action="/newProject_or_pda_registration" )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-horizontal(role="form")
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Title
+        .col-sm-6
+          input#project_title.form-control( type="text", name="project_title", placeholder="Enter project title", value=newProject.project_title )
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Sponsering Agency / Ministry
+        .col-sm-6
+          input#sponsering_agency.form-control( type="text", name="sponsering_agency", placeholder="Enter agency / minstry name", value=newProject.sponsering_agency )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Type of Agency
+        .col-sm-6
+          select#type_of_agency.form-control( name="type_of_agency" )
+           option( value='industry', selected=newProject.type_of_agency == 'industry' ? true : false ) Industry
+           option( value='psu', selected=newProject.type_of_agency == 'psu' ? true : false ) PSU  
+           option( value='central_govt', selected=newProject.type_of_agency == 'central_govt' ? true : false ) Central Govt.
+           option( value='state_govt.', selected=newProject.type_of_agency == 'state_govt' ? true : false ) State Govt.
+           option( value='others', selected=newProject.type_of_agency == 'others' ? true : false ) Others     
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Name of the Country
+        .col-sm-6
+          input#name_of_country.form-control( type="text", name="name_of_country", placeholder="Enter name of country", value=newProject.name_of_country )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Collaborating Agency
+        .col-sm-6
+          input#collabrating_agnecy.form-control( type="text", name="collabrating_agnecy", placeholder="Enter collabrating agnecy", value=newProject.collabrating_agnecy )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Research Area
+        .col-sm-6
+          input#project_research_area.form-control( type="text", name="project_research_area", placeholder="Enter research area", value=newProject.project_research_area )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Sanction Number
+        .col-sm-6
+          input#sanction_number.form-control( type="text", name="sanction_number", placeholder="Enter sanction number", value=newProject.sanction_number )  
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Sanction date
+        .col-sm-6
+          input#sanction_date.datepicker.form-control( type="text", name="sanction_date", placeholder="select a date", value=newProject.sanction_date )  
+        .col-sm-1    
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Start date
+        .col-sm-6
+          input#start_date.datepicker.form-control( type="text", name="start_date", placeholder="select a date" )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project End date
+        .col-sm-6
+          input#end_date.datepicker.form-control( type="text", name="end_date", placeholder="select a date", onchange="diffrenceInDate('start_date', 'end_date', 'project_duration')" )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Duration(in Days)
+        .col-sm-6
+          input#project_duration.form-control( type="text", name="project_duration", placeholder="project duration", readonly="readonly", value=newProject.project_duration )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Total Amount Sanctioned 
+        .col-sm-6
+          .input-group
+            span.input-group-addon Rs.
+            input#total_amount_sanctioned.form-control( type="text", name="total_amount_sanctioned", placeholder="Enter total amount", value=newProject.total_amount_sanctioned )  
+        .col-sm-1
+
+      //.form-group
+        .col-sm-4.col-sm-offset-1
+          b| Attachments
+        .col-sm-6
+          button.btn.btn-default1#addNewAttachmentButton( type='button', name='addNewAttachmentButton', onclick="generateRow()") Add New Attachment
+        .col-sm-1
+
+      .form-group
+        .col-sm-12
+          .table-responsive
+            table#myTable( class='table table-bordered')
+              tr
+                th File Type
+                th File Name
+                th File Input
+                th
+                  button.btn.btn-default( type='button', name='addAttachmentButton', onclick="generateRow()") Add Attachment
+
+      .form-group
+        .col-sm-12
+          .table-responsive
+            table( id='sum_table', class='table table-bordered')
+              tr( class="titlerow" )
+                th Funds Break Up 
+                th Budget Head 
+                th First Instalment 
+                th Second Instalment 
+                th Third Instalment
+                th total
+              tr
+                td Equipment
+                td 001
+                td 
+                  input.1row.1col#equipment_first_installment.form-control( type="text", name="equipment_first_installment", onblur="calSumProject(\'1row\', \'equipment_total_installment\')")
+                td
+                  input.2row.1col#equipment_second_installment.form-control( type="text", name="equipment_second_installment")
+                td
+                  input.3row.1col#equipment_third_installment.form-control( type="text", name="equipment_third_installment")
+                td
+                  input.4row.1col#equipment_total_installment.form-control( type="text", name="equipment_total_installment", readonly )
+              tr
+                td Salary
+                td 002
+                td 
+                  input.1row.2col#Salary_first_installment.form-control( type="text", name="Salary_first_installment" )
+                td
+                  input.2row.2col#salary_second_installment.form-control( type="text", name="salary_second_installment" )
+                td
+                  input.3row.2col#salary_third_installment.form-control( type="text", name="salary_third_installment" )
+                td
+                  input.4row.2col#salary_total_installment.form-control( type="text", name="salary_total_installment", readonly )
+
+              tr
+                td Contingency
+                td 003
+                td 
+                  input.1row.3col#contignecy_first_installment.form-control( type="text", name="contignecy_first_installment" )
+                td 
+                  input.2row.3col#contigency_second_installment.form-control( type="text", name="contigency_second_installment" )
+                td 
+                  input.3row.3col#contigency_third_installment.form-control( type="text", name="contigency_third_installment" )
+                td
+                  input.4row.3col#contigency_total_installment.form-control( type="text", name="contigency_total_installment", readonly )
+              tr
+                td Honorarium
+                td 004
+                td
+                  input.1row.4col#honorarium_first_installment.form-control( type="text", name="honorarium_first_installment" )
+                td
+                  input.2row.4col#honorarium_second_installment.form-control( type="text", name="honorarium_second_installment" )
+                td
+                  input.3row.4col#honorarium_third_installment.form-control( type="text", name="honorarium_third_installment" )
+                td
+                  input.4row.4col#honorarium_total_installment.form-control( type="text", name="honorarium_total_installment", readonly )
+
+              tr
+                td Consumables
+                td 005
+                td
+                  input.1row.5col#consumables_first_installment.form-control( type="text", name="consumables_first_installment" )
+                td
+                  input.2row.5col#consumables_second_installment.form-control( type="text", name="consumables_second_installment" )
+                td
+                  input.3row.5col#consumables_third_installment.form-control( type="text", name="consumables_third_installment" )
+                td
+                  input.4row.5col#consumables_total_installment.form-control( type="text", name="consumables_total_installment", readonly )
+
+              tr
+                td Travel 
+                td 006
+                td
+                  input.1row.6col#travel_first_installment.form-control( type="text", name="travel_first_installment" )
+                td 
+                  input.2row.6col#travel_second_installment.form-control( type="text", name="travel_second_installment" )
+                td
+                  input.3row.6col#travel_third_installment.form-control( type="text", name="travel_third_installment" )
+                td
+                  input.4row.6col#travel_total_installment.form-control( type="text", name="travel_total_installment", readonly )
+              tr 
+                td Overheads 
+                td 007
+                td
+                  input.1row.7col#overheads_first_installment.form-control( type="text", name="overheads_first_installment" )
+                td
+                  input.2row.7col#overheads_second_installment.form-control( type="text", name="overheads_second_installment" )
+                td
+                  input.3row.7col#overheads_third_installment.form-control( type="text", name="overheads_third_installment" )
+                td
+                  input.4row.7col#overheads_total_installment.form-control( type="text", name="overheads_total_installment" , readonly)
+
+              tr
+                td 12.36% Service Tax for Consultancy / Testing Projects 
+                td 008
+                td
+                  input.1row.8col#consultancy_first_installment.form-control( type="text", name="consultancy_first_installment" )
+                td
+                  input.2row.8col#consultancy_second_installment.form-control( type="text", name="consultancy_second_installment" )
+                td
+                  input.3row.8col#consultancy_third_installment.form-control( type="text", name="consultancy_third_installment" )
+                td
+                  input.4row.8col#consultancy_total_installment.form-control( type="text", name="consultancy_total_installment", readonly )
+              tr  
+                td Miscellaneous
+                td 009
+                td
+                  input.1row.9col#miscellaneous_first_installment.form-control( type="text", name="miscellaneous_first_installment" )
+                td 
+                  input.2row.9col#miscellaneous_second_installment.form-control( type="text", name="miscellaneous_second_installment" )
+                td
+                  input.3row.9col#miscellaneous_third_installment.form-control( type="text", name="miscellaneous_third_installment" )
+                td
+                  input.4row.9col#miscellaneous_total_installment.form-control( type="text", name="miscellaneous_total_installment", readonly )
+
+              tr 
+                td Total
+                td Rs.
+                td
+                  input#total_first_installment.form-control( type="text", name="total_first_installment" , readonly)
+                td 
+                  input#total_second_installment.form-control( type="text", name="total_second_installment" , readonly)
+                td
+                  input#total_third_installment.form-control( type="text", name="total_third_installment", readonly )
+                td
+                  input#total_installment.form-control( type="text", name="total_installment" , readonly)
+        
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Project Class Code
+        .col-sm-6
+          select#project_class_code.form-control( name="project_class_code" )
+           option( value='sponsered_research', selected=newProject.project_class_code == 'sponsered_research' ? true : false ) Sponsored Research
+           option( value='consultancy', selected=newProject.project_class_code == 'consultancy' ? true : false ) Consultancy  
+           option( value='testing', selected=newProject.project_class_code == 'testing' ? true : false ) Testing (Non-Routine) 
+           option( value='conf', selected=newProject.project_class_code == 'conf' ? true : false )  Conf/WS/Seminar/Symposia
+           option( value='donation', selected=newProject.project_class_code == 'donation' ? true : false ) Donation
+           option( value='sale_software', selected=newProject.project_class_code == 'sale_software' ? true : false ) Sale of Software 
+           option( value='travel_grant', selected=newProject.project_class_code == 'travel_grant' ? true : false ) Travel Grant
+           option( value='professional', selected=newProject.project_class_code == 'professional' ? true : false ) Professional Dev. A/C 
+           option( value='institute_project', selected=newProject.project_class_code == 'institute_project' ? true : false ) Institute Project
+           option( value='initiation_grant', selected=newProject.project_class_code == 'initiation_grant' ? true : false ) Initiation Grant 
+           option( value='dept_promotion', selected=newProject.project_class_code == 'dept_promotion' ? true : false ) Dept. Promotion A/C
+           option( value='lab_development_ac', selected=newProject.project_class_code == 'lab_development_ac' ? true : false ) Lab Dev. A/C 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Department / CoE
+        .col-sm-6
+            input#dapartment.form-control( type="text", name="department", placeholder="Enter department name", value=newProject.department )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PI's Name 
+        .col-sm-6
+            input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter Project investigator name", value=newProject.pi_name )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label PI's PF No 
+        .col-sm-6
+            input#pi_pf_no.form-control( type="text", name="pi_pf_no", placeholder="Enter project investigator's pf no", value=newProject.pi_pf_no )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Co-PI's Name 
+        .col-sm-6
+            input#co_pi_name.form-control( type="text", name="co_pi_name", placeholder="Enter co-project investigator name", value=newProject.co_pi_name )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label.control-label Co-PI's PF No 
+        .col-sm-6
+            input#co_pi_pf_no.form-control( type="text", name="co_pi_pf_no", placeholder="Enter co-project investigator's pf no", value=newProject.co_pi_pf_no )  
+        .col-sm-1  
+
+      .form-group
+        .col-sm-1
+        .col-sm-10
+          .table-responsive
+            table( class='table table-bordered' )
+              tr
+                th Bank A/C Details
+                th Project Investigator
+                th Co-Project Investigator 
+              tr
+                td  Bank A/C No
+                td
+                  input#pi_bank_ac_no.form-control( type='text', name='pi_bank_ac_no', value=newProject.pi_bank_ac_no )
+                td
+                  input#co_pi_bank_ac_no.form-control( type='text', name='co_pi_bank_ac_no', value=newProject.co_pi_bank_ac_no )  
+               tr
+                td  Name of the Bank
+                td
+                  input#bank_name_of_pi.form-control( type='text', name='bank_name_of_pi', value=newProject.bank_name_of_pi )
+                td
+                  input#bank_name_of_co_pi.form-control( type='text', name='bank_name_of_co-pi', value=newProject.bank_name_of_co_pi )        
+      .form-group
+        .col-sm-4.col-sm-offset-5
+          button.btn.btn-primary( type="submit", name="Submit" ) Submit
+          
+          button.btn.btn-default( type="reset", name="Reset" ) Reset
+block foot
+  script.
+    $(function() {
+      $("#start_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#end_date" ).datepicker( "option", "minDate", selectedDate );
+        }
+      });
+      $("#end_date").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy,mm,dd",
+        onClose: function( selectedDate ) {
+          $( "#start_date" ).datepicker( "option", "maxDate", selectedDate );
+        }
+      });
+    });
+
+    var i=1;
+    function generateRow() {
+      var table = document.getElementById("myTable");
+      var row = table.insertRow(i);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+
+      cell1.innerHTML = "<select id='fileType"+i+"' name='attachments["+i+"][type]' class='form-control' ><option value='project_proposal'>Project Proposal</option><option value='synopsis' >Synopsis</option> <option value='mou' >MoU</option><option value='agreement'>Agreement</option><option value='institute' >Institute</option></select>";
+      cell2.innerHTML = "<input type='text' id='fileName"+i+"' name='attachments["+i+"][name]' class='form-control' placeholder='Enter name of attachement'>";
+      cell3.innerHTML = "<input type='file' id='fileInput"+i+"' name='attachments["+i+"][url]' placeholder='Input file' accept='application/pdf'>" ;
+      cell4.innerHTML = "<input type='button' id='uploadButton"+i+"' name='details["+i+"][uploadButton]' class=' btn btn-default' value='Upload'>"
+      i++;
+    }
+
+    function calSumProject(classStr, idStr) {
+      var elems = document.getElementsByClassName(classStr);
+      console.log(elems.length);
+    }
+  script(src='/js/durationDate.js')  
