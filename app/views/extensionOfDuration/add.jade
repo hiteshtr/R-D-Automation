@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Request for Extension of Duration of Project Employee
+    h3|Request for Extension of Duration of Project Employee
 block content
   form( class="formDecor", method='post', action="/extension_of_duration_of_project_employee" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -84,7 +84,7 @@ block content
 
       .form-group
         .col-sm-3.col-sm-offset-1
-          label.control-label Date of Term Expiry
+          label( class="control-label,text-left" ) Date of Term Expiry
         .col-sm-7
           input#expiry_date.datepicker.form-control( type="text", name="expiry_date", placeholder="select a date", value=extensionDuration.expiry_date ) 
         .col-sm-1
@@ -114,7 +114,7 @@ block content
 
       .form-group
         .col-sm-3.col-sm-offset-1
-          label.control-label Any Other Comment
+          label( class="control-label,text-left" ) Any Other Comment
         .col-sm-7
           input#comment.form-control( type="text", name="comment", placeholder="comment", value=extensionDuration.comment ) 
         .col-sm-1
@@ -130,9 +130,9 @@ block content
         .col-sm-7
            .input-group
               span.input-group-addon From
-              input#from.datepicker.form-control( name="from", type="text", placeholder='select a date' ) 
+              input#from.datepicker.form-control( name="from", type="text", placeholder='select a date', value=extensionDuration.from ) 
               span.input-group-addon To
-              input#to.datepicker.form-control( name="to", type="text", placeholder='select a date' )    
+              input#to.datepicker.form-control( name="to", type="text", placeholder='select a date', value=extensionDuration.to )    
         .col-sm-1
 
       .form-group

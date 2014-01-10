@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Joining Report 
+    h3|Joining Report 
 block content
  form( class="formDecor", method='post', action="/joining_report" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -82,7 +82,7 @@ block content
         .col-sm-10.col-sm-offset-1
          .checkbox
           input( type='checkbox', name='bond' ) 
-          label.control-label I have enclosed the original agreement on Rs. 100/- bond paper duly signed on all pages (applicable only in case of selection committee but not Adhoc Appointment.
+          label.control-label I have enclosed the original agreement on Rs. 100/- bond paper duly signed on all pages (applicable only in case of selection committee but not Adhoc Appointment.)
         .col-sm-1
           
       .form-group         

@@ -1,134 +1,126 @@
 extends ../layouts/default
 
 block main
-    .container
-      .row
-        .col-sm-3
-           img(src='images/BVgsCN.jpg',class="img-responsive", alt='IITJ logo', width='80', height='80')
-        .col-sm-8
-          .text-center
-            h3|Indian Institute of Technology Jodhpur
-    
-            h4|Research & Development
-            
-                  
+  .text-center     
+    h3|Request for Ad-hoc Appointment             
                       
 block content  
+  form#formAddData(action='/adhoc', name='adhocform', method='post',class='form-horizontal')
+    input(type='hidden', name='_csrf', value="#{csrf_token}")   
+    .form-group
+      .col-sm-4.col-sm-offset-1
+        label( for="project_no", class="control-label" ) Project No.
+      .col-sm-6
+        input#project_no.form-control( type="text", name="project_no",placeholder="Project No", autofocus="autofocus", value=adhoc.project_no, required )
+      
+      
+    .form-group         
+      .col-sm-4.col-sm-offset-1
+        label( for="project_title", class="control-label" ) Project Title
+      .col-sm-6
+        input#project_title.form-control( type="text", name="project_title", placeholder="Project Title", value=adhoc.project_title, required )      
+      .col-sm-1
 
-      form#formAddData(action='/adhoc', name='adhocform', method='post',class='form-horizontal')
-        input(type='hidden', name='_csrf', value="#{csrf_token}")
-        .form-group
-          .col-sm-12
-            .text-center
-              h4|Request for Ad-hoc Appointment
-        hr
+    .form-group          
+      .col-sm-4.col-sm-offset-1
+        label( for="project_completion_date", class="control-label" ) Project Completion Date
+      .col-sm-6
+        input#project_completion_date.form-control.datepicker( type="text", name="project_completion_date", placeholder="Project Completion Date", value=adhoc.project_completion_date )
+      .col-sm-1
 
-        .form-group
-          .col-sm-1
-          .col-sm-11
-            b|Note : Required Fields are indicated with * mark.
-        
-        hr     
-        .form-group
-          .col-sm-1
-          .col-sm-4
-              label(for="project_no",class="control-label") Project No. *
-          .col-sm-6
-              input#project_no.form-control( type="text", name="project_no",placeholder="Project No", autofocus="autofocus", value=adhoc.project_no, required )
-          
-          
-        .form-group         
-          .col-sm-4.col-sm-offset-1
-              label(for="project_title",class="control-label") Project Title *
-          .col-sm-6
-              input#project_title.form-control( type="text", name="project_title", placeholder="Project Title", value=adhoc.project_title, required )      
-          
+    .form-group
+      .col-sm-4.col-sm-offset-1
+        label( for="candidate_name", class="control-label" ) Name of the Candidate
+      .col-sm-6
+        input#candidate_name.form-control( type="text", placeholder="Candidate Name", name="candidate_name", value=adhoc.candidate_name )
+      .col-sm-1
 
-        .form-group          
-          .col-sm-4.col-sm-offset-1
-              label(for="project_completion_date",class="control-label") Project Completion Date
-          .col-sm-6
-              input#project_completion_date.form-control.datepicker( type="text", name="project_completion_date", placeholder="Project Completion Date", value=adhoc.project_completion_date )
-          .col-sm-1
+    .form-group    
+      .col-sm-4.col-sm-offset-1
+        label( for="date_of_birth", class="control-label" ) Date of Birth
+      .col-sm-6
+        input#date_of_birth.form-control.datepicker( type="text", name="date_of_birth", placeholder="Date of Birth",value=adhoc.date_of_birth )
+      .col-sm-1
 
-        .form-group
-          .col-sm-4.col-sm-offset-1
-              label(for="candidate_name",class="control-label") Name of the Candidate *
-          .col-sm-6
-              input#candidate_name.form-control( type="text", placeholder="Candidate Name", name="candidate_name", value=adhoc.candidate_name )
-          
-        .form-group    
-          .col-sm-4.col-sm-offset-1
-              label(for="date_of_birth",class="control-label") Date of Birth
-          .col-sm-6
-              input#date_of_birth.form-control.datepicker( type="text", name="date_of_birth", placeholder="Date of Birth",value=adhoc.date_of_birth )
-       
-        .form-group   
-          .col-sm-4.col-sm-offset-1
-              label(for="permanent_address",class="control-label") Permanent Address
-          .col-sm-6
-              input#permanent_address.form-control( type="text", name="permanent_address", placeholder="Permanent Address" ) 
-        
-        .form-group     
-          .col-sm-4.col-sm-offset-1
-             label(for="phone_no",class="control-label") Phone No.
-          .col-sm-6
-             input#phone_no.form-control( type="text", name="phone_no", placeholder="Phone No", value=adhoc.phone_no )
-       
-        .form-group            
-          .col-sm-4.col-sm-offset-1
-             label(for="email_id",class="control-label") Email ID *
-          .col-sm-6
-             input#email_id.form-control( type="email", name="email_id", placeholder="Email ID", value=adhoc.email_id, required )
+    .form-group   
+      .col-sm-4.col-sm-offset-1
+        label( for="permanent_address", class="control-label" ) Permanent Address
+      .col-sm-6
+        input#permanent_address.form-control( type="text", name="permanent_address", placeholder="Permanent Address" ) 
+      .col-sm-1
 
-        .form-group  
-          .col-sm-4.col-sm-offset-1
-             label(for="post_suggested",class="control-label") Post suggested
-          .col-sm-6
-             input#post_suggested.form-control( type="text", name="post_suggested", placeholder="Post Suggested", value=adhoc.post_suggested )
+    .form-group     
+      .col-sm-4.col-sm-offset-1
+        label( for="phone_no", class="control-label" ) Phone No.
+      .col-sm-6
+        input#phone_no.form-control( type="text", name="phone_no", placeholder="Phone No", value=adhoc.phone_no )
+      .col-sm-1
 
-        .form-group  
-          .col-sm-4.col-sm-offset-1
-             label(for="monthly_consolidated_salary",class="control-label,text-left") Monthly consolidated salary
-          .col-sm-6
-             input#monthly_consolidated_salary.form-control( type="text", name="monthly_consolidated_salary", placeholder="Monthly Salary", value=adhoc.monthly_consolidated_salary )
+    .form-group            
+      .col-sm-4.col-sm-offset-1
+        label( for="email_id", class="control-label" ) Email ID
+      .col-sm-6
+        input#email_id.form-control( type="email", name="email_id", placeholder="Email ID", value=adhoc.email_id, required )
+      .col-sm-1
 
-        .form-group 
-          .col-sm-4.col-sm-offset-1
-             label(class="control-label,text-left") Duration of Ad-hoc appointment
-          .col-sm-1
-             label(for="from",class="control-label") From
-          .col-sm-2
-             input#from.form-control.datepicker( type="text", name="from", placeholder="From", value=adhoc.from )
-          .col-sm-1
-             label(for="to",class="control-label") To 
-          .col-sm-2
-             input#to.form-control.datepicker( type="text", name="to", placeholder="To", value=adhoc.to )
+    .form-group  
+      .col-sm-4.col-sm-offset-1
+        label( for="post_suggested", class="control-label" ) Post suggested
+      .col-sm-6
+        select.form-control( name="post_suggested" )
+          each designation in designations
+            if(adhoc.post_suggested)
+              option( id=designation._id, value=designation._id, selected=adhoc.post_suggested.toString() == designation._id.toString() ? true : false )= designation.designation_name
+            else
+              option( id=designation._id, value=designation._id, selected=adhoc.post_suggested == designation._id ? true : false )= designation.designation_name  
+      .col-sm-1
 
-        .form-group 
-          .col-sm-4.col-sm-offset-1
-             label(for="justification",class="control-label,text-left") Justification for Ad-hoc appointment
-          .col-sm-6
-             input#justification.form-control( type="text", name="justification", placeholder="justification", value=adhoc.justification )
-            
-        .form-group
-            .col-sm-4.col-sm-offset-1
-             label(for="piname",class="control-label,text-left") Name of Project Investigator
-            .col-sm-6
-             input#piname.form-control( type="text", name="name_of_project_investigator", placeholder="Project Investigator Name", value=adhoc.name_of_project_investigator )
+    .form-group  
+      .col-sm-4.col-sm-offset-1
+        label( for="monthly_consolidated_salary", class="control-label,text-left" ) Monthly consolidated salary
+      .col-sm-6
+        .input-group
+          span.input-group-addon Rs
+          input#monthly_consolidated_salary.form-control( type="text", name="monthly_consolidated_salary", placeholder="Monthly Salary", value=adhoc.monthly_consolidated_salary )
+      .col-sm-1
 
-        .form-group 
-            .col-sm-4.col-sm-offset-1
-             label(for="pfno",class="control-label") PF No. 
-            .col-sm-6
-             input#pfno.form-control( type="text", name="pfno_of_project_investigator", placeholder="PF No", value=adhoc.pfno_of_project_investigator )
-              
-        
-        .form-group
-            .col-sm-4.col-sm-offset-5
-               button.btn.btn-primary(type="submit", name="submit", value="Submit" ,data-loading-text="Loading...") Submit
-               
-               button.btn.btn-default(type="reset", name="Reset") Reset
+    .form-group 
+      .col-sm-4.col-sm-offset-1
+        label( class="control-label,text-left" ) Duration of Ad-hoc appointment
+      .col-sm-6
+        .input-group
+          span.input-group-addon From
+          input#from.form-control.datepicker( type="text", name="from", placeholder="select a date", value=adhoc.from )
+          span.input-group-addon To
+          input#to.form-control.datepicker( type="text", name="to", placeholder="select a date", value=adhoc.to )
+      .col-sm-1
+
+    .form-group 
+      .col-sm-4.col-sm-offset-1
+        label( for="justification", class="control-label,text-left" ) Justification for Ad-hoc appointment
+      .col-sm-6
+        input#justification.form-control( type="text", name="justification", placeholder="justification", value=adhoc.justification )
+      .col-sm-1 
+
+    .form-group
+      .col-sm-4.col-sm-offset-1
+        label( for="piname", class="control-label,text-left" ) Name of Project Investigator
+      .col-sm-6
+        input#piname.form-control( type="text", name="name_of_project_investigator", placeholder="Project Investigator Name", value=adhoc.name_of_project_investigator )
+      .col-sm-1
+
+    .form-group 
+      .col-sm-4.col-sm-offset-1
+        label( for="pfno", class="control-label" ) PF No. 
+      .col-sm-6
+        input#pfno.form-control( type="text", name="pfno_of_project_investigator", placeholder="PF No", value=adhoc.pfno_of_project_investigator )
+      .col-sm-1  
+  
+    .form-group
+        .col-sm-4.col-sm-offset-5
+           button.btn.btn-primary(type="submit", name="submit", value="Submit" ,data-loading-text="Loading...") Submit
+           
+           button.btn.btn-default(type="reset", name="Reset") Reset
 
 
 

@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
  ,  async = require('async')
+ ,  Designation = mongoose.model('Designation') 
  ,  AdhocAppointment = mongoose.model('AdhocAppointment');
 
 /**
@@ -13,10 +14,20 @@ var mongoose = require('mongoose')
 */
 
 exports.add = function (req, res) {
-	res.render('adhoc/add',{ 
-      title: 'Request for Ad-hoc Appointment',
-      adhoc: new AdhocAppointment({}),
-      path: req.url
+  Designation.find (function (err,designations) { 
+    if(err)  
+      {
+        console.log(err);
+      }  
+    else
+      { 
+      	res.render('adhoc/add',{ 
+            title: 'Request for Ad-hoc Appointment',
+            adhoc: new AdhocAppointment({}),
+            designations: designations,
+            path: req.url
+        });
+      }
   });
 }
 
@@ -36,7 +47,7 @@ exports.save = function(req, res) {
     {
        console.log(err);
        console.log(err.code);
-       if(err.code==11000)
+       if(err.code===11000)
         {
          req.flash('errors','email id is already registered..!!');
          res.redirect('/adhoc');
@@ -45,17 +56,25 @@ exports.save = function(req, res) {
       else
       {   
         console.log(err);
-        return res.render('adhoc/add',{
-            title: 'Request for Ad-hoc Appointment',
-            adhoc: adhoc,
-            path: req.url,
-            errors: utils.errors(err.errors || err)
-
+        Designation.find (function (err1,designations) { 
+        if(err1)  
+          {
+            console.log(err1);
+          }  
+        else
+          { 
+            return res.render('adhoc/add',{
+                title: 'Request for Ad-hoc Appointment',
+                adhoc: adhoc,
+                designations: designations,
+                path: req.url,
+                errors: utils.errors(err.errors || err)
+            });
+          }
         });
       }
     }
-  });
-  
+  });  
 };
 
 

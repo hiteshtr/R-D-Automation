@@ -1,102 +1,83 @@
 extends ../layouts/default
 
 block main 
- .container
-   .row
-    .col-sm-12
-      .text-center
-        h3|Indian Institute of Technology Jodhpur
-        h4|Research & Development
-block content
-  
-  form(action='/temp_project_advance', name='tempProAdvncForm', method='post',class='form-horizontal')
-      input(type='hidden', name='_csrf', value="#{csrf_token}")
+  .text-center
+    h3|Temporary Project Advance Form
+block content 
+  form( action='/temp_project_advance', name='tempProAdvncForm', method='post', class='form-horizontal' )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
+    .form-group
+      .col-sm-4.col-sm-offset-1
+        label( for="expenditure_under_head", class="control-label,text-left" ) Expenditure under the head of
+      .col-sm-6
+        select#expenditure_under_head.form-control(name="expenditure_under_head")
+           option( value=1, selected=tempPrjAdvance.expenditure_under_head==1 ? true : false ) Contigency
+           option( value=2, selected=tempPrjAdvance.expenditure_under_head==2 ? true : false ) Consumables
+           option( value=3, selected=tempPrjAdvance.expenditure_under_head==3 ? true : false ) Non-consumables
+           option( value=4, selected=tempPrjAdvance.expenditure_under_head==4 ? true : false ) TA
+           option( value=5, selected=tempPrjAdvance.expenditure_under_head==5 ? true : false ) Donation
+           option( value=6, selected=tempPrjAdvance.expenditure_under_head==6 ? true : false ) Sale of Software
+           option( value=7, selected=tempPrjAdvance.expenditure_under_head==7 ? true : false ) Travel Grant
+           option( value=8, selected=tempPrjAdvance.expenditure_under_head==8 ? true : false ) Professiona |Dev. A/C
+           option( value=9, selected=tempPrjAdvance.expenditure_under_head==9 ? true : false ) Institute Project
+           option( value=10, selected=tempPrjAdvance.expenditure_under_head==10 ? true : false ) Initiation Grant
+           option( value=11, selected=tempPrjAdvance.expenditure_under_head==11 ? true : false ) Dept. Promotion A/C
+           option( value=12, selected=tempPrjAdvance.expenditure_under_head==12 ? true : false ) Lab Dev. A/C
+
+    .form-group
+      .col-sm-4.col-sm-offset-1       
+        label( for="name_p_investigator", class="control-label,text-left" ) Name of the Project Investigator
+      .col-sm-6   
+        input#name_p_investigator.form-control( type="text", name="name_p_investigator", placeholder="Project Investigator Name", value=tempPrjAdvance.name_p_investigator, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1         
+        label.control-label( for="pf_no" ) P F No.
+      .col-sm-6      
+        input#pf_no.form-control( type="text", name="pf_no", placeholder="P F No", value=tempPrjAdvance.pf_no, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1     
+        label.control-label( for="project_number" ) Project No.
+      .col-sm-6     
+        input#project_number.form-control( type="text", name="project_number", placeholder="Project No", value=tempPrjAdvance.project_number, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1      
+        label( for="amount_advance_required", class="control-label,text-left" ) Amount of Advance required
+      .col-sm-6     
+       input#amount_advance_required.form-control( type="text", name="amount_advance_required", placeholder="Amount of Advance required", value=tempPrjAdvance.amount_advance_required, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1             
+        label( for="purpose", class="control-label,text-left" ) Purpose (with justification)
+      .col-sm-6
+        input#purpose.form-control( type="text", name="purpose", placeholder="Purpose", value=tempPrjAdvance.purpose )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1     
+       label( for="advance_sanctioned", class="control-label,text-left" ) Advance to be sanctioned in the name of (Permanent employee only)
+      .col-sm-6
+       input#advance_sanctioned.form-control( type="text", name="advance_sanctioned", placeholder="Advance to be sanctioned in the name of ", value=tempPrjAdvance.advance_sanctioned, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1 
+        label( for="pfno_advance_holder", class="control-label,text-left" ) P.F. No of the Advance holder
+      .col-sm-6
+       input#pfno_advance_holder.form-control( type="text", name="pfno_advance_holder", placeholder="P.F. No of the Advance holder", value=tempPrjAdvance.pfno_advance_holder, required )
+
+    .form-group
+      .col-sm-4.col-sm-offset-1 
+        label( for="bank_ac_no", class="control-label,text-left" ) Bank A/c No. for money transfer
+      .col-sm-6
+        input#bank_ac_no.form-control( type="text", name="bank_ac_no", placeholder="Bank A/c No.", value=tempPrjAdvance.bank_ac_no, required )
       
-      .form-group
-        .col-sm-12
-          .text-center
-            h4|Temporary Project Advance Form
-      hr
-
-      .form-group
-        .col-sm-1
-        .col-sm-11
-          b|Note : Required Fields are indicated with * mark.
-        
-      hr
-
-      .form-group
-        .col-sm-4.col-sm-offset-1
-          label(for="expenditure_under_head",class="control-label,text-left") Expenditure under the head of
-        .col-sm-6
-          select#expenditure_under_head.form-control(name="expenditure_under_head")
-             option(value=1, selected=tempPrjAdvance.expenditure_under_head==1 ? true : false) Contigency
-             option(value=2, selected=tempPrjAdvance.expenditure_under_head==2 ? true : false) Consumables
-             option(value=3, selected=tempPrjAdvance.expenditure_under_head==3 ? true : false) Non-consumables
-             option(value=4, selected=tempPrjAdvance.expenditure_under_head==4 ? true : false) TA
-             option(value=5, selected=tempPrjAdvance.expenditure_under_head==5 ? true : false) Donation
-             option(value=6, selected=tempPrjAdvance.expenditure_under_head==6 ? true : false) Sale of Software
-             option(value=7, selected=tempPrjAdvance.expenditure_under_head==7 ? true : false) Travel Grant
-             option(value=8, selected=tempPrjAdvance.expenditure_under_head==8 ? true : false) Professiona |Dev. A/C
-             option(value=9, selected=tempPrjAdvance.expenditure_under_head==9 ? true : false) Institute Project
-             option(value=10, selected=tempPrjAdvance.expenditure_under_head==10 ? true : false) Initiation Grant
-             option(value=11, selected=tempPrjAdvance.expenditure_under_head==11 ? true : false) Dept. Promotion A/C
-             option(value=12, selected=tempPrjAdvance.expenditure_under_head==12 ? true : false) Lab Dev. A/C
-
-      .form-group
-        .col-sm-4.col-sm-offset-1       
-              label(for="name_p_investigator",class="control-label,text-left") Name of the Project Investigator *
-        .col-sm-6   
-              input#name_p_investigator.form-control( type="text", name="name_p_investigator", placeholder="Project Investigator Name", value=tempPrjAdvance.name_p_investigator, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1         
-              label(for="pf_no",class="control-label") P F No. *
-        .col-sm-6      
-              input#pf_no.form-control( type="text", name="pf_no", placeholder="P F No", value=tempPrjAdvance.pf_no, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1     
-              label(for="project_number",class="control-label") Project No. *
-        .col-sm-6     
-              input#project_number.form-control( type="text", name="project_number", placeholder="Project No", value=tempPrjAdvance.project_number, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1      
-              label(for="amount_advance_required",class="control-label,text-left") Amount of Advance required *
-        .col-sm-6     
-              input#amount_advance_required.form-control( type="text", name="amount_advance_required", placeholder="Amount of Advance required", value=tempPrjAdvance.amount_advance_required, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1             
-              label(for="purpose",class="control-label,text-left") Purpose (with justification)
-        .col-sm-6
-              input#purpose.form-control( type="text", name="purpose", placeholder="Purpose", value=tempPrjAdvance.purpose )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1     
-              label(for="advance_sanctioned",class="control-label,text-left") Advance to be sanctioned in the name of (Permanent employee only) *
-        .col-sm-6
-              input#advance_sanctioned.form-control( type="text", name="advance_sanctioned", placeholder="Advance to be sanctioned in the name of ", value=tempPrjAdvance.advance_sanctioned, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1 
-              label(for="pfno_advance_holder",class="control-label,text-left") P.F. No of the Advance holder *
-        .col-sm-6
-              input#pfno_advance_holder.form-control( type="text", name="pfno_advance_holder", placeholder="P.F. No of the Advance holder", value=tempPrjAdvance.pfno_advance_holder, required )
-
-      .form-group
-        .col-sm-4.col-sm-offset-1 
-              label(for="bank_ac_no",class="control-label,text-left") Bank A/c No. for money transfer *
-        .col-sm-6
-              input#bank_ac_no.form-control( type="text", name="bank_ac_no", placeholder="Bank A/c No.", value=tempPrjAdvance.bank_ac_no, required )
-        
-      .form-group
-        .col-sm-4.col-sm-offset-5
-             button.btn.btn-primary(type="submit", name="submit", value="Submit") Submit
+    .form-group
+      .col-sm-4.col-sm-offset-5
+        button.btn.btn-primary( type="submit", name="submit", value="Submit" ) Submit
+    
+        button.btn.btn-default( type="reset", name="Reset" ) Reset
       
-             button.btn.btn-default(type="reset", name="Reset") Reset
-        
 
   
 

@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Request for Release of Payment for Students  
+    h3|Request for Release of Payment for Students  
 block content
   form( class="formDecor", method='post', action="/release_of_payment_for_students" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -48,9 +48,9 @@ block content
         .col-sm-6
           .input-group
             span.input-group-addon From
-            input#from.form-control.datepicker( name="from", type="text", placeholder="select a date", value=releaseOfPayment.from ) 
+            input#from.form-control.datepicker( name="from", type="text", placeholder="select a date" ) 
             span.input-group-addon To
-            input#to.form-control.datepicker( name="to", type="text", placeholder="select a date", value=releaseOfPayment.to )         
+            input#to.form-control.datepicker( name="to", type="text", placeholder="select a date" )         
         .col-sm-1
 
       .form-group

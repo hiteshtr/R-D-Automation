@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Request for Employment of Students in Projects   
+    h3|Request for Employment of Students in Projects   
 block content
  form(class="formDecor", method='post', action="/student_employment")
     input(type='hidden', name='_csrf', value="#{csrf_token}")
@@ -27,9 +27,9 @@ block content
         .col-sm-1
 
       .form-group
-        .col-sm-3.col-sm-offset-4
+        .col-sm-4.col-sm-offset-4
           b| Student Information: 
-        .col-sm-5
+        .col-sm-4
 
       .form-group
         .col-sm-3.col-sm-offset-1
@@ -85,16 +85,16 @@ block content
 
       .form-group
         .col-sm-3.col-sm-offset-1
-          label.control-label CPI (should be > 6)
+          label( class="control-label,text-left" ) CPI (should be > 6)
         .col-sm-7
-          input#cpi.form-control( type='text', name='cpi', value=students.cpi )
+          input#cpi.form-control( type='text', name='cpi', placeholder='CPI', value=students.cpi )
         .col-sm-1
 
       .form-group
         .col-sm-3.col-sm-offset-1
           label.control-label Bank A/C No
         .col-sm-7
-          input#bankacno.form-control( type='text', name='bankacno', value=students.bankacno )
+          input#bankacno.form-control( type='text', name='bankacno', placeholder='Bank A/C no.', value=students.bankacno )
         .col-sm-1
 
       .form-group
@@ -107,9 +107,9 @@ block content
         .col-sm-1
 
       .form-group
-        .col-sm-3.col-sm-offset-4
+        .col-sm-4.col-sm-offset-4
           b|  Terms of Appointment :
-        .col-sm-5
+        .col-sm-4
 
        .form-group
         .col-sm-3.col-sm-offset-1
@@ -155,9 +155,9 @@ block content
         .col-sm-7
           .input-group
             span.input-group-addon From
-            input#start_date.form-control( name="start_date", type="text", placeholder='select a date' ) 
+            input#start_date.datepicker.form-control( name="start_date", type="text", placeholder='select a date' ) 
             span.input-group-addon To
-            input#end_date.form-control( name="end_date", type="text", placeholder='select a date', onchange="diffrenceInDate('start_date', 'end_date', 'duration')" )   
+            input#end_date.datepicker.form-control( name="end_date", type="text", placeholder='select a date', onchange="diffrenceInDate('start_date', 'end_date', 'duration')" )   
 
       .form-group
         .col-sm-3.col-sm-offset-1
@@ -244,15 +244,15 @@ block foot
       }
 
      else if(employment.value == 'full_time')
-     {
+      {
         document.getElementById("hours_per_week").disabled = true;
         document.getElementById("per_hour_rs").disabled = true;
         document.getElementById("consolidated_salary").disabled = false;
-     }
+      }
      else
-     {
+      {
         document.getElementById("hours_per_week").disabled = true;
         document.getElementById("per_hour_rs").disabled = true;
         document.getElementById("consolidated_salary").disabled = true;
-     }
+      }
     }

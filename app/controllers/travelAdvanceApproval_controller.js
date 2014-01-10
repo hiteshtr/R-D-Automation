@@ -13,12 +13,19 @@ var mongoose = require('mongoose')
 
 exports.add = function (req, res) {
   Designation.find (function (err,designations) {
-	res.render('travelAdvanceApproval/add',{ 
-		title: 'Journey cum Travel Advance Approval Form',
-	    travelAdvanceApproval : new TravelAdvanceApproval({}),
-	    designations: designations,
-	    path:req.url
-	});
+  	if(err)  
+      {
+        console.log(err);
+      }  
+    else
+      { 
+				res.render('travelAdvanceApproval/add',{ 
+					title: 'Journey cum Travel Advance Approval Form',
+				    travelAdvanceApproval: new TravelAdvanceApproval({}),
+				    designations: designations,
+				    path: req.url
+				});
+			}
   });
 }
 
@@ -32,24 +39,29 @@ exports.save = function (req, res) {
   var travelAdvanceApproval = new TravelAdvanceApproval(req.body);
 
   travelAdvanceApproval.save(function (err,info) {
-	if (!err) 
-	{    req.flash('success', 'Form has been submitted successfully..');
-	   	 res.redirect('/travel_advance_approval');
-	}  
-	else
-	{
-      Designation.find (function (err1,designations) {
-		return res.render('travelAdvanceApproval/add',{
-		  	  title:'Journey cum Travel Advance Approval Form',
-		  	   travelAdvanceApproval:travelAdvanceApproval,
-		  	   designations: designations,
-		  	  path:req.url,
-		  	  errors: utils.errors(err.errors || err)		  	 
-		  });
-	 });
-		  console.log(err);  	
-	 }
-	  
+		if (!err) 
+		{    req.flash('success', 'Form has been submitted successfully..');
+		   	 res.redirect('/travel_advance_approval');
+		}  
+		else
+		{
+		  console.log(err); 
+	    Designation.find (function (err1,designations) {
+	    	if(err1)  
+	      {
+	        console.log(err1);
+	      }  
+	      else
+	      { 
+					return res.render('travelAdvanceApproval/add',{
+					  	  title:'Journey cum Travel Advance Approval Form',
+					  	  travelAdvanceApproval: travelAdvanceApproval,
+					  	  designations: designations,
+					  	  path: req.url,
+					  	  errors: utils.errors(err.errors || err)		  	 
+					});
+		    }
+		  });		   	
+		}		  
   });
-
 }

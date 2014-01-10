@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Approval for Purchase Committee and Fund for Purchase
+    h3|Approval for Purchase Committee and Fund for Purchase
 block content
  form( class="formDecor", method='post', action="/purchase_committee" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -13,10 +13,10 @@ block content
         .col-sm-3
           input#below( type="radio", name="above_5_lakh", value='false' checked )
           label.control-label below 5 Lakh
-        .col-sm-2
+        .col-sm-3
           input#above( type="radio", name="above_5_lakh", value='true' )
           label.control-label above 5 lakh
-        .col-sm-3
+        .col-sm-2
 
       .form-group
         .col-sm-3.col-sm-offset-1
@@ -34,7 +34,7 @@ block content
 
       .form-group
         .col-sm-3.col-sm-offset-1
-          label.control-label Name of Equipment
+          label(class="control-label,text-left") Name of Equipment
         .col-sm-7
           input#equipment_name.form-control( type="text", name="equipment_name", placeholder="Enter equipment name", value=purchase.equipment_name )  
         .col-sm-1

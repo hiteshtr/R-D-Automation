@@ -25,14 +25,9 @@ exports.add = function (req, res) {
 
 exports.save = function(req, res) {
   var disbursementhonorarium = new DisbursementHonorarium(req.body);
-
-  disbursementhonorarium.details = req.body.details;
-
-  console.log(req.body);
   disbursementhonorarium.save(function (err,info) {
     if (!err) 
     {
-    //console.log(info);
     req.flash('success', 'Form has been submitted successfully');
     res.redirect('/disbursement_honorarium');
     }
@@ -41,7 +36,7 @@ exports.save = function(req, res) {
       console.log(err);
       return res.render('disbursementHonorarium/add',{
         title: 'Disbursement of honorarium from Consultancy Project ',
-        disbursementhonorarium:disbursementhonorarium,
+        disbursementhonorarium: disbursementhonorarium,
         path: req.url,
         errors: utils.errors(err.errors || err)
       });

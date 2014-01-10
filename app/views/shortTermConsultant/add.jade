@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Request for engaging short-term Consultants/ Personnel who are not the employees of IIT Jodhpur for Project Work 
+    h3|Request for engaging short-term Consultants/ Personnel who are not the employees of IIT Jodhpur for Project Work 
 block content
  form( class="formDecor", method='post', action="/short_term_consultant" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -11,7 +11,7 @@ block content
         .col-sm-4.col-sm-offset-1
           label.control-label Name of PI
         .col-sm-6
-          input#name_pi.form-control( type="text", name="name_pi", placeholder="Enter name of pi", value=shortTerm.name_pi )
+          input#name_pi.form-control( type="text", name="name_pi", placeholder="Enter name of PI", value=shortTerm.name_pi )
         .col-sm-1
 
       .form-group
@@ -40,7 +40,7 @@ block content
 
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Area of short-term project work 
+          label( class="control-label,text-left" ) Area of short-term project work 
         .col-sm-6
           select#project_work.form-control( name="project_work" )            
             option( value='academic', selected=shortTerm.project_work=='academic' ? true : false ) Academic
@@ -61,9 +61,21 @@ block content
             
       .form-group
         .col-sm-4.col-sm-offset-1
-          label( class="control-label,text-left" ) Designation & Organisational details
+          label( class="control-label,text-left" ) Designation
         .col-sm-6
-          input#designation.form-control( type="text", name="designation", placeholder="Enter designation & organisational details", value=shortTerm.designation )
+          select.form-control(name="designation_id")
+            each designation in designations
+              if(shortTerm.designation_id)
+                option( id=designation._id, value=designation._id, selected=shortTerm.designation_id.toString() == designation._id.toString() ? true : false )= designation.designation_name
+              else
+                option( id=designation._id, value=designation._id, selected=shortTerm.designation_id == designation._id ? true : false )= designation.designation_name 
+        .col-sm-1
+
+      .form-group
+        .col-sm-4.col-sm-offset-1
+          label( class="control-label,text-left" ) Organisational details
+        .col-sm-6
+          input#organisational_details.form-control( type="text", name="organisational_details", placeholder="Enter organisational details", value=shortTerm.organisational_details )
         .col-sm-1
 
       .form-group

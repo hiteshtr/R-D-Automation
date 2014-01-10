@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Statement of Accounts for Settlement of Temporary Advance
+    h3|Statement of Accounts for Settlement of Temporary Advance
 block content
   form( class="formDecor", method='post', action="/statement_of_account" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -35,7 +35,7 @@ block content
 
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Type of Advance/Budget Head
+          label( class="control-label,text-left" ) Type of Advance/Budget Head
         .col-sm-6
           select#type_of_advance.form-control( name="type_of_advance" )            
             option( value='consumables', selected=statementAccount.type_of_advance=='consumables' ? true : false ) Consumables
@@ -75,7 +75,7 @@ block content
 
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Excess amount claimed / Balance deposited
+          label( class="control-label,text-left" ) Excess amount claimed / Balance deposited
         .col-sm-6
           input#excess_amount.form-control( type="text", name="excess_amount", placeholder="Enter Excess amount claimed / Balance deposited:", value=statementAccount.excess_amount )               
         .col-sm-1
@@ -128,12 +128,18 @@ block foot
       var cell8 = row.insertCell(7);
 
       cell1.innerHTML = i;
-      cell2.innerHTML = "<input type='text' id='date"+i+"' name='details["+i+"][date]' class='form-control'>";
+      cell2.innerHTML = "<input type='text' id='date"+i+"' name='details["+i+"][date]' class='form-control datepicker'>";
       cell3.innerHTML = "<input type='text' id='receipt_no"+i+"' name='details["+i+"][receipt_no]' class='form-control'>";
       cell4.innerHTML = "<input type='text' id='name"+i+"' name='details["+i+"][name]' class='form-control'>";
       cell5.innerHTML = "<input type='text' id='particulars"+i+"' name='details["+i+"][particulars]' class='form-control'>";
       cell6.innerHTML = '<input type="text" id="amount'+i+'" name="details['+i+'][amount]" onkeyup="total(this, \'total_amount\')" class="form-control">';
       cell7.innerHTML = "<input type='text' id='stock_register"+i+"' name='details["+i+"][stock_register]' class='form-control'>";
       cell8.innerHTML = "<input type='text' id='page"+i+"' name='details["+i+"][page]' class='form-control'>";
-      i++;     
+      i++;
+
+      $(".datepicker").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       dateFormat: "yy,mm,dd"
+      });     
     }

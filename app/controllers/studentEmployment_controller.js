@@ -15,12 +15,19 @@ var mongoose = require('mongoose')
 
 exports.add = function (req, res) {
   Department.find (function (err,departments) {
-  	res.render('studentEmployment/add',{ 
-        title: 'Request for Employment of Students in Projects ',
-        students: new StudentEmployment({}),
-        departments: departments, 
-        path: req.url
-    });
+    if(err)  
+      {
+        console.log(err);
+      }  
+    else
+      { 
+      	res.render('studentEmployment/add',{ 
+            title: 'Request for Employment of Students in Projects ',
+            students: new StudentEmployment({}),
+            departments: departments, 
+            path: req.url
+        });
+      }
   });
 }
 
@@ -40,13 +47,20 @@ exports.save = function(req, res) {
     {
       console.log(err); 
       Department.find (function (err1,departments) {
-        return res.render('studentEmployment/add',{
-              title: 'Request for Employment of Students in Projects',
-              students: students,
-              departments: departments,
-              path: req.url,
-              errors: utils.errors(err.errors || err)
-        });
+        if(err1)  
+        {
+          console.log(err1);
+        }  
+        else
+        { 
+          return res.render('studentEmployment/add',{
+                title: 'Request for Employment of Students in Projects',
+                students: students,
+                departments: departments,
+                path: req.url,
+                errors: utils.errors(err.errors || err)
+          });
+        }
       });
     }
   });

@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Request for Release of remuneration or consultancy fees Short term consultant or Personnel
+    h3|Request for Release of remuneration or consultancy fees Short term consultant or Personnel
 block content
   form( class="formDecor", method='post', action="/remuneration_or_consultancy_fees" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -11,7 +11,7 @@ block content
         .col-sm-4.col-sm-offset-1
           label.control-label Name of PI
         .col-sm-6
-          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter name of pi", value=remunerationConsultancy.pi_name )
+          input#pi_name.form-control( type="text", name="pi_name", placeholder="Enter name of PI", value=remunerationConsultancy.pi_name )
         .col-sm-1
 
       .form-group
@@ -56,7 +56,7 @@ block content
         .col-sm-4.col-sm-offset-1
           label.control-label Outcome of Appointment
         .col-sm-6
-          input#appointment.form-control( type="text", name="appointment", placeholder="Enter outcome of appointment", value=remunerationConsultancy.appointment )  
+          input#appointment_outcome.form-control( type="text", name="appointment_outcome", placeholder="Enter outcome of appointment", value=remunerationConsultancy.appointment_outcome )  
         .col-sm-1
         
       .form-group
@@ -86,7 +86,7 @@ block content
         
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Service Tax No.(If Applicable)
+          label( class="control-label,text-left" ) Service Tax No.(If Applicable)
         .col-sm-6
           input#service_tax_no.form-control( type="text", name="service_tax_no", placeholder="Enter service tax no(if applicable)", value=remunerationConsultancy.service_tax_no )  
         .col-sm-1 

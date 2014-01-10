@@ -44,7 +44,7 @@ module.exports = function (passport, config) {
   // serialize sessions
   passport.serializeUser(function(user, done) {
     User.findOne({ email: user.mail }, function (err, user) {
-      done(null, user._id);
+      done(err, user._id);
     })
   })
 

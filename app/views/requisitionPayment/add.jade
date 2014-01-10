@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Requisition for Payment or Reimbursement (Not exceeding Rs.50,000/-) 
+    h3|Requisition for Payment or Reimbursement (Not exceeding Rs.50,000/-) 
 block content
   form( class="formDecor", method='post', action="/approval_for_advertisement" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -10,13 +10,13 @@ block content
       .form-group
         .col-sm-4.col-sm-offset-1
           label.control-label Reqisition for
-        .col-sm-2
+        .col-sm-3
           input#pay( type="radio", name="requisition", value='true' checked)
           label.control-label payment
         .col-sm-3
           input#reimbursement( type="radio", name="requisition", value='false' )
           label.control-label reimbursement
-        .col-sm-2
+        .col-sm-1
 
       .form-group
         .col-sm-4.col-sm-offset-1
@@ -41,7 +41,7 @@ block content
 
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Budeget Head
+          label.control-label Budget Head
         .col-sm-6
           select#budget_head.form-control( name="budget_head" )
             option( value='consumables', selected=requisitionPayment.budget_head=='consumables' ? true : false ) Consumable
@@ -62,7 +62,7 @@ block content
       
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Bank A/C No.(if reimbursement) 
+          label( class="control-label,text-left" ) Bank A/C No.(if reimbursement) 
         .col-sm-6
           .input-group
             span.input-group-addon SBI
@@ -77,7 +77,7 @@ block content
       .col-sm-1
       .col-sm-10
         .table-responsive
-          table#myTable( class='table table-bordered' )
+          table#detailsTable( class='table table-bordered' )
             tr
               th #
               th Invoice Bill No
@@ -107,8 +107,8 @@ block foot
   script.
     var i=1;  
     function generateRow() {
-      var table = document.getElementById("myTable");
-      var row = table.insertRow(i);
+      var detailsTable = document.getElementById("detailsTable");
+      var row = detailsTable.insertRow(i);
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
@@ -118,11 +118,17 @@ block foot
 
       cell1.innerHTML = i;
       cell2.innerHTML = "<input type='text' id='invoice_bill"+i+"'' name='details["+i+"][invoice_bill]' class='form-control'>";
-      cell3.innerHTML = "<input type='text' id='date"+i+"' name='details["+i+"][date]' class='form-control'>";
+      cell3.innerHTML = "<input type='text' id='date"+i+"' name='details["+i+"][date]' class='form-control datepicker'>";
       cell4.innerHTML = "<input type='text' id='item_purchase"+i+"' name='details["+i+"][item_purchase]' class='form-control'>";
       cell5.innerHTML = '<input type="text" id="amount'+i+'" name="amount" onkeyup="total(this, \'total_amount\')" class="form-control">';
       cell6.innerHTML = "<input type='text' id='stock_register"+i+"' name='details["+i+"][stock_register]' class='form-control'>";
       i++;
+
+      $(".datepicker").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       dateFormat: "yy,mm,dd"
+      });
     }
     
 

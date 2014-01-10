@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Approval for Advertisement on IITJ website and Selection Committee for Appointment in Project 
+    h3|Approval for Advertisement on IITJ website and Selection Committee for Appointment in Project 
 block content
   form( class="formDecor", method='post', action="/approval_for_advertisement" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -68,7 +68,7 @@ block content
 
       .form-group
         .col-sm-4.col-sm-offset-1
-          label.control-label Convenor/ Project Investigator
+          label( class="control-label,text-left" ) Convenor/ Project Investigator
         .col-sm-6
           input#convenor.form-control( type="text", name="convenor", placeholder="Enter name of Convenor/ Project Investigator", value=advertisement.convenor )  
         .col-sm-1    

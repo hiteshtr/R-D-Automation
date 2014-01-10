@@ -31,10 +31,3 @@ function total (current_elem, total_id) {
   document.getElementById(total_id).value = count;
 }
 
-function dynamicDate(){
-  $(".dynamicDatepicker").datepicker({
-   changeMonth: true,
-   changeYear: true,
-   dateFormat: "yy,mm,dd" 
- });
-}

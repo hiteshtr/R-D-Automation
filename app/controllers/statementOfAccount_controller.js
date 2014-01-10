@@ -14,13 +14,20 @@ var mongoose = require('mongoose')
 */
 
 exports.add = function (req, res) {
-  Designation.find (function (err1,designations) {  
-  	res.render('statementOfAccount/add',{ 
-        title: 'Statement of Accounts for Settlement of Temporary Advance ',
-        statementAccount: new StatementOfAccount({}),
-        designations: designations,
-        path: req.url
-    });
+  Designation.find (function (err,designations) {  
+    if(err)
+    {
+      console.log(err);
+    }
+    else
+    {
+    	res.render('statementOfAccount/add',{ 
+          title: 'Statement of Accounts for Settlement of Temporary Advance ',
+          statementAccount: new StatementOfAccount({}),
+          designations: designations,
+          path: req.url
+      });
+    }
   });
 }
 
@@ -37,14 +44,23 @@ exports.save = function(req, res) {
     res.redirect('/statement_of_account');
     }
     else
-    { Designation.find (function (err1,designations) {   
-        return res.render('statementOfAccount/add',{
-         title: 'Statement of Accounts for Settlement of Temporary Advance',
-         statementAccount: statementAccount,
-         designations: designations,
-         path: req.url,
-         errors: utils.errors(err.errors || err)
-        });
+    { 
+      console.log(err);
+      Designation.find (function (err1,designations) {   
+        if(err1)  
+        {
+          console.log(err1);
+        }  
+        else
+        { 
+          return res.render('statementOfAccount/add',{
+           title: 'Statement of Accounts for Settlement of Temporary Advance',
+           statementAccount: statementAccount,
+           designations: designations,
+           path: req.url,
+           errors: utils.errors(err.errors || err)
+          });
+        }
       });
     }
   });  

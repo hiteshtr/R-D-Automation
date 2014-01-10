@@ -36,14 +36,16 @@ var designation = new Designation(req.body);
     {	
       Designation.find (function (err1,designations) {
         if(err1)
+        {
           console.log(err1);
+        }
         else
         {
         	res.render('designation/show', {
             title: 'Add a Designation',
             designation: designation,
-            designations:designations,
-            path:req.url,
+            designations: designations,
+            path: req.url,
             errors: utils.errors(err.errors || err)
           });
         	console.log(err);
@@ -56,19 +58,21 @@ var designation = new Designation(req.body);
 //Show List of Designation
 
 exports.show =function(req,res){
-Designation.find (function (err,designations) {
-  if(err)
-    console.log(err);
-  else
-  {
-    res.render('designation/show', {
-            title: 'Designations',
-            designation: new Designation({}),
-            designations:designations,
-            path:req.url
-        });    
-}
-});
+  Designation.find (function (err,designations) {
+    if(err)
+    {
+      console.log(err);
+    }
+    else
+    {
+      res.render('designation/show', {
+              title: 'Designations',
+              designation: new Designation({}),
+              designations: designations,
+              path: req.url
+      });    
+    }
+  });
 }
 
 //Delete Entry from posts collection
@@ -128,7 +132,6 @@ exports.update =function(req,res){
                res.redirect('/designation/list');
                console.log(err);
              }
-});
- 
+    }); 
   });
 }

@@ -88,12 +88,13 @@ block content
                     .col-sm-offset-2.col-sm-10
                       button.btn.btn-default(type='submit', disabled='disabled') Update
                       button.btn.btn-default(type='button') Edit
+
               #attachments.tab-pane.fade
                 br
                 br
                 span#progress(style="display:none")
                   .progress.progress-striped.active
-                    .progress-bar(role='progressbar', aria-valuenow='45', aria-valuemin='0', aria-valuemax='100', style='width: 45%;')
+                    .progress-bar#progressbar(role='progressbar', aria-valuenow='45', aria-valuemin='0', aria-valuemax='100', style='width: 5%;')
                       span.sr-only 45% Complete
                 span#attachment_upload
                   form.form-inline(role='form')
@@ -106,14 +107,34 @@ block content
                     .form-group
                       label.sr-only(for='attachments[url]') File Input
                       input#fileInput(type='file', name='attachments[url]', placeholder='Input file', accept='application/pdf')
-                    button.btn.btn-info#uploadButton(type='submit') Upload
+                    button.btn.btn-info#uploadButton(type='button') Upload
                 hr
                 if(project.attachments.length == 0)
                   p No Files are attached to current project
+
               #investigators.tab-pane.fade
-                
+                br
+                br
+                form.form-inline(role='form')
+                  .form-group
+                    label.sr-only(for='investigator[faculty_id]') Faculty
+                    input.form-control(type='text', placeholder='Enter name of faculty')
+                    input(type='hidden', name='investigator[faculty_id]')
+                  .form-group
+                    label.sr-only(for='investigator[role]') Role
+                    input.form-control(type='text', name='investigator[role]', placeholder='Enter role of faculty')
+                  button.btn.btn-info(type='submit') Add
+                hr
+                if(project.investigator.lenth != 0)
+                  .table-responsive
+                    table.table.table-striped
+                      thead
+                p No falcuty is assigned as investigator
               #funds.tab-pane.fade
               #project_posts.tab-pane.fade
               #travel_details.tab-pane.fade
     if (projects == undefined)
       p No Entries Found
+
+block foot
+  script(src="/js/file-upload.js")

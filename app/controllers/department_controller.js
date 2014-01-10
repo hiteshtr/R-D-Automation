@@ -44,7 +44,7 @@ exports.save = function (req, res) {
                   path: req.url,
                   errors: utils.errors(err.errors || err)
                });
-      	 console.log(err); 	
+      	console.log(err); 	
       }
   });
 }
@@ -64,7 +64,7 @@ exports.show =function(req,res){
               title: 'Departments',
               departments: departments,
               path: req.url
-          });
+      });
     }
   });
 }

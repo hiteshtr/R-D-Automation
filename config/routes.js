@@ -79,80 +79,84 @@ module.exports = function (app, passport, io) {
   app.post('/adhoc',adhoc.save);
 
  //Temp_Project_Advance_Routes
-  var tmpProAdvnc=require('../app/controllers/tempProjectAdvance_controller');
+  var tmpProAdvnc = require('../app/controllers/tempProjectAdvance_controller');
   app.get('/temp_project_advance',tmpProAdvnc.add);
   app.post('/temp_project_advance',tmpProAdvnc.save);
 
  //Travel_Advance_Approval Routes
-  var trvlAdvncApp=require('../app/controllers/travelAdvanceApproval_controller');
+  var trvlAdvncApp = require('../app/controllers/travelAdvanceApproval_controller');
   app.get('/travel_advance_approval',trvlAdvncApp.add);
   app.post('/travel_advance_approval',trvlAdvncApp.save);
 
  //No Dues Routes
-  var noDues=require('../app/controllers/no_dues_controller');
+  var noDues = require('../app/controllers/no_dues_controller');
   app.get('/no_dues',noDues.add);
   app.post('/no_dues',noDues.save);
 
 
-  //purchase committee
-  var purchaseCommittee =require('../app/controllers/purchaseCommittee_controller');
+  //purchase committee Route
+  var purchaseCommittee = require('../app/controllers/purchaseCommittee_controller');
   app.get('/purchase_committee',purchaseCommittee.add);
   app.post('/purchase_committee',purchaseCommittee.save);
 
   
-  //extension of duration
-  var extensionOfDuration=require('../app/controllers/extensionOfDuration_controller');
+  //extension of duration Route
+  var extensionOfDuration = require('../app/controllers/extensionOfDuration_controller');
   app.get('/extension_of_duration_of_project_employee',extensionOfDuration.add);
   app.post('/extension_of_duration_of_project_employee',extensionOfDuration.save);
 
-  //release of payment
-  var releaseOfPayment=require('../app/controllers/releaseOfPayment_controller');
+  //release of payment Route
+  var releaseOfPayment = require('../app/controllers/releaseOfPayment_controller');
   app.get('/release_of_payment_for_students',releaseOfPayment.add);
   app.post('/release_of_payment_for_students',releaseOfPayment.save);
 
-  //advertisement approval
-  var advertisement=require('../app/controllers/advertisement_controller');
+  //advertisement approval Route
+  var advertisement = require('../app/controllers/advertisement_controller');
   app.get('/approval_for_advertisement',advertisement.add);
   app.post('/approval_for_advertisement',advertisement.save);
 
-  //disbursement honorarium
-  var disbursementHonorarium=require('../app/controllers/disbursementHonorarium_controller');
+  //disbursement honorarium Route
+  var disbursementHonorarium = require('../app/controllers/disbursementHonorarium_controller');
   app.get('/disbursement_honorarium',disbursementHonorarium.add);
   app.post('/disbursement_honorarium',disbursementHonorarium.save);
 
-  //joining report
-  var joiningReport=require('../app/controllers/joiningReport_controller');
+  //joining report Route
+  var joiningReport = require('../app/controllers/joiningReport_controller');
   app.get('/joining_report',joiningReport.add);
   app.post('/joining_report',joiningReport.save);
 
-  //remuneration or consultancy fees
-  var remunerationConsultancy=require('../app/controllers/remunerationConsultancy_controller');
+  //remuneration or consultancy fees Route
+  var remunerationConsultancy = require('../app/controllers/remunerationConsultancy_controller');
   app.get('/remuneration_or_consultancy_fees',remunerationConsultancy.add);
   app.post('/remuneration_or_consultancy_fees',remunerationConsultancy.save);
 
-  //requisition for payment
-  var requisitionPayment=require('../app/controllers/requisitionPayment_controller');
+  //requisition for payment Route
+  var requisitionPayment = require('../app/controllers/requisitionPayment_controller');
   app.get('/requisition_for_payment',requisitionPayment.add);
   app.post('/requisition_for_payment',requisitionPayment.save);
 
-  //selection committee
-  var selectionCommittee=require('../app/controllers/selectionCommittee_controller');
+  //selection committee Route
+  var selectionCommittee = require('../app/controllers/selectionCommittee_controller');
   app.get('/selection_committee',selectionCommittee.add);
   app.post('/selection_committee',selectionCommittee.save);
 
-  //short term consultant
-  var shortTermConsultant=require('../app/controllers/shortTermConsultant_controller');
+  //short term consultant Route
+  var shortTermConsultant = require('../app/controllers/shortTermConsultant_controller');
   app.get('/short_term_consultant',shortTermConsultant.add);
   app.post('/short_term_consultant',shortTermConsultant.save);
 
-  //student employment
-  var studentEmployment=require('../app/controllers/studentEmployment_controller');
+  //student employment Route
+  var studentEmployment = require('../app/controllers/studentEmployment_controller');
   app.get('/student_employment',studentEmployment.add);
   app.post('/student_employment',studentEmployment.save);
 
- //statement of account
- var statementOfAccount=require('../app/controllers/statementOfAccount_controller');
+ //statement of account Route
+ var statementOfAccount = require('../app/controllers/statementOfAccount_controller');
  app.get('/statement_of_account',statementOfAccount.add);
  app.post('/statement_of_account',statementOfAccount.save);
 
+// New Project/PDA Registration Route
+var newProjectPda = require('../app/controllers/newProjectPda_controller');
+app.get('/newProject_or_pda_registration',newProjectPda.add);
+app.post('/newProject_or_pda_registration',newProjectPda.save);
 }

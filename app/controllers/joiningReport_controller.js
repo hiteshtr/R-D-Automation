@@ -14,13 +14,20 @@ var mongoose = require('mongoose')
 */
 
 exports.add = function (req, res) {
-  Designation.find (function (err1,designations) {  
-  	res.render('joiningReport/add',{ 
-        title: 'Joining Report',
-        designations: designations,
-        joiningReport: new JoiningReport({}),
-        path: req.url
-    });
+  Designation.find (function (err,designations) {  
+    if(err)  
+      {
+        console.log(err);
+      }  
+    else
+      { 
+      	res.render('joiningReport/add',{ 
+            title: 'Joining Report',
+            designations: designations,
+            joiningReport: new JoiningReport({}),
+            path: req.url
+        });
+      }
   });
 }
 
@@ -38,14 +45,21 @@ exports.save = function(req, res) {
     }
     else
     { 
-      Designation.find (function (err1,designations) {       
-	     return res.render('joiningReport/add',{
-	        title: 'Joining Report',
-          designations: designations,
-	        joiningReport: joiningReport,
-	        path: req.url,
-	        errors: utils.errors(err.errors || err)
-        });
+      Designation.find (function (err1,designations) {  
+        if(err1)  
+        {
+          console.log(err1);
+        }  
+        else
+        { 
+  	      return res.render('joiningReport/add',{
+  	        title: 'Joining Report',
+            designations: designations,
+  	        joiningReport: joiningReport,
+  	        path: req.url,
+  	        errors: utils.errors(err.errors || err)
+          });
+        }
       });
     }
   });  

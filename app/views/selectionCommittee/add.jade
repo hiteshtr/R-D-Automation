@@ -74,16 +74,19 @@ block content
         .table-responsive
           table#appointmentList( class='table table-bordered' )
            tr
-             th #
-             th Name 
-             th PF No(if alloted)
-             th Date of Birth
-             th Permanent Address
-             th Designation
-             th Initial Salary(Consolidated)
-             th Term of Appointment
-             th
+             th( rowspan="2" ) #
+             th( rowspan="2" ) Name
+             th( rowspan="2" ) PF No. (if alloted)
+             th( rowspan="2" ) Date of Birth
+             th( rowspan="2" ) Permanent Address
+             th( rowspan="2" ) Designation
+             th( rowspan="2" ) Initial Salary
+             th( colspan="2" ) Term of Appointment  
+             th( rowspan="2" )
                button.btn.btn-default( type="button", name="add", onclick="generateRow()" ) Add
+           tr
+            th Year
+            th Month
 
       .col-sm-12
          b|The following persons may be kept on waiting list: 
@@ -92,16 +95,19 @@ block content
         .table-responsive
           table#waitingList( class='table table-bordered' )
            tr
-             th #
-             th Name 
-             th PF No(if alloted)
-             th Date of Birth
-             th Permanent Address
-             th Designation
-             th Initial Salary(Consolidated)
-             th Term of Appointment
-             th
+             th( rowspan="2" ) #
+             th( rowspan="2" ) Name
+             th( rowspan="2" ) PF No. (if alloted)
+             th( rowspan="2" ) Date of Birth
+             th( rowspan="2" ) Permanent Address
+             th( rowspan="2" ) Designation
+             th( rowspan="2" ) Initial Salary
+             th( colspan="2" ) Term of Appointment           
+             th( rowspan="2" )
                button.btn.btn-default( type="button", name="add1", onclick="generateRoww()" ) Add
+           tr
+            th Year
+            th Month
         
      .form-group
         .col-sm-4.col-sm-offset-4
@@ -111,7 +117,7 @@ block content
         .col-sm-4
 block foot    
   script.
-    var i=1;
+    var i=2;
     function generateRow() {
       var appointmentList = document.getElementById("appointmentList");
       var row = appointmentList.insertRow(i);
@@ -123,19 +129,34 @@ block foot
       var cell6 = row.insertCell(5);
       var cell7 = row.insertCell(6);
       var cell8 = row.insertCell(7);
+      var cell9 = row.insertCell(8);
 
-      cell1.innerHTML = i;
+      cell1.innerHTML = i-1;
       cell2.innerHTML = "<input type='text' id='name"+i+" name='appoint["+i+"][name]' class='form-control'>";
       cell3.innerHTML = "<input type='text' id='pfno"+i+"' name='appoint["+i+"][pfno]' class='form-control'>";
-      cell4.innerHTML = "<input type='text' id='date_of_birth"+i+"' name='appoint["+i+"][date_of_birth]' class='form-control' onclick='dynamicDate()'>";
+      cell4.innerHTML = "<input type='text' id='date_of_birth"+i+"' name='appoint["+i+"][date_of_birth]' class='form-control datepicker'>";
       cell5.innerHTML = "<input type='text' id='address"+i+"' name='appoint["+i+"][address]' class='form-control'>";
-      cell6.innerHTML = "<input type='text' id='designation"+i+"' name='appoint["+i+"][designation]' class='form-control'>";
+      cell6.innerHTML = "<select id='designation_id"+i+"' name='appoint["+i+"][designation_id]' class='form-control'><option></option></select>";
       cell7.innerHTML = "<input type='text' id='salary"+i+"' name='appoint["+i+"][salary]' class='form-control'>";
-      cell8.innerHTML = "<input type='text' id='appointment"+i+"' name='appoint["+i+"][appointment]' class='form-control'>";
+      cell8.innerHTML = "<input type='text' id='year"+i+"' name='appoint["+i+"][appointment][year]' class='form-control'>";
+      cell9.innerHTML = "<input type='text' id='month"+i+"' name='appoint["+i+"][appointment][month]' class='form-control'>";
       i++;
+
+      $(".datepicker").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       dateFormat: "yy,mm,dd"
+      });
     }
-  
-    var j=1;
+    /*function showDesig(){
+      document.write("<select>");
+       each designation in designations
+        document.write("<option id="+designation._id+", value="+designation._id+" ></option>");
+
+        document.write("</select>");
+      }*/
+
+    var j=2;
     function generateRoww() {
       var waitingList = document.getElementById("waitingList");
       var row = waitingList.insertRow(j);
@@ -147,15 +168,23 @@ block foot
       var cell6 = row.insertCell(5);
       var cell7 = row.insertCell(6);
       var cell8 = row.insertCell(7);
+      var cell9 = row.insertCell(8);
 
-      cell1.innerHTML = j;
+      cell1.innerHTML = j-1;
       cell2.innerHTML = "<input type='text' id='name"+j+"' name='waiting["+j+"][name]' class='form-control'>";
       cell3.innerHTML = "<input type='text' id='pfno"+j+"' name='waiting["+j+"][pfno]' class='form-control'>";
-      cell4.innerHTML = "<input type='text' id='date_of_birth"+j+"' name='waiting["+j+"][date_of_birth]' class='form-control'>";
+      cell4.innerHTML = "<input type='text' id='date_of_birth"+j+"' name='waiting["+j+"][date_of_birth]' class='form-control datepicker'>";
       cell5.innerHTML = "<input type='text' id='address"+j+"' name='waiting["+j+"][address]' class='form-control'>";
-      cell6.innerHTML = "<input type='text' id='designation"+j+"' name='waiting["+j+"][designation]' class='form-control'>";
+      cell6.innerHTML = "<input type='text' id='designation_id"+j+"' name='waiting["+j+"][designation_id]' class='form-control'>";
       cell7.innerHTML = "<input type='text' id='salary"+j+"' name='waiting["+j+"][salary]' class='form-control'>";
-      cell8.innerHTML = "<input type='text' id='appointment"+j+"' name='waiting["+j+"][appointment]' class='form-control'>";
+      cell8.innerHTML = "<input type='text' id='year"+j+"' name='waiting["+j+"][appointment][year]' class='form-control'>";
+      cell9.innerHTML = "<input type='text' id='month"+j+"' name='waiting["+j+"][appointment][month]' class='form-control'>";
       j++;
+
+      $(".datepicker").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       dateFormat: "yy,mm,dd"
+      });
     }
    

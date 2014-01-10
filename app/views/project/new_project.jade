@@ -2,32 +2,32 @@ extends ../layouts/default
 
 block main
   center
-      h2 Add New Project
+      h3| Add New Project
 block content
 
-  form(class="formDecor", method='post', action='/project')
-    input(type='hidden', name='_csrf', value="#{csrf_token}")
+  form( class="formDecor", method='post', action='/project' )
+    input( type='hidden', name='_csrf', value="#{csrf_token}" )
     .form-horizontal(role="form")
 
       .form-group
-        label.col-sm-3(for='project_title',class="control-label") Project Title
+        label.col-sm-3( for='project_title', class="control-label" ) Project Title
         .col-sm-9
-          input#pt.form-control(type="text", name="project_title", placeholder="Enter the project title")
+          input#pt.form-control( type="text", name="project_title", placeholder="Enter the project title" )
 
       .form-group
-        label.col-sm-3(for='project_no',class="control-label") Project Number
+        label.col-sm-3( for='project_no', class="control-label" ) Project Number
         .col-sm-9
-          input#pt.form-control(type="text", name="project_no", placeholder="Provide project number")
+          input#pt.form-control( type="text", name="project_no", placeholder="Provide project number" )
 
       .form-group
-        label.col-sm-3(for='sponsoring_agency',class="control-label") Sponsoring Agency
+        label.col-sm-3( for='sponsoring_agency', class="control-label" ) Sponsoring Agency
         .col-sm-9
-          input#sa.form-control(type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency")
+          input#sa.form-control( type="text", name="sponsoring_agency", placeholder="Enter a sponsoring agency" )
 
       .form-group
-        label.col-sm-3(for='type_of_agency',class="control-label") Type of Agency
+        label.col-sm-3( for='type_of_agency', class="control-label" ) Type of Agency
         .col-sm-9
-          select(name="type_of_agency", class="form-control")
+          select( name="type_of_agency", class="form-control" )
             option(value='industry') Industry
             option(value='psu') PSU
             option(value='central_gov') Central Govt.
@@ -35,67 +35,67 @@ block content
             option(value='others') Others
     
       .form-group
-        label.col-sm-3(for='country',class="control-label") Country
+        label.col-sm-3( for='country', class="control-label" ) Country
         .col-sm-9
-          input#count.form-control(type="text", name="country", placeholder="Enter the country name")
+          input#count.form-control( type="text", name="country", placeholder="Enter the country name" )
 
       .form-group
-        label.col-sm-3(for='collaborating_agency',class="control-label") Collaborating Agency
+        label.col-sm-3( for='collaborating_agency',class="control-label" ) Collaborating Agency
         .col-sm-9
-          input#ca.form-control(type="text", name="collaborating_agency", placeholder="Enter a collaborating agency")
+          input#ca.form-control( type="text", name="collaborating_agency", placeholder="Enter a collaborating agency" )
 
       .form-group
-        label.col-sm-3(for='research_area',class="control-label") Research Area
+        label.col-sm-3( for='research_area', class="control-label" ) Research Area
         .col-sm-9
-          input#ra.form-control(type="text", name="research_area", placeholder="Enter the research area")
+          input#ra.form-control( type="text", name="research_area", placeholder="Enter the research area" )
 
       .form-group
-        label.col-sm-3(for='sanction_number',class="control-label") Sanction Number
+        label.col-sm-3( for='sanction_number', class="control-label" ) Sanction Number
         .col-sm-9
-          input#sn.form-control(type="text", name="sanction_number", placeholder="Enter the sanction number")
+          input#sn.form-control( type="text", name="sanction_number", placeholder="Enter the sanction number" )
 
       .form-group
-        label.col-sm-3(for='sanction_date',class="control-label") Sanction Date
+        label.col-sm-3( for='sanction_date', class="control-label" ) Sanction Date
         .col-sm-9
           input#sd.form-control.datepicker(type="text", name="sanction_date", placeholder="select a date")
 
       .form-group
-        label.col-sm-3(for='start_date',class="control-label") Start Date
+        label.col-sm-3( for='start_date', class="control-label" ) Start Date
         .col-sm-9
-          input#start_date.form-control(type="text", name="start_date", placeholder="select a date")
+          input#start_date.form-control( type="text", name="start_date", placeholder="select a date" )
 
       .form-group
-        label.col-sm-3(for='end_date',class="control-label") End Date
+        label.col-sm-3( for='end_date', class="control-label" ) End Date
         .col-sm-9
-          input#end_date.form-control(type="text", name="end_date", placeholder="select a date", onchange="diffrenceInDate('start_date', 'end_date', 'duration')")
+          input#end_date.form-control( type="text", name="end_date", placeholder="select a date", onchange="diffrenceInDate('start_date', 'end_date', 'duration')" )
 
       .form-group
-        label.col-sm-3(for='duration',class="control-label") Duration (in days)
+        label.col-sm-3( for='duration', class="control-label" ) Duration (in days)
         .col-sm-5
-          input#duration.form-control(type="text", name="duration", placeholder="Enter the duration", readonly="readonly") Days
+          input#duration.form-control( type="text", name="duration", placeholder="Enter the duration", readonly="readonly" ) Days
 
       .form-group
-        label.col-sm-3(for='sanctioned_amount',class="control-label") Sanctioned Amount
+        label.col-sm-3( for='sanctioned_amount', class="control-label" ) Sanctioned Amount
         .col-sm-9
-          input#sanamt.form-control(type="text", name="sanctioned_amount", placeholder="Enter the sanction amount")
+          input#sanamt.form-control( type="text", name="sanctioned_amount", placeholder="Enter the sanction amount" )
 
       .form-group
-        label.col-sm-3(for='department_id',class="control-label") Department
+        label.col-sm-3( for='department_id', class="control-label" ) Department
         .col-sm-9
-          select(name="department_id", class="form-control")
+          select( name="department_id", class="form-control" )
             each dp in dept
               option(value=dp._id)= dp.department_name
 
       .form-group
-        label.col-sm-3(for='project_class_id',class="control-label") Project Class
+        label.col-sm-3( for='project_class_id', class="control-label" ) Project Class
         .col-sm-9
-          select(name="project_class_id", class="form-control")
+          select( name="project_class_id", class="form-control" )
             each pc in pclasses
               option(value=pc._id)= pc.project_class
 
       .form-group
         .col-sm-offset-3.col-sm-9
-          button.btn.btn-primary(type="submit", name="Add_Project") Add Project
+          button.btn.btn-primary( type="submit", name="Add_Project" ) Add Project
           button.btn.btn-default(type="reset", name="Reset") Reset
 
 block foot

@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
  ,  utils = require('../../lib/utils')
  ,  _ = require('underscore')
  ,  async = require('async')
+ ,  Designation = mongoose.model('Designation') 
  ,  ShortTermConsultant = mongoose.model('ShortTermConsultant');
 
 /**
@@ -13,10 +14,20 @@ var mongoose = require('mongoose')
 */
 
 exports.add = function (req, res) {
-	res.render('shortTermConsultant/add',{ 
-      title: 'Request for engaging short-term Consultants ',
-      shortTerm:new ShortTermConsultant({}),
-      path:req.url
+  Designation.find (function (err,designations) {  
+    if(err)
+    {
+      console.log(err);
+    }
+    else
+    {
+    	res.render('shortTermConsultant/add',{ 
+          title: 'Request for engaging short-term Consultants ',
+          shortTerm: new ShortTermConsultant({}),
+          designations: designations,
+          path: req.url
+      });
+    }
   });
 }
 
@@ -34,15 +45,25 @@ exports.save = function(req, res) {
     }
     else
     {
-       console.log(err); 
-       return res.render('shortTermConsultant/add',{
-            title: 'Request for engaging short-term Consultants ',
-            shortTerm:shortTerm,
-            path:req.url,
-            errors: utils.errors(err.errors || err)
+      console.log(err); 
+      Designation.find (function (err1,designations) {   
+        if(err1)  
+        {
+          console.log(err1);
+        }  
+        else
+        { 
+         return res.render('shortTermConsultant/add',{
+              title: 'Request for engaging short-term Consultants ',
+              shortTerm: shortTerm,
+              designations: designations,
+              path: req.url,
+              errors: utils.errors(err.errors || err)
 
-        });
-      }
+          });
+        }
+      });
+    }
   });
 };
 

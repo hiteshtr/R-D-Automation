@@ -17,14 +17,14 @@ var DisbursementSchema = new Schema({
   project_no: { type: String, default: '', validate:[validate.empty,'Project number is required.'] },  
   details:[
     {
-        name: { type: String, default: '' },
-        designation: { type: String, default: '' },
-        amount: { type: Number, default: '' },
-        bankacno: { type: String, default: '' },
-        pan: { type: String, default: '' }
+      name: { type: String, default: '', validate:[validate.empty,'Name is required.'] },
+      designation: { type: String, default: '', validate:[validate.empty,'designation is required.'] },
+      amount: { type: Number, default: '', validate:[validate.empty,'Amount is required.'] },
+      bankacno: { type: String, default: '', validate:[validate.empty,'Bank account no. is required.'] },
+      pan: { type: String, default: '', validate:[validate.empty,'PAN no. is required.'] }
     }
   ],
-  total_amount: { type:Number, default:''}
+  total_amount: { type:Number, default:'', validate:[validate.empty,'Total amount is required.']}
 });
 
 

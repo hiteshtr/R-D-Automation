@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    var socket = io.connect('http://localhost:3000');
- 
     socket.on('fetch notifications', function (data) {
         //function for object conversion to array of object
         var array = $.map(data.message, function(value, index) {
@@ -32,6 +30,5 @@ $(document).ready(function() {
     });
     
     var userId = document.getElementById('user_id').value;
-    socket.emit('notification', { message: userId });
-    
+    socket.emit('notification', { message: userId });  
 });

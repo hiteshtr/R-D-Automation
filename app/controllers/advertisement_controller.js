@@ -14,13 +14,20 @@ var mongoose = require('mongoose')
 */
 
 exports.add = function (req, res) {
-  Designation.find (function (err1,designations) { 
-  	res.render('advertisementApproval/add',{ 
-        title: 'Approval for Advertisement',
-        designations: designations,
-        advertisement: new ApprovalAdvertisement({}),
-        path: req.url
-    });
+  Designation.find (function (err,designations) { 
+    if(err)  
+      {
+        console.log(err);
+      }  
+    else
+      { 
+      	res.render('advertisementApproval/add',{ 
+            title: 'Approval for Advertisement',
+            designations: designations,
+            advertisement: new ApprovalAdvertisement({}),
+            path: req.url
+        });
+      }
   });
 }
 
@@ -39,15 +46,22 @@ exports.save = function(req, res) {
     else
     {
       console.log(err);
-       Designation.find (function (err1,designations) { 
-  	    return res.render('advertisementApproval/add',{
-  	        title: 'Approval for Advertisement',
-            designations: designations,
-  	        advertisement: advertisement,
-  	        path: req.url,
-  	        errors: utils.errors(err.errors || err)
+      Designation.find (function (err1,designations) { 
+        if(err1)
+        {
+          console.log(err1);
+        }
+        else
+        {
+    	    return res.render('advertisementApproval/add',{
+    	        title: 'Approval for Advertisement',
+              designations: designations,
+    	        advertisement: advertisement,
+    	        path: req.url,
+    	        errors: utils.errors(err.errors || err)
           });
-       });
+        }
+      });
     }
   });  
 }

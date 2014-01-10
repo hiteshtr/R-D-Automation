@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block main
   .text-center
-    h2|Disbursement of honorarium from Consultancy Project 
+    h3|Disbursement of honorarium from Consultancy Project 
 block content
   form( class="formDecor", method='post', action="/disbursement_honorarium" )
     input( type='hidden', name='_csrf', value="#{csrf_token}" )
@@ -43,6 +43,7 @@ block content
               td Total Amount
               td
                 input#total_amount.form-control( type="text", name="total_amount" value=disbursementhonorarium.total_amount, readonly )
+              td
               td
            
       .form-group
