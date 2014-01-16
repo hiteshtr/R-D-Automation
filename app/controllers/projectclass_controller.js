@@ -1,8 +1,11 @@
-var mongoose = require('mongoose');
-var utils = require('../../lib/utils');
-var _ = require('underscore');
-
-var Projectclass = mongoose.model('Projectclass');
+/**
+* Module dependencies.
+*/
+var mongoose = require('mongoose')
+ ,  utils = require('../../lib/utils')
+ ,  _ = require('underscore')
+ ,  async = require('async')
+ ,  Projectclass = mongoose.model('Projectclass');
 
 
 exports.add_projectclass = function (req, res) {
@@ -14,30 +17,31 @@ exports.add_projectclass = function (req, res) {
 
 //save info
 exports.save = function (req, res) {
-new Projectclass({
-	     project_class_code: req.body.pclasscode_name,
-        project_class: req.body.pclass_name,     	
-}).save(function (err,docs) {
-  if (!err) 
-  {    req.flash('success', 'successfully saved');
-   	   res.redirect('/projectclass/list');
-  }  
-  else
-  {
-	  	req.flash('errors', 'not saved');
-	  	if(err.errors.project_class_code)
-	  	{
-	  		req.flash('warning','Project Class Code must be Filled and must be max 20Characters');
-	  	}
-	  	if(err.errors.project_class)
-	  	{
-	  		req.flash('warning','Project Class Name must be Filled and must be max 30 Characters');
-	  	}
-	  	res.redirect('/projectclass');
-	  	console.log(err);
-	  	res.end();
-  }
-});
+ var projectClass = new Projectclass(req.body);
+  projectClass.save(function (err,docs) {
+      if (!err) 
+      {    
+        req.flash('success', 'Project class added successfully.');
+        res.redirect('/projectclass/list');
+      }  
+      else
+      { 
+        Projectclass.find(function (err1,projectclasses) {
+         if(err1)
+          console.error('No data found')
+         else
+         {
+          res.render('projectclass/show',{
+                  title: 'Add project class',
+                  projectclasses: projectclasses,
+                  path: req.url,
+                  errors: utils.errors(err.errors || err)
+               });
+        console.log(err);   
+        }
+      });
+    }
+  });
 }
 
 //show project class list
@@ -49,8 +53,8 @@ exports.show =function(req,res){
     {
       res.render('projectclass/show', {
           title: 'Project Class',
-          projectclasses:projectclasses,
-          path:req.url
+          projectclasses: projectclasses,
+          path: req.url
       });   
     }
   });

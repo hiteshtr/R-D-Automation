@@ -32,7 +32,8 @@
     "passport-local": "latest",
     "socket.io": "latest",
     "validator": "latest",
-    "formidable": "~1.0.14"
+    "formidable": "~1.0.14",
+    "winston": "~0.7.2"
   },
   "devDependencies": {
     "grunt-contrib-watch": "latest",

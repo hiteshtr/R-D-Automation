@@ -13,14 +13,14 @@ var _ = require('underscore');
  */
 
 var DesignationSchema = new Schema({
-    designation_name: { type: String, default:'', required:'Name of designation is required.'},
-    min_qualification: { type:String, default:'', required:'Minimum qualification is required.'},
+    designation_name: { type: String, default:'', validate:[validate.empty,'Designation name is required.']},
+    min_qualification: { type:String, default:'', validate:[validate.empty,'Minimum qualification is required.']},
     min_experience: {
-    	year: Number,
-    	month: Number
+    	year: { type: Number, default: '', required:true },
+        month: { type: Number, default: '', required:true }
     },
-    designation_type: { type:String , default:'', required:'Post type is required.'},
-    staff_type: { type:String, default:'', required:'Designation staff type is required.' }
+    designation_type: { type:String , default:'', validate:[validate.empty,'Designation type is required.']},
+    staff_type: { type:String, default:'',validate:[validate.empty,'Designation staff type is required.'] }
 });
 
 

@@ -123,11 +123,11 @@ exports.update =function(req,res){
                req.flash('errors', 'not saved');    
                if(err.errors.designation_name)
                 {
-                  req.flash('warning','Post Name must be Filled and must be max 20 Characters');
+                  req.flash('error','Designation Name must be Filled.');
                 }
                if(err.errors.min_qualification)
                 {
-                  req.flash('warning','Post Qualification must be Filled and must be max 10 Characters');
+                  req.flash('error','Minimum Qualification must be Filled.');
                 }
                res.redirect('/designation/list');
                console.log(err);

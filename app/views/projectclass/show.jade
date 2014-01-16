@@ -13,17 +13,17 @@ block content
       .form-group
         .col-sm-2
         .col-sm-3
-          label.control-label( for='pcc' ) Project Class Code
+          label.control-label( for='project_class_code' ) Project Class Code
         .col-sm-5
-          input#pcc.NameClass( type='text', name='pclasscode_name', placeholder="Enter a project class code", class="form-control", id="pclasscode_input" )
+          input#project_class_code( type='text', name='project_class_code', placeholder="Enter a project class code", class="form-control")
         .col-sm-2
     
       .form-group
         .col-sm-2
         .col-sm-3
-          label.control-label( for='pcn' ) Project Class Name
+          label.control-label( for='project_class_name' ) Project Class Name
         .col-sm-5
-          input#pcn.NameClass( type='text', name='pclass_name', placeholder="Enter a project class name", class="form-control", id="pclass_input" )
+          input#project_class_name( type='text', name='project_class_name', placeholder="Enter a project class name", class="form-control" )
         .col-sm-2
        
       .form-group
@@ -55,7 +55,7 @@ block content
            td
               input.form-control( type="text", name="pclasscode", value=projectclass.project_class_code, disabled='true',id='pclasscode#{i}' )
            td
-              input.form-control( type="text", name="pclass", value=projectclass.project_class, disabled='true', id='pclass#{i}' )
+              input.form-control( type="text", name="pclass", value=projectclass.project_class_name, disabled='true', id='pclass#{i}' )
            td
               input( type="hidden", value=projectclass._id.toHexString(), name="_id" )
               button.btn.btn-default( onclick="enableprojectclass('update#{i}','pclasscode#{i}','pclass#{i}')" ) Edit

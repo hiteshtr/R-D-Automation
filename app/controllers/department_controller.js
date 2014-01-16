@@ -38,14 +38,22 @@ exports.save = function (req, res) {
       }  
       else
       {	
-      	return res.render('department/add_department',{
+        Department.find(function (err1,departments) {
+         if(err1)
+          console.error('No data found')
+         else
+         {
+      	  res.render('department/show',{
                   title: 'Add Department',
                   department: department,
+                  departments: departments,
                   path: req.url,
                   errors: utils.errors(err.errors || err)
                });
       	console.log(err); 	
-      }
+        }
+      });
+    }
   });
 }
 

@@ -187,7 +187,7 @@ exports.destroy =function(req,res){
   Faculty.findByIdAndRemove(req.param('_id'),function (err)  {
        if(err)
        {  
-          req.flash('errors','not deleted');
+          req.flash('error','not deleted');
           res.redirect('/faculty/list');
           console.log(err);
        }
@@ -210,28 +210,28 @@ exports.update =function(req,res){
     docs.faculty_desig_id = req.body.faculty_desig_id;
     docs.faculty_email = req.body.faculty_email;
     console.log(err1);
-    docs.save(function (err) {
+    docs.save(function (err,docs) {
      if(err) 
-     {     
+     {  console.log(err);    
         if(err.errors.faculty_name)
         {
-          req.flash('errors',err.errors.faculty_name.message);
+          req.flash('error',err.errors.faculty_name.message);
         }
         if(err.errors.faculty_dept_id)
         {
-          req.flash('errors',err.errors.faculty_dept_id.message);
+          req.flash('error',err.errors.faculty_dept_id.message);
         }
         if(err.errors.faculty_desig_id)
         {
-          req.flash('errors',err.errors.faculty_desig_id.message);
+          req.flash('error',err.errors.faculty_desig_id.message);
         }
         if(err.errors.faculty_email)
         {
-          req.flash('errors',err.errors.faculty_email.message);
+          req.flash('error',err.errors.faculty_email.message);
         }
-        req.flash('errors','Faculty details not updated');
-       return res.redirect('/faculty/list');        
-       console.log(err);     
+        req.flash('error','Faculty details not updated');
+        res.redirect('/faculty/list');        
+           
      }  
      else
      {   

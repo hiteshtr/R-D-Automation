@@ -8,12 +8,9 @@ var mongoose = require('mongoose')
 
 var login = function (req, res) {
   User.findOneAndUpdate({_id: req.session.passport.user}, { $currentDate: { last_login: true }});
-  if (req.session.returnTo) {
-    res.redirect(req.session.returnTo);
-    delete req.session.returnTo;
-    return
-  }
-  res.redirect('/');
+  var redirectTo = req.session.returnTo ? req.session.returnTo : '/';
+  delete req.session.returnTo;
+  res.redirect(redirectTo);
 }
 
 exports.login = function (req, res) {
